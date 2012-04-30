@@ -22,7 +22,6 @@ import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-
 public class SQLReadSingle {
 
 	public static void main(String[] args) throws IOException {
