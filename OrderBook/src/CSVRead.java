@@ -6,9 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -222,6 +224,8 @@ public class CSVRead {
 	}
 	public static void action(DefaultTableModel modelCompra, DefaultTableModel modelVenta, DefaultTableModel modelOrdenes, DefaultTableModel modelExec, DefaultTableModel modelExec2, JTable tableCompra, JTable tableVenta, JTable tableExec, JTable tableExec2, BufferedWriter bw, BufferedWriter bw2) {
 		Date time;
+		TimeZone tz = TimeZone.getTimeZone("America/Mexico_City");
+		Calendar cal = Calendar.getInstance(tz);
 		switch((Orden.Mov) modelOrdenes.getValueAt(0, 0)) {
 		case CO:
 			Object[] tempc = new Object[4];
@@ -231,7 +235,8 @@ public class CSVRead {
 			tempc[3] = modelOrdenes.getValueAt(0, 4);
 			modelCompra.addRow(tempc);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
-			if(time.getHours() > 8 || (time.getHours() >= 8 && time.getMinutes() >= 30))
+			cal.setTime(time);
+			if(cal.HOUR_OF_DAY > 8 || (cal.HOUR_OF_DAY >= 8 && cal.MINUTE >= 30))
 				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		case VE:
@@ -242,7 +247,8 @@ public class CSVRead {
 			tempv[3] = modelOrdenes.getValueAt(0, 4);
 			modelVenta.addRow(tempv);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
-			if(time.getHours() > 8 || (time.getHours() >= 8 && time.getMinutes() >= 30))
+			cal.setTime(time);
+			if(cal.HOUR_OF_DAY > 8 || (cal.HOUR_OF_DAY >= 8 && cal.MINUTE >= 30))
 				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		case AH:
@@ -317,7 +323,8 @@ public class CSVRead {
 				}
 			}
 			time = (Date) modelOrdenes.getValueAt(0, 3);
-			if(time.getHours() > 8 || (time.getHours() >= 8 && time.getMinutes() >= 30))
+			cal.setTime(time);
+			if(cal.HOUR_OF_DAY > 8 || (cal.HOUR_OF_DAY >= 8 && cal.MINUTE >= 30))
 				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		}
