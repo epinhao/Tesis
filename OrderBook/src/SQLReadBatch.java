@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -203,6 +204,8 @@ public class SQLReadBatch {
 	}
 	public static Integer[] action(DefaultTableModel modelCompra, DefaultTableModel modelVenta, DefaultTableModel modelOrdenes, DefaultTableModel modelExec, DefaultTableModel modelExec2, JTable tableCompra, JTable tableVenta, JTable tableExec, JTable tableExec2, int volumenAH, int volumenAH2) {
 		Date time;
+		TimeZone tz = TimeZone.getTimeZone("America/Mexico_City");
+		Calendar cal = Calendar.getInstance(tz);
 		switch((Orden.Mov) modelOrdenes.getValueAt(0, 0)) {
 		case CO:
 			Object[] tempc = new Object[4];
@@ -212,7 +215,8 @@ public class SQLReadBatch {
 			tempc[3] = modelOrdenes.getValueAt(0, 4);
 			modelCompra.addRow(tempc);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
-			if(time.getHours() > 8 || (time.getHours() >= 8 && time.getMinutes() >= 30))
+			cal.setTime(time);
+			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 				volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
 			break;
 		case VE:
@@ -223,7 +227,8 @@ public class SQLReadBatch {
 			tempv[3] = modelOrdenes.getValueAt(0, 4);
 			modelVenta.addRow(tempv);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
-			if(time.getHours() > 8 || (time.getHours() >= 8 && time.getMinutes() >= 30))
+			cal.setTime(time);
+			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 				volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
 			break;
 		case AH:
@@ -292,7 +297,8 @@ public class SQLReadBatch {
 				}
 			}
 			time = (Date) modelOrdenes.getValueAt(0, 3);
-			if(time.getHours() > 8 || (time.getHours() >= 8 && time.getMinutes() >= 30))
+			cal.setTime(time);
+			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 				volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
 			break;
 		}

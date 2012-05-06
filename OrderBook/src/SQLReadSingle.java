@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,9 +28,9 @@ public class SQLReadSingle {
 	public static void main(String[] args) throws IOException {
 
 		Sql reader = new Sql();
-		final String emisora = "HERDEZ";
-		final String serie = "";
-		final Calendar cal = new GregorianCalendar(2010,11,15);
+		final String emisora = "FEMSA";
+		final String serie = "UBD";
+		final Calendar cal = new GregorianCalendar(2010,10,16);
 		ArrayList<Orden> ordenes = reader.readIniciales(emisora, serie, cal);
 		reader.read(ordenes, emisora, serie, cal);
 
@@ -226,6 +227,8 @@ public class SQLReadSingle {
 	}
 	public static void action(DefaultTableModel modelCompra, DefaultTableModel modelVenta, DefaultTableModel modelOrdenes, DefaultTableModel modelExec, DefaultTableModel modelExec2, JTable tableCompra, JTable tableVenta, JTable tableExec, JTable tableExec2, BufferedWriter bw, BufferedWriter bw2) {
 		Date time;
+		TimeZone tz = TimeZone.getTimeZone("America/Mexico_City");
+		Calendar cal = Calendar.getInstance(tz);
 		switch((Orden.Mov) modelOrdenes.getValueAt(0, 0)) {
 		case CO:
 			Object[] tempc = new Object[4];
@@ -235,7 +238,8 @@ public class SQLReadSingle {
 			tempc[3] = modelOrdenes.getValueAt(0, 4);
 			modelCompra.addRow(tempc);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
-			if(time.getHours() > 8 || (time.getHours() >= 8 && time.getMinutes() >= 30))
+			cal.setTime(time);
+			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		case VE:
@@ -246,7 +250,8 @@ public class SQLReadSingle {
 			tempv[3] = modelOrdenes.getValueAt(0, 4);
 			modelVenta.addRow(tempv);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
-			if(time.getHours() > 8 || (time.getHours() >= 8 && time.getMinutes() >= 30))
+			cal.setTime(time);
+			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		case AH:
@@ -321,7 +326,8 @@ public class SQLReadSingle {
 				}
 			}
 			time = (Date) modelOrdenes.getValueAt(0, 3);
-			if(time.getHours() > 8 || (time.getHours() >= 8 && time.getMinutes() >= 30))
+			cal.setTime(time);
+			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		}

@@ -236,7 +236,7 @@ public class CSVRead {
 			modelCompra.addRow(tempc);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
 			cal.setTime(time);
-			if(cal.HOUR_OF_DAY > 8 || (cal.HOUR_OF_DAY >= 8 && cal.MINUTE >= 30))
+			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		case VE:
@@ -248,7 +248,7 @@ public class CSVRead {
 			modelVenta.addRow(tempv);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
 			cal.setTime(time);
-			if(cal.HOUR_OF_DAY > 8 || (cal.HOUR_OF_DAY >= 8 && cal.MINUTE >= 30))
+			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		case AH:
@@ -324,7 +324,7 @@ public class CSVRead {
 			}
 			time = (Date) modelOrdenes.getValueAt(0, 3);
 			cal.setTime(time);
-			if(cal.HOUR_OF_DAY > 8 || (cal.HOUR_OF_DAY >= 8 && cal.MINUTE >= 30))
+			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		}
