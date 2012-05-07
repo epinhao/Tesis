@@ -27,14 +27,14 @@ public class SQLReadBatch {
 
 	public static void main(String[] args) throws IOException {
 
-		final String emisora = "AMX";
+		final String emisora = "CONTAL";
 		final String serie = "";
 
-		//final Calendar cal = new GregorianCalendar(2010,11,15);
-		//final int days = 1;
+		final Calendar cal = new GregorianCalendar(2010,11,15);
+		final int days = 2;
 
-		final Calendar cal = new GregorianCalendar(2010,11,28);
-		final int days = 38;
+		//final Calendar cal = new GregorianCalendar(2010,11,28);
+		//final int days = 38;
 
 		final Sql reader = new Sql();
 
@@ -124,7 +124,10 @@ public class SQLReadBatch {
 		modelOrdenes.addColumn("Casa de Bolsa");
 		Object[] columns = {"Tipo","Precio","Volumen","Hora","Folio","Folio Ant.","Casa de Bolsa","Orden"};
 		final Vector<Object> columnNames = convertToVector(columns);
-
+		DateRenderer2 render = new DateRenderer2();
+		tableOrdenes.getColumnModel().getColumn(3).setCellRenderer(render);
+		tableExec.getColumnModel().getColumn(0).setCellRenderer(render);
+		tableExec2.getColumnModel().getColumn(0).setCellRenderer(render);
 		JButton buttonPlay = new JButton("Play");
 		buttonPlay.setBounds(600, 716, 100, 30);
 		frame.add(buttonPlay);

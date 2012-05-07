@@ -129,6 +129,10 @@ public class SQLReadSingle {
 			data.add(row);
 		}
 		modelOrdenes.setDataVector(data, columnNames);
+		DateRenderer2 render = new DateRenderer2();
+		tableOrdenes.getColumnModel().getColumn(3).setCellRenderer(render);
+		tableExec.getColumnModel().getColumn(0).setCellRenderer(render);
+		tableExec2.getColumnModel().getColumn(0).setCellRenderer(render);
 		JButton buttonNext = new JButton("Siguiente");
 		buttonNext.setBounds(30, 716, 100, 30);
 		frame.add(buttonNext);
