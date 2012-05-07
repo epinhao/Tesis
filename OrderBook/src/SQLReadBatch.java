@@ -30,11 +30,11 @@ public class SQLReadBatch {
 		final String emisora = "CONTAL";
 		final String serie = "";
 
-		final Calendar cal = new GregorianCalendar(2010,11,15);
-		final int days = 2;
+		//final Calendar cal = new GregorianCalendar(2010,11,15);
+		//final int days = 2;
 
-		//final Calendar cal = new GregorianCalendar(2010,11,28);
-		//final int days = 38;
+		final Calendar cal = new GregorianCalendar(2010,11,28);
+		final int days = 38;
 
 		final Sql reader = new Sql();
 
