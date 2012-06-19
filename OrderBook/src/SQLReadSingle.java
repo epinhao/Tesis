@@ -28,9 +28,9 @@ public class SQLReadSingle {
 	public static void main(String[] args) throws IOException {
 
 		Sql reader = new Sql();
-		final String emisora = "FEMSA";
-		final String serie = "UBD";
-		final Calendar cal = new GregorianCalendar(2010,10,16);
+		final String emisora = "BIMBO";
+		final String serie = "";
+		final Calendar cal = new GregorianCalendar(2010,11,13);
 		ArrayList<Orden> ordenes = reader.readIniciales(emisora, serie, cal);
 		reader.read(ordenes, emisora, serie, cal);
 
