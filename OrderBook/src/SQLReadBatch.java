@@ -33,8 +33,8 @@ public class SQLReadBatch {
 		//final Calendar cal = new GregorianCalendar(2010,11,15);
 		//final int days = 2;
 
-		final Calendar cal = new GregorianCalendar(2010,11,28);
-		final int days = 38;
+		final Calendar cal = new GregorianCalendar(2010,10,16);
+		final int days = 68;
 
 		final Sql reader = new Sql();
 
