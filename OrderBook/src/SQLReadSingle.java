@@ -30,7 +30,7 @@ public class SQLReadSingle {
 		Sql reader = new Sql();
 		final String emisora = "BIMBO";
 		final String serie = "";
-		final Calendar cal = new GregorianCalendar(2010,11,13);
+		final Calendar cal = new GregorianCalendar(2010,11,14);
 		ArrayList<Orden> ordenes = reader.readIniciales(emisora, serie, cal);
 		reader.read(ordenes, emisora, serie, cal);
 
