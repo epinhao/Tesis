@@ -40,6 +40,12 @@ public class SQLReadSingle {
 		FileWriter fw2 = new FileWriter("ordenes2.txt");
 		final BufferedWriter bw2 = new BufferedWriter(fw2);
 
+		FileWriter fwc = new FileWriter("compra.txt");
+		final BufferedWriter bwc = new BufferedWriter(fwc);
+
+		FileWriter fwv = new FileWriter("venta.txt");
+		final BufferedWriter bwv = new BufferedWriter(fwv);
+
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -189,13 +195,35 @@ public class SQLReadSingle {
 				int i = 0;
 				while(tableOrdenes.getRowCount() > 0 && i < 100) {
 					//while(tableOrdenes.getRowCount() > 0) {
+					Date cal = (Date) modelOrdenes.getValueAt(0, 3);
 					action(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2);
+					//modelCompra.getValueAt(0, 1)
+					if(tableOrdenes.getRowCount() >= 0){
+						try {
+							Long timestamp = cal.getTime();
+							bwc.write(timestamp.toString() + ';');
+							for (int j = 0; j < modelCompra.getRowCount(); j++) {
+								bwc.write(tableCompra.getValueAt(j, 1).toString() + ',' + tableCompra.getValueAt(j, 2).toString() + ';');
+							}
+							bwc.newLine();
+							bwv.write(timestamp.toString() + ';');
+							for (int j = modelVenta.getRowCount()-1; j >= 0; j--) {
+								bwv.write(tableVenta.getValueAt(j, 1).toString() + ',' + tableVenta.getValueAt(j, 2).toString() + ';');
+							}
+							bwv.newLine();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
 					i++;
 				}
 				if(tableOrdenes.getRowCount() <= 0)
 					try {
 						bw.close();
 						bw2.close();
+						bwc.close();
+						bwv.close();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
