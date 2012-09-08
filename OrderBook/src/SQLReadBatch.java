@@ -33,7 +33,7 @@ public class SQLReadBatch {
 		//final Calendar cal = new GregorianCalendar(2010,11,15);
 		//final int days = 2;
 
-		final Calendar cal = new GregorianCalendar(2010,10,16);
+		final Calendar day = new GregorianCalendar(2010,10,16);
 		final int days = 68;
 
 		final Sql reader = new Sql();
@@ -136,10 +136,10 @@ public class SQLReadBatch {
 			{
 				int i = 0;
 				while(i < days) {
-					if(cal.get(Calendar.DAY_OF_WEEK) != 1 && cal.get(Calendar.DAY_OF_WEEK) != 7 && !(cal.get(Calendar.MONTH) == 1 && cal.get(Calendar.DATE) == 7)) {
-						System.out.println(cal.getTime());
-						ArrayList<Orden> ordenes = reader.readIniciales(emisora, serie, cal);
-						reader.read(ordenes, emisora, serie, cal);
+					if(day.get(Calendar.DAY_OF_WEEK) != 1 && day.get(Calendar.DAY_OF_WEEK) != 7 && !(day.get(Calendar.MONTH) == 1 && day.get(Calendar.DATE) == 7)) {
+						System.out.println(day.getTime());
+						ArrayList<Orden> ordenes = reader.readIniciales(emisora, serie, day);
+						reader.read(ordenes, emisora, serie, day);
 						Vector<Object> data =  new Vector<Object>(6000);
 						for (int j = 0; j < ordenes.size(); j++) {
 							Vector<Object> row = convertToVector(ordenes.get(j).toRow());
@@ -151,7 +151,7 @@ public class SQLReadBatch {
 						res[0] = 0;
 						res[1] = 0;
 						while(tableOrdenes.getRowCount() > 0) {
-							res = action(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, res[0], res[1]);
+							res = action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, res[0], res[1]);
 						}
 						while (modelCompra.getRowCount() > 0) {
 							modelCompra.removeRow(0);
@@ -160,7 +160,7 @@ public class SQLReadBatch {
 							modelVenta.removeRow(0);
 						}
 						try {
-							bw.write(cal.getTime() + "\t" + res[0] + "\t" + res[1]);
+							bw.write(day.getTime() + "\t" + res[0] + "\t" + res[1]);
 							bw.newLine();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -168,7 +168,7 @@ public class SQLReadBatch {
 						}
 						i++;
 					}
-					cal.add(Calendar.DATE, 1);
+					day.add(Calendar.DATE, 1);
 				}
 				try {
 					bw.close();
@@ -205,7 +205,7 @@ public class SQLReadBatch {
 		}
 		return res;
 	}
-	public static Integer[] action(DefaultTableModel modelCompra, DefaultTableModel modelVenta, DefaultTableModel modelOrdenes, DefaultTableModel modelExec, DefaultTableModel modelExec2, JTable tableCompra, JTable tableVenta, JTable tableExec, JTable tableExec2, int volumenAH, int volumenAH2) {
+	public static Integer[] action(Calendar day, DefaultTableModel modelCompra, DefaultTableModel modelVenta, DefaultTableModel modelOrdenes, DefaultTableModel modelExec, DefaultTableModel modelExec2, JTable tableCompra, JTable tableVenta, JTable tableExec, JTable tableExec2, int volumenAH, int volumenAH2) {
 		Date time;
 		TimeZone tz = TimeZone.getTimeZone("America/Mexico_City");
 		Calendar cal = Calendar.getInstance(tz);
@@ -219,8 +219,9 @@ public class SQLReadBatch {
 			modelCompra.addRow(tempc);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
 			cal.setTime(time);
-			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
-				volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
+				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
+					volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
 			break;
 		case VE:
 			Object[] tempv = new Object[4];
@@ -231,8 +232,9 @@ public class SQLReadBatch {
 			modelVenta.addRow(tempv);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
 			cal.setTime(time);
-			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
-				volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
+				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
+					volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
 			break;
 		case AH:
 			Object[] tempe = new Object[3];
@@ -301,8 +303,9 @@ public class SQLReadBatch {
 			}
 			time = (Date) modelOrdenes.getValueAt(0, 3);
 			cal.setTime(time);
-			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
-				volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
+				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
+					volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
 			break;
 		}
 		modelOrdenes.removeRow(0);

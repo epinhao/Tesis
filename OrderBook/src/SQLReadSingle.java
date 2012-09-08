@@ -30,9 +30,9 @@ public class SQLReadSingle {
 		Sql reader = new Sql();
 		final String emisora = "BIMBO";
 		final String serie = "";
-		final Calendar cal = new GregorianCalendar(2010,11,13);
-		ArrayList<Orden> ordenes = reader.readIniciales(emisora, serie, cal);
-		reader.read(ordenes, emisora, serie, cal);
+		final Calendar day = new GregorianCalendar(2010,11,13);
+		ArrayList<Orden> ordenes = reader.readIniciales(emisora, serie, day);
+		reader.read(ordenes, emisora, serie, day);
 
 		FileWriter fw = new FileWriter("ordenes.txt");
 		final BufferedWriter bw = new BufferedWriter(fw);
@@ -146,7 +146,7 @@ public class SQLReadSingle {
 			public void actionPerformed(ActionEvent e) {
 				//Execute when button is pressed
 				if(modelOrdenes.getRowCount() > 0)
-					action(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2);
+					action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2);
 			}
 		});
 
@@ -196,7 +196,7 @@ public class SQLReadSingle {
 				while(tableOrdenes.getRowCount() > 0 && i < 100) {
 					//while(tableOrdenes.getRowCount() > 0) {
 					Date cal = (Date) modelOrdenes.getValueAt(0, 3);
-					action(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2);
+					action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2);
 					//modelCompra.getValueAt(0, 1)
 					if(tableOrdenes.getRowCount() >= 0){
 						try {
@@ -257,7 +257,7 @@ public class SQLReadSingle {
 		}
 		return res;
 	}
-	public static void action(DefaultTableModel modelCompra, DefaultTableModel modelVenta, DefaultTableModel modelOrdenes, DefaultTableModel modelExec, DefaultTableModel modelExec2, JTable tableCompra, JTable tableVenta, JTable tableExec, JTable tableExec2, BufferedWriter bw, BufferedWriter bw2) {
+	public static void action(Calendar day, DefaultTableModel modelCompra, DefaultTableModel modelVenta, DefaultTableModel modelOrdenes, DefaultTableModel modelExec, DefaultTableModel modelExec2, JTable tableCompra, JTable tableVenta, JTable tableExec, JTable tableExec2, BufferedWriter bw, BufferedWriter bw2) {
 		Date time;
 		TimeZone tz = TimeZone.getTimeZone("America/Mexico_City");
 		Calendar cal = Calendar.getInstance(tz);
@@ -271,8 +271,9 @@ public class SQLReadSingle {
 			modelCompra.addRow(tempc);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
 			cal.setTime(time);
-			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
-				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
+				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
+					check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		case VE:
 			Object[] tempv = new Object[4];
@@ -283,8 +284,9 @@ public class SQLReadSingle {
 			modelVenta.addRow(tempv);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
 			cal.setTime(time);
-			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
-				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
+				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
+					check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		case AH:
 			Object[] tempe = new Object[3];
@@ -359,8 +361,9 @@ public class SQLReadSingle {
 			}
 			time = (Date) modelOrdenes.getValueAt(0, 3);
 			cal.setTime(time);
-			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
-				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
+				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
+					check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		}
 		modelOrdenes.removeRow(0);
