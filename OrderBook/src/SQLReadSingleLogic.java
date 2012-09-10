@@ -284,8 +284,8 @@ public class SQLReadSingleLogic {
 						System.out.println("Compra");
 						System.out.println(askpx.subtract(price));
 						try {
-							bwd.write("Compra,");
 							Long ts = time.getTime();
+							bwd.write("Compra,");
 							bwd.write(ts.toString());
 							bwd.write(",");
 							bwd.write(askpx.subtract(price).toString());
@@ -316,8 +316,8 @@ public class SQLReadSingleLogic {
 						System.out.println("Venta");
 						System.out.println(price.subtract(bidpx));
 						try {
-							bwd.write("Venta,");
 							Long ts = time.getTime();
+							bwd.write("Venta,");
 							bwd.write(ts.toString());
 							bwd.write(",");
 							bwd.write(price.subtract(bidpx).toString());
@@ -373,6 +373,8 @@ public class SQLReadSingleLogic {
 			}
 			break;
 		case MO:
+			time = (Date) modelOrdenes.getValueAt(0, 3);
+			cal.setTime(time);
 			Vector datacm = modelCompra.getDataVector();
 			Vector datavm = modelVenta.getDataVector();
 			Vector<NumFolio> listcm = createList(datacm);
@@ -384,18 +386,64 @@ public class SQLReadSingleLogic {
 					return n1.compareTo(n2);
 				}
 			};
-			if (listcm.size() > 0) {
+			if (listcm.size() > 0) { //Modificacion compra
 				int index = Collections.binarySearch(listcm, new NumFolio(0, (Integer) modelOrdenes.getValueAt(0, 5)), cm);
 				if (index >= 0) {
+					if(tableVenta.getRowCount()>0) {
+						BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
+						BigDecimal cancpx = (BigDecimal) modelCompra.getValueAt(listcm.get(index).num, 1);
+						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
+						System.out.println("ModCompra");
+						System.out.println(askpx.subtract(cancpx));
+						try {
+							Long ts = time.getTime();
+							bwd.write("ModCompraCanc,");
+							bwd.write(ts.toString());
+							bwd.write(",");
+							bwd.write(askpx.subtract(cancpx).toString());
+							bwd.newLine();
+							bwd.write("ModCompra,");
+							bwd.write(ts.toString());
+							bwd.write(",");
+							bwd.write(askpx.subtract(price).toString());
+							bwd.newLine();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 					modelCompra.setValueAt(modelOrdenes.getValueAt(0, 2), listcm.get(index).num, 2);
 					modelCompra.setValueAt(modelOrdenes.getValueAt(0, 4), listcm.get(index).num, 3);
 					modelCompra.setValueAt(modelOrdenes.getValueAt(0, 1), listcm.get(index).num, 1);
 					modelCompra.fireTableDataChanged();
 				}
 			}
-			if (listvm.size() > 0) {
+			if (listvm.size() > 0) { //Modificacion venta
 				int index = Collections.binarySearch(listvm, new NumFolio(0, (Integer) modelOrdenes.getValueAt(0, 5)), cm);
 				if (index >= 0) {
+					if(tableCompra.getRowCount()>0) {
+						BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
+						BigDecimal cancpx = (BigDecimal) modelVenta.getValueAt(listvm.get(index).num, 1);
+						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
+						System.out.println("ModVenta");
+						System.out.println(cancpx.subtract(bidpx));
+						try {
+							Long ts = time.getTime();
+							bwd.write("ModVentaCanc,");
+							bwd.write(ts.toString());
+							bwd.write(",");
+							bwd.write(cancpx.subtract(bidpx).toString());
+							bwd.newLine();
+							bwd.write("ModVenta,");
+							bwd.write(ts.toString());
+							bwd.write(",");
+							bwd.write(price.subtract(bidpx).toString());
+							bwd.newLine();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 					modelVenta.setValueAt(modelOrdenes.getValueAt(0, 2), listvm.get(index).num, 2);
 					modelVenta.setValueAt(modelOrdenes.getValueAt(0, 4), listvm.get(index).num, 3);
 					modelVenta.setValueAt(modelOrdenes.getValueAt(0, 1), listvm.get(index).num, 1);
