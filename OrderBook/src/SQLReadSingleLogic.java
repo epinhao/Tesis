@@ -397,7 +397,7 @@ public class SQLReadSingleLogic {
 						System.out.println(askpx.subtract(cancpx));
 						try {
 							Long ts = time.getTime();
-							bwd.write("ModCompraCanc,");
+							bwd.write("CancModCompra,");
 							bwd.write(ts.toString());
 							bwd.write(",");
 							bwd.write(askpx.subtract(cancpx).toString());
@@ -429,7 +429,7 @@ public class SQLReadSingleLogic {
 						System.out.println(cancpx.subtract(bidpx));
 						try {
 							Long ts = time.getTime();
-							bwd.write("ModVentaCanc,");
+							bwd.write("CancModVenta,");
 							bwd.write(ts.toString());
 							bwd.write(",");
 							bwd.write(cancpx.subtract(bidpx).toString());
