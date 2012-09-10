@@ -209,6 +209,8 @@ public class SQLReadBatch {
 		Date time;
 		TimeZone tz = TimeZone.getTimeZone("America/Mexico_City");
 		Calendar cal = Calendar.getInstance(tz);
+		time = (Date) modelOrdenes.getValueAt(0, 3);
+		cal.setTime(time);
 		switch((Orden.Mov) modelOrdenes.getValueAt(0, 0)) {
 		case CO:
 			Object[] tempc = new Object[4];
@@ -217,8 +219,6 @@ public class SQLReadBatch {
 			tempc[2] = modelOrdenes.getValueAt(0, 2);
 			tempc[3] = modelOrdenes.getValueAt(0, 4);
 			modelCompra.addRow(tempc);
-			time = (Date) modelOrdenes.getValueAt(0, 3);
-			cal.setTime(time);
 			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 					volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
@@ -230,8 +230,6 @@ public class SQLReadBatch {
 			tempv[2] = modelOrdenes.getValueAt(0, 2);
 			tempv[3] = modelOrdenes.getValueAt(0, 4);
 			modelVenta.addRow(tempv);
-			time = (Date) modelOrdenes.getValueAt(0, 3);
-			cal.setTime(time);
 			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 					volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
@@ -283,7 +281,7 @@ public class SQLReadBatch {
 					return n1.compareTo(n2);
 				}
 			};
-			if (listcm.size() > 0) {
+			if (listcm.size() > 0) { //Modificacion compra
 				int index = Collections.binarySearch(listcm, new NumFolio(0, (Integer) modelOrdenes.getValueAt(0, 5)), cm);
 				if (index >= 0) {
 					modelCompra.setValueAt(modelOrdenes.getValueAt(0, 2), listcm.get(index).num, 2);
@@ -292,7 +290,7 @@ public class SQLReadBatch {
 					modelCompra.fireTableDataChanged();
 				}
 			}
-			if (listvm.size() > 0) {
+			if (listvm.size() > 0) { //Modificacion venta
 				int index = Collections.binarySearch(listvm, new NumFolio(0, (Integer) modelOrdenes.getValueAt(0, 5)), cm);
 				if (index >= 0) {
 					modelVenta.setValueAt(modelOrdenes.getValueAt(0, 2), listvm.get(index).num, 2);
@@ -301,8 +299,6 @@ public class SQLReadBatch {
 					modelVenta.fireTableDataChanged();
 				}
 			}
-			time = (Date) modelOrdenes.getValueAt(0, 3);
-			cal.setTime(time);
 			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
 					volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
