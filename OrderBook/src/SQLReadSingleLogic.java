@@ -393,16 +393,16 @@ public class SQLReadSingleLogic {
 						BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
 						BigDecimal cancpx = (BigDecimal) modelCompra.getValueAt(listcm.get(index).num, 1);
 						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
-						System.out.println("ModCompra");
+						System.out.println("CompraMod");
 						System.out.println(askpx.subtract(cancpx));
 						try {
 							Long ts = time.getTime();
-							bwd.write("CancModCompra,");
+							bwd.write("CancCompraMod,");
 							bwd.write(ts.toString());
 							bwd.write(",");
 							bwd.write(askpx.subtract(cancpx).toString());
 							bwd.newLine();
-							bwd.write("ModCompra,");
+							bwd.write("CompraMod,");
 							bwd.write(ts.toString());
 							bwd.write(",");
 							bwd.write(askpx.subtract(price).toString());
@@ -425,16 +425,16 @@ public class SQLReadSingleLogic {
 						BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
 						BigDecimal cancpx = (BigDecimal) modelVenta.getValueAt(listvm.get(index).num, 1);
 						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
-						System.out.println("ModVenta");
+						System.out.println("VentaMod");
 						System.out.println(cancpx.subtract(bidpx));
 						try {
 							Long ts = time.getTime();
-							bwd.write("CancModVenta,");
+							bwd.write("CancVentaMod,");
 							bwd.write(ts.toString());
 							bwd.write(",");
 							bwd.write(cancpx.subtract(bidpx).toString());
 							bwd.newLine();
-							bwd.write("ModVenta,");
+							bwd.write("VentaMod,");
 							bwd.write(ts.toString());
 							bwd.write(",");
 							bwd.write(price.subtract(bidpx).toString());
