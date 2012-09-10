@@ -150,7 +150,7 @@ public class SQLReadSingleLogic {
 			public void actionPerformed(ActionEvent e) {
 				//Execute when button is pressed
 				if(modelOrdenes.getRowCount() > 0)
-					action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2, bwd);
+					action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2, bwc, bwv, bwd);
 			}
 		});
 
@@ -200,26 +200,9 @@ public class SQLReadSingleLogic {
 				while(tableOrdenes.getRowCount() > 0 && i < 100) {
 					//while(tableOrdenes.getRowCount() > 0) {
 					Date cal = (Date) modelOrdenes.getValueAt(0, 3);
-					action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2, bwd);
+					action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2, bwc, bwv, bwd);
 					//modelCompra.getValueAt(0, 1)
-					if(tableOrdenes.getRowCount() >= 0){
-						try {
-							Long timestamp = cal.getTime();
-							bwc.write(timestamp.toString() + ';');
-							for (int j = 0; j < modelCompra.getRowCount(); j++) {
-								bwc.write(tableCompra.getValueAt(j, 1).toString() + ',' + tableCompra.getValueAt(j, 2).toString() + ';');
-							}
-							bwc.newLine();
-							bwv.write(timestamp.toString() + ';');
-							for (int j = modelVenta.getRowCount()-1; j >= 0; j--) {
-								bwv.write(tableVenta.getValueAt(j, 1).toString() + ',' + tableVenta.getValueAt(j, 2).toString() + ';');
-							}
-							bwv.newLine();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
+					
 					i++;
 				}
 				if(tableOrdenes.getRowCount() <= 0)
@@ -262,10 +245,12 @@ public class SQLReadSingleLogic {
 		}
 		return res;
 	}
-	public static void action(Calendar day, DefaultTableModel modelCompra, DefaultTableModel modelVenta, DefaultTableModel modelOrdenes, DefaultTableModel modelExec, DefaultTableModel modelExec2, JTable tableCompra, JTable tableVenta, JTable tableExec, JTable tableExec2, BufferedWriter bw, BufferedWriter bw2, BufferedWriter bwd) {
+	public static void action(Calendar day, DefaultTableModel modelCompra, DefaultTableModel modelVenta, DefaultTableModel modelOrdenes, DefaultTableModel modelExec, DefaultTableModel modelExec2, JTable tableCompra, JTable tableVenta, JTable tableExec, JTable tableExec2, BufferedWriter bw, BufferedWriter bw2, BufferedWriter bwc, BufferedWriter bwv, BufferedWriter bwd) {
 		Date time;
 		TimeZone tz = TimeZone.getTimeZone("America/Mexico_City");
 		Calendar cal = Calendar.getInstance(tz);
+		time = (Date) modelOrdenes.getValueAt(0, 3);
+		cal.setTime(time);
 		switch((Orden.Mov) modelOrdenes.getValueAt(0, 0)) {
 		case CO:
 			Object[] tempc = new Object[4];
@@ -274,8 +259,6 @@ public class SQLReadSingleLogic {
 			tempc[2] = modelOrdenes.getValueAt(0, 2);
 			tempc[3] = modelOrdenes.getValueAt(0, 4);
 			modelCompra.addRow(tempc);
-			time = (Date) modelOrdenes.getValueAt(0, 3);
-			cal.setTime(time);
 			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH)) {
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
 					if(tableVenta.getRowCount()>0) {
@@ -456,6 +439,22 @@ public class SQLReadSingleLogic {
 				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		}
+			try {
+				Long timestamp = cal.getTimeInMillis();
+				bwc.write(timestamp.toString() + ';');
+				for (int j = 0; j < modelCompra.getRowCount(); j++) {
+					bwc.write(tableCompra.getValueAt(j, 1).toString() + ',' + tableCompra.getValueAt(j, 2).toString() + ';');
+				}
+				bwc.newLine();
+				bwv.write(timestamp.toString() + ';');
+				for (int j = modelVenta.getRowCount()-1; j >= 0; j--) {
+					bwv.write(tableVenta.getValueAt(j, 1).toString() + ',' + tableVenta.getValueAt(j, 2).toString() + ';');
+				}
+				bwv.newLine();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		modelOrdenes.removeRow(0);
 		tableVenta.scrollRectToVisible(new Rectangle(tableVenta.getCellRect(tableVenta.getRowCount()-1, 0, true)));
 	}
