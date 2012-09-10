@@ -202,7 +202,7 @@ public class SQLReadSingleLogic {
 					Date cal = (Date) modelOrdenes.getValueAt(0, 3);
 					action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2, bwc, bwv, bwd);
 					//modelCompra.getValueAt(0, 1)
-					
+
 					i++;
 				}
 				if(tableOrdenes.getRowCount() <= 0)
@@ -259,7 +259,7 @@ public class SQLReadSingleLogic {
 			tempc[2] = modelOrdenes.getValueAt(0, 2);
 			tempc[3] = modelOrdenes.getValueAt(0, 4);
 			modelCompra.addRow(tempc);
-			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH)) {
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
 					if(tableVenta.getRowCount()>0) {
 						BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
@@ -289,9 +289,7 @@ public class SQLReadSingleLogic {
 			tempv[2] = modelOrdenes.getValueAt(0, 2);
 			tempv[3] = modelOrdenes.getValueAt(0, 4);
 			modelVenta.addRow(tempv);
-			time = (Date) modelOrdenes.getValueAt(0, 3);
-			cal.setTime(time);
-			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH)) {
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
 					if(tableCompra.getRowCount()>0) {
 						BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
@@ -356,8 +354,6 @@ public class SQLReadSingleLogic {
 			}
 			break;
 		case MO:
-			time = (Date) modelOrdenes.getValueAt(0, 3);
-			cal.setTime(time);
 			Vector datacm = modelCompra.getDataVector();
 			Vector datavm = modelVenta.getDataVector();
 			Vector<NumFolio> listcm = createList(datacm);
@@ -433,28 +429,29 @@ public class SQLReadSingleLogic {
 					modelVenta.fireTableDataChanged();
 				}
 			}
-			time = (Date) modelOrdenes.getValueAt(0, 3);
-			cal.setTime(time);
-			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
-				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
+				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
+					check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
+			break;
+		default:
 			break;
 		}
-			try {
-				Long timestamp = cal.getTimeInMillis();
-				bwc.write(timestamp.toString() + ';');
-				for (int j = 0; j < modelCompra.getRowCount(); j++) {
-					bwc.write(tableCompra.getValueAt(j, 1).toString() + ',' + tableCompra.getValueAt(j, 2).toString() + ';');
-				}
-				bwc.newLine();
-				bwv.write(timestamp.toString() + ';');
-				for (int j = modelVenta.getRowCount()-1; j >= 0; j--) {
-					bwv.write(tableVenta.getValueAt(j, 1).toString() + ',' + tableVenta.getValueAt(j, 2).toString() + ';');
-				}
-				bwv.newLine();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+		try {
+			Long timestamp = cal.getTimeInMillis();
+			bwc.write(timestamp.toString() + ';');
+			for (int j = 0; j < modelCompra.getRowCount(); j++) {
+				bwc.write(tableCompra.getValueAt(j, 1).toString() + ',' + tableCompra.getValueAt(j, 2).toString() + ';');
 			}
+			bwc.newLine();
+			bwv.write(timestamp.toString() + ';');
+			for (int j = modelVenta.getRowCount()-1; j >= 0; j--) {
+				bwv.write(tableVenta.getValueAt(j, 1).toString() + ',' + tableVenta.getValueAt(j, 2).toString() + ';');
+			}
+			bwv.newLine();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		modelOrdenes.removeRow(0);
 		tableVenta.scrollRectToVisible(new Rectangle(tableVenta.getCellRect(tableVenta.getRowCount()-1, 0, true)));
 	}
