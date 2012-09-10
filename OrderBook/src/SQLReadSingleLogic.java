@@ -277,16 +277,28 @@ public class SQLReadSingleLogic {
 			time = (Date) modelOrdenes.getValueAt(0, 3);
 			cal.setTime(time);
 			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH)) {
-			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
-				if(tableVenta.getRowCount()>0) {
-					BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
-					BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
-					System.out.println("Compra");
-					System.out.println(askpx.subtract(price));
+				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
+					if(tableVenta.getRowCount()>0) {
+						BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
+						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
+						System.out.println("Compra");
+						System.out.println(askpx.subtract(price));
+						try {
+							bwd.write("Compra,");
+							Long ts = time.getTime();
+							bwd.write(ts.toString());
+							bwd.write(",");
+							bwd.write(askpx.subtract(price).toString());
+							bwd.newLine();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 				}
-				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
-			}}
-				break;
+			}
+			break;
 		case VE:
 			Object[] tempv = new Object[4];
 			tempv[0] = new String("VENTA");
@@ -296,8 +308,28 @@ public class SQLReadSingleLogic {
 			modelVenta.addRow(tempv);
 			time = (Date) modelOrdenes.getValueAt(0, 3);
 			cal.setTime(time);
-			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
-				check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH)) {
+				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
+					if(tableCompra.getRowCount()>0) {
+						BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
+						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
+						System.out.println("Venta");
+						System.out.println(price.subtract(bidpx));
+						try {
+							bwd.write("Venta,");
+							Long ts = time.getTime();
+							bwd.write(ts.toString());
+							bwd.write(",");
+							bwd.write(price.subtract(bidpx).toString());
+							bwd.newLine();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);	
+				}
+			}
 			break;
 		case AH:
 			Object[] tempe = new Object[3];
