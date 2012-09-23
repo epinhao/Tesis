@@ -436,22 +436,26 @@ public class SQLReadSingleLogic {
 		default:
 			break;
 		}
-		try {
-			Long timestamp = cal.getTimeInMillis();
-			bwc.write(timestamp.toString() + ';');
-			for (int j = 0; j < modelCompra.getRowCount(); j++) {
-				bwc.write(tableCompra.getValueAt(j, 1).toString() + ',' + tableCompra.getValueAt(j, 2).toString() + ';');
+		if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
+			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)){
+
+				try {
+					Long timestamp = cal.getTimeInMillis();
+					bwc.write(timestamp.toString() + ';');
+					for (int j = 0; j < modelCompra.getRowCount(); j++) {
+						bwc.write(tableCompra.getValueAt(j, 1).toString() + ',' + tableCompra.getValueAt(j, 2).toString() + ';');
+					}
+					bwc.newLine();
+					bwv.write(timestamp.toString() + ';');
+					for (int j = modelVenta.getRowCount()-1; j >= 0; j--) {
+						bwv.write(tableVenta.getValueAt(j, 1).toString() + ',' + tableVenta.getValueAt(j, 2).toString() + ';');
+					}
+					bwv.newLine();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
-			bwc.newLine();
-			bwv.write(timestamp.toString() + ';');
-			for (int j = modelVenta.getRowCount()-1; j >= 0; j--) {
-				bwv.write(tableVenta.getValueAt(j, 1).toString() + ',' + tableVenta.getValueAt(j, 2).toString() + ';');
-			}
-			bwv.newLine();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		modelOrdenes.removeRow(0);
 		tableVenta.scrollRectToVisible(new Rectangle(tableVenta.getCellRect(tableVenta.getRowCount()-1, 0, true)));
 	}
