@@ -441,14 +441,14 @@ public class SQLReadSingleLogic {
 
 				try {
 					Long timestamp = cal.getTimeInMillis();
-					bwc.write(timestamp.toString() + ';');
+					bwc.write(timestamp.toString() + ',');
 					for (int j = 0; j < modelCompra.getRowCount(); j++) {
-						bwc.write(tableCompra.getValueAt(j, 1).toString() + ',' + tableCompra.getValueAt(j, 2).toString() + ';');
+						bwc.write(tableCompra.getValueAt(j, 1).toString() + ',' + tableCompra.getValueAt(j, 2).toString() + ',');
 					}
 					bwc.newLine();
-					bwv.write(timestamp.toString() + ';');
+					bwv.write(timestamp.toString() + ',');
 					for (int j = modelVenta.getRowCount()-1; j >= 0; j--) {
-						bwv.write(tableVenta.getValueAt(j, 1).toString() + ',' + tableVenta.getValueAt(j, 2).toString() + ';');
+						bwv.write(tableVenta.getValueAt(j, 1).toString() + ',' + tableVenta.getValueAt(j, 2).toString() + ',');
 					}
 					bwv.newLine();
 				} catch (IOException e1) {
