@@ -253,12 +253,6 @@ public class SQLReadSingleLogic {
 		cal.setTime(time);
 		switch((Orden.Mov) modelOrdenes.getValueAt(0, 0)) {
 		case CO:
-			Object[] tempc = new Object[4];
-			tempc[0] = new String("COMPRA");
-			tempc[1] = modelOrdenes.getValueAt(0, 1);
-			tempc[2] = modelOrdenes.getValueAt(0, 2);
-			tempc[3] = modelOrdenes.getValueAt(0, 4);
-			modelCompra.addRow(tempc);
 			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
 					if(tableVenta.getRowCount()>0) {
@@ -278,17 +272,19 @@ public class SQLReadSingleLogic {
 							e.printStackTrace();
 						}
 					}
-					check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 				}
 			}
+			Object[] tempc = new Object[4];
+			tempc[0] = new String("COMPRA");
+			tempc[1] = modelOrdenes.getValueAt(0, 1);
+			tempc[2] = modelOrdenes.getValueAt(0, 2);
+			tempc[3] = modelOrdenes.getValueAt(0, 4);
+			modelCompra.addRow(tempc);
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
+				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
+					check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		case VE:
-			Object[] tempv = new Object[4];
-			tempv[0] = new String("VENTA");
-			tempv[1] = modelOrdenes.getValueAt(0, 1);
-			tempv[2] = modelOrdenes.getValueAt(0, 2);
-			tempv[3] = modelOrdenes.getValueAt(0, 4);
-			modelVenta.addRow(tempv);
 			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
 					if(tableCompra.getRowCount()>0) {
@@ -307,10 +303,18 @@ public class SQLReadSingleLogic {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					}
-					check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);	
+					}	
 				}
 			}
+			Object[] tempv = new Object[4];
+			tempv[0] = new String("VENTA");
+			tempv[1] = modelOrdenes.getValueAt(0, 1);
+			tempv[2] = modelOrdenes.getValueAt(0, 2);
+			tempv[3] = modelOrdenes.getValueAt(0, 4);
+			modelVenta.addRow(tempv);
+			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
+				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30))
+					check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw2);
 			break;
 		case AH:
 			Object[] tempe = new Object[3];
@@ -368,27 +372,31 @@ public class SQLReadSingleLogic {
 			if (listcm.size() > 0) { //Modificacion compra
 				int index = Collections.binarySearch(listcm, new NumFolio(0, (Integer) modelOrdenes.getValueAt(0, 5)), cm);
 				if (index >= 0) {
-					if(tableVenta.getRowCount()>0) {
-						BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
-						BigDecimal cancpx = (BigDecimal) modelCompra.getValueAt(listcm.get(index).num, 1);
-						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
-						System.out.println("CompraMod");
-						System.out.println(askpx.subtract(cancpx));
-						try {
-							Long ts = time.getTime();
-							bwd.write("CancCompraMod,");
-							bwd.write(ts.toString());
-							bwd.write(",");
-							bwd.write(askpx.subtract(cancpx).toString());
-							bwd.newLine();
-							bwd.write("CompraMod,");
-							bwd.write(ts.toString());
-							bwd.write(",");
-							bwd.write(askpx.subtract(price).toString());
-							bwd.newLine();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+					if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
+						if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
+							if(tableVenta.getRowCount()>0) {
+								BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
+								BigDecimal cancpx = (BigDecimal) modelCompra.getValueAt(listcm.get(index).num, 1);
+								BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
+								System.out.println("CompraMod");
+								System.out.println(askpx.subtract(cancpx));
+								try {
+									Long ts = time.getTime();
+									bwd.write("CancCompraMod,");
+									bwd.write(ts.toString());
+									bwd.write(",");
+									bwd.write(askpx.subtract(cancpx).toString());
+									bwd.newLine();
+									bwd.write("CompraMod,");
+									bwd.write(ts.toString());
+									bwd.write(",");
+									bwd.write(askpx.subtract(price).toString());
+									bwd.newLine();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
 						}
 					}
 					modelCompra.setValueAt(modelOrdenes.getValueAt(0, 2), listcm.get(index).num, 2);
@@ -400,27 +408,31 @@ public class SQLReadSingleLogic {
 			if (listvm.size() > 0) { //Modificacion venta
 				int index = Collections.binarySearch(listvm, new NumFolio(0, (Integer) modelOrdenes.getValueAt(0, 5)), cm);
 				if (index >= 0) {
-					if(tableCompra.getRowCount()>0) {
-						BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
-						BigDecimal cancpx = (BigDecimal) modelVenta.getValueAt(listvm.get(index).num, 1);
-						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
-						System.out.println("VentaMod");
-						System.out.println(cancpx.subtract(bidpx));
-						try {
-							Long ts = time.getTime();
-							bwd.write("CancVentaMod,");
-							bwd.write(ts.toString());
-							bwd.write(",");
-							bwd.write(cancpx.subtract(bidpx).toString());
-							bwd.newLine();
-							bwd.write("VentaMod,");
-							bwd.write(ts.toString());
-							bwd.write(",");
-							bwd.write(price.subtract(bidpx).toString());
-							bwd.newLine();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+					if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
+						if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
+							if(tableCompra.getRowCount()>0) {
+								BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
+								BigDecimal cancpx = (BigDecimal) modelVenta.getValueAt(listvm.get(index).num, 1);
+								BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
+								System.out.println("VentaMod");
+								System.out.println(cancpx.subtract(bidpx));
+								try {
+									Long ts = time.getTime();
+									bwd.write("CancVentaMod,");
+									bwd.write(ts.toString());
+									bwd.write(",");
+									bwd.write(cancpx.subtract(bidpx).toString());
+									bwd.newLine();
+									bwd.write("VentaMod,");
+									bwd.write(ts.toString());
+									bwd.write(",");
+									bwd.write(price.subtract(bidpx).toString());
+									bwd.newLine();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
 						}
 					}
 					modelVenta.setValueAt(modelOrdenes.getValueAt(0, 2), listvm.get(index).num, 2);

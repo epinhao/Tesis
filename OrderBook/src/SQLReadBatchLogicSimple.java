@@ -23,7 +23,7 @@ import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
 
 
-public class SQLReadBatchLogic {
+public class SQLReadBatchLogicSimple {
 
 	public static void main(String[] args) throws IOException {
 
@@ -31,21 +31,15 @@ public class SQLReadBatchLogic {
 		final String serie = "";
 
 		//final Calendar cal = new GregorianCalendar(2010,11,15);
-		//final int days = 2;
+		final int days = 2;
 
 		final Calendar day = new GregorianCalendar(2010,10,16);
-		final int days = 68;
+		//final int days = 68;
 
 		final Sql reader = new Sql();
 
 		FileWriter fw = new FileWriter(emisora + ".txt");
 		final BufferedWriter bw = new BufferedWriter(fw);
-
-		FileWriter fwc = new FileWriter("compra.txt");
-		final BufferedWriter bwc = new BufferedWriter(fwc);
-
-		FileWriter fwv = new FileWriter("venta.txt");
-		final BufferedWriter bwv = new BufferedWriter(fwv);
 
 		FileWriter fwd = new FileWriter("distancia.txt");
 		final BufferedWriter bwd = new BufferedWriter(fwd);
@@ -160,7 +154,7 @@ public class SQLReadBatchLogic {
 						res[0] = 0;
 						res[1] = 0;
 						while(tableOrdenes.getRowCount() > 0) {
-							res = action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, res[0], res[1], bwc, bwv, bwd);
+							res = action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, res[0], res[1], bwd);
 						}
 						while (modelCompra.getRowCount() > 0) {
 							modelCompra.removeRow(0);
@@ -181,8 +175,6 @@ public class SQLReadBatchLogic {
 				}
 				try {
 					bw.close();
-					bwc.close();
-					bwv.close();
 					bwd.close();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -217,7 +209,7 @@ public class SQLReadBatchLogic {
 		}
 		return res;
 	}
-	public static Integer[] action(Calendar day, DefaultTableModel modelCompra, DefaultTableModel modelVenta, DefaultTableModel modelOrdenes, DefaultTableModel modelExec, DefaultTableModel modelExec2, JTable tableCompra, JTable tableVenta, JTable tableExec, JTable tableExec2, int volumenAH, int volumenAH2, BufferedWriter bwc, BufferedWriter bwv, BufferedWriter bwd) {
+	public static Integer[] action(Calendar day, DefaultTableModel modelCompra, DefaultTableModel modelVenta, DefaultTableModel modelOrdenes, DefaultTableModel modelExec, DefaultTableModel modelExec2, JTable tableCompra, JTable tableVenta, JTable tableExec, JTable tableExec2, int volumenAH, int volumenAH2, BufferedWriter bwd) {
 		Date time;
 		TimeZone tz = TimeZone.getTimeZone("America/Mexico_City");
 		Calendar cal = Calendar.getInstance(tz);
@@ -229,15 +221,13 @@ public class SQLReadBatchLogic {
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
 					if(tableVenta.getRowCount()>0) {
 						BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
+						BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
 						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
 						System.out.println("Compra");
 						System.out.println(askpx.subtract(price));
 						try {
 							Long ts = time.getTime();
-							bwd.write("Compra,");
-							bwd.write(ts.toString());
-							bwd.write(",");
-							bwd.write(askpx.subtract(price).toString());
+							bwd.write("Compra," + ts.toString() + "," + askpx.subtract(price).toString() + "," + askpx.subtract(bidpx).toString());
 							bwd.newLine();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
@@ -261,15 +251,13 @@ public class SQLReadBatchLogic {
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
 					if(tableCompra.getRowCount()>0) {
 						BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
+						BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
 						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
 						System.out.println("Venta");
 						System.out.println(price.subtract(bidpx));
 						try {
 							Long ts = time.getTime();
-							bwd.write("Venta,");
-							bwd.write(ts.toString());
-							bwd.write(",");
-							bwd.write(price.subtract(bidpx).toString());
+							bwd.write("Venta," + ts.toString() + "," + price.subtract(bidpx).toString() + "," + askpx.subtract(bidpx).toString());
 							bwd.newLine();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
@@ -348,15 +336,9 @@ public class SQLReadBatchLogic {
 								System.out.println(askpx.subtract(cancpx));
 								try {
 									Long ts = time.getTime();
-									bwd.write("CancCompraMod,");
-									bwd.write(ts.toString());
-									bwd.write(",");
-									bwd.write(askpx.subtract(cancpx).toString());
+									bwd.write("CancCompraMod," + ts.toString() + "," + askpx.subtract(cancpx).toString());
 									bwd.newLine();
-									bwd.write("CompraMod,");
-									bwd.write(ts.toString());
-									bwd.write(",");
-									bwd.write(askpx.subtract(price).toString());
+									bwd.write("CompraMod," + ts.toString() + "," + askpx.subtract(price).toString());
 									bwd.newLine();
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
@@ -384,15 +366,9 @@ public class SQLReadBatchLogic {
 								System.out.println(cancpx.subtract(bidpx));
 								try {
 									Long ts = time.getTime();
-									bwd.write("CancVentaMod,");
-									bwd.write(ts.toString());
-									bwd.write(",");
-									bwd.write(cancpx.subtract(bidpx).toString());
+									bwd.write("CancVentaMod," + ts.toString() + "," + cancpx.subtract(bidpx).toString());
 									bwd.newLine();
-									bwd.write("VentaMod,");
-									bwd.write(ts.toString());
-									bwd.write(",");
-									bwd.write(price.subtract(bidpx).toString());
+									bwd.write("VentaMod," + ts.toString() + "," + price.subtract(bidpx).toString());
 									bwd.newLine();
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
@@ -412,26 +388,6 @@ public class SQLReadBatchLogic {
 					volumenAH2 = check(modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, volumenAH2);
 			break;
 		}
-		if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH))
-			if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)){
-
-				try {
-					Long timestamp = cal.getTimeInMillis();
-					bwc.write(timestamp.toString() + ',');
-					for (int j = 0; j < modelCompra.getRowCount(); j++) {
-						bwc.write(tableCompra.getValueAt(j, 1).toString() + ',' + tableCompra.getValueAt(j, 2).toString() + ',');
-					}
-					bwc.newLine();
-					bwv.write(timestamp.toString() + ',');
-					for (int j = modelVenta.getRowCount()-1; j >= 0; j--) {
-						bwv.write(tableVenta.getValueAt(j, 1).toString() + ',' + tableVenta.getValueAt(j, 2).toString() + ',');
-					}
-					bwv.newLine();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
 		modelOrdenes.removeRow(0);
 		tableVenta.scrollRectToVisible(new Rectangle(tableVenta.getCellRect(tableVenta.getRowCount()-1, 0, true)));
 		Integer[] res = new Integer[2];
