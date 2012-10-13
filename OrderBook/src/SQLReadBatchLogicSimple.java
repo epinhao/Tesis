@@ -31,10 +31,10 @@ public class SQLReadBatchLogicSimple {
 		final String serie = "";
 
 		//final Calendar cal = new GregorianCalendar(2010,11,15);
-		final int days = 2;
+		//final int days = 2;
 
 		final Calendar day = new GregorianCalendar(2010,10,16);
-		//final int days = 68;
+		final int days = 68;
 
 		final Sql reader = new Sql();
 
@@ -302,13 +302,52 @@ public class SQLReadBatchLogicSimple {
 			if (listc.size() > 0) {
 				int index = Collections.binarySearch(listc, new NumFolio(0, (Integer) modelOrdenes.getValueAt(0, 4)), c);
 				if (index >= 0) {
+					if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
+						if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
+							if(tableVenta.getRowCount()>0) {
+								BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
+								BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
+								BigDecimal cancpx = (BigDecimal) modelCompra.getValueAt(listc.get(index).num, 1);
+								System.out.println("CompraMod");
+								System.out.println(askpx.subtract(cancpx));
+								try {
+									Long ts = time.getTime();
+									bwd.write("CancCompra," + ts.toString() + "," + askpx.subtract(cancpx).toString() + "," + askpx.subtract(bidpx).toString());
+									bwd.newLine();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						}
+					}
 					modelCompra.removeRow(listc.get(index).num);
 				}
 			}
 			if (listv.size() > 0) {
 				int index = Collections.binarySearch(listv, new NumFolio(0, (Integer) modelOrdenes.getValueAt(0, 4)), c);
-				if (index >= 0)
+				if (index >= 0) {
+					if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
+						if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
+							if(tableCompra.getRowCount()>0) {
+								BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
+								BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
+								BigDecimal cancpx = (BigDecimal) modelVenta.getValueAt(listv.get(index).num, 1);
+								System.out.println("VentaMod");
+								System.out.println(cancpx.subtract(bidpx));
+								try {
+									Long ts = time.getTime();
+									bwd.write("CancVenta," + ts.toString() + "," + cancpx.subtract(bidpx).toString() + "," + askpx.subtract(bidpx).toString());
+									bwd.newLine();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						}
+					}
 					modelVenta.removeRow(listv.get(index).num);
+				}
 			}
 			break;
 		case MO:
@@ -330,6 +369,7 @@ public class SQLReadBatchLogicSimple {
 						if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
 							if(tableVenta.getRowCount()>0) {
 								BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
+								BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
 								BigDecimal cancpx = (BigDecimal) modelCompra.getValueAt(listcm.get(index).num, 1);
 								BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
 								System.out.println("CompraMod");
@@ -338,7 +378,7 @@ public class SQLReadBatchLogicSimple {
 									Long ts = time.getTime();
 									bwd.write("CancCompraMod," + ts.toString() + "," + askpx.subtract(cancpx).toString());
 									bwd.newLine();
-									bwd.write("CompraMod," + ts.toString() + "," + askpx.subtract(price).toString());
+									bwd.write("CompraMod," + ts.toString() + "," + askpx.subtract(price).toString() + "," + askpx.subtract(bidpx).toString());
 									bwd.newLine();
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
@@ -360,6 +400,7 @@ public class SQLReadBatchLogicSimple {
 						if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
 							if(tableCompra.getRowCount()>0) {
 								BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
+								BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
 								BigDecimal cancpx = (BigDecimal) modelVenta.getValueAt(listvm.get(index).num, 1);
 								BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
 								System.out.println("VentaMod");
@@ -368,7 +409,7 @@ public class SQLReadBatchLogicSimple {
 									Long ts = time.getTime();
 									bwd.write("CancVentaMod," + ts.toString() + "," + cancpx.subtract(bidpx).toString());
 									bwd.newLine();
-									bwd.write("VentaMod," + ts.toString() + "," + price.subtract(bidpx).toString());
+									bwd.write("VentaMod," + ts.toString() + "," + price.subtract(bidpx).toString() + "," + askpx.subtract(bidpx).toString());
 									bwd.newLine();
 								} catch (IOException e) {
 									// TODO Auto-generated catch block

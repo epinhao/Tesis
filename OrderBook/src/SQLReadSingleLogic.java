@@ -262,10 +262,7 @@ public class SQLReadSingleLogic {
 						System.out.println(askpx.subtract(price));
 						try {
 							Long ts = time.getTime();
-							bwd.write("Compra,");
-							bwd.write(ts.toString());
-							bwd.write(",");
-							bwd.write(askpx.subtract(price).toString());
+							bwd.write("Compra," + ts.toString() + "," + askpx.subtract(price).toString());
 							bwd.newLine();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
@@ -294,10 +291,7 @@ public class SQLReadSingleLogic {
 						System.out.println(price.subtract(bidpx));
 						try {
 							Long ts = time.getTime();
-							bwd.write("Venta,");
-							bwd.write(ts.toString());
-							bwd.write(",");
-							bwd.write(price.subtract(bidpx).toString());
+							bwd.write("Venta," + ts.toString() + "," + price.subtract(bidpx).toString());
 							bwd.newLine();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
