@@ -7,8 +7,8 @@
 \usepackage[nottoc]{tocbibind} %Include bibliography in TOC
 
 \usepackage[letter,cam,center]{crop}
-
 \usepackage[labelfont=bf]{caption}
+\usepackage{graphicx}
 
 \renewcommand{\baselinestretch}{1.6} %double-spacing
 
@@ -64,7 +64,8 @@ OR \> Operaciones de Registro\\
 OP \> Oferta Pública\\
 SR \> Suscripción Recíproca\\
 SA \> Sobre Asignación\\
-\\\textbf{tipo\_ord} \> Tipo de Orden\\
+\\
+\textbf{tipo\_ord} \> Tipo de Orden\\
 \underline{Posibles Valores} \\
 LP \> Limitada\\
 MC \> Mercado\\
@@ -81,8 +82,10 @@ LO \> Mejor Postura Limitada Activa con Volumen Oculto\\
 HC \> Operación a Precio de Cierre\\
 DC \> Operaciones al Precio de Cierre Modalidad Después del Cierre\\
 PQ \> Paquete \\
-\\\textbf{tipo\_val} \> Tipo de Valor\\
-\\\textbf{emisora} \> Emisora\\
+\\
+\textbf{tipo\_val} \> Tipo de Valor\\
+\\
+\textbf{emisora} \> Emisora\\
 \\
 \textbf{serie} \> Serie\\
 \\
@@ -147,6 +150,12 @@ Se utiliza para localizar el folio de una postura que se va a modificar o cancel
 \end{table}%
 
 \end{landscape}
+
+\begin{figure}[ht] \centering
+\includegraphics[width=3.5in, height=3.5in]{plot.eps}
+\caption{The normal density curve}
+\label{normal}
+\end{figure}
 
 \newpage
 
