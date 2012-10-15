@@ -28,7 +28,89 @@ La Bolsa Mexicana de Valores proporcionó para este trabajo una base de datos co
   \item Registro de Posturas
 \end{itemize}
 
-La tabla de registro tiene 25,491,702 renglones; mientras que la tabla de posturas iniciales tiene 275,005. En el registro se encuentran todas las posturas que reciben a lo largo del día.
+La tabla de registro tiene 25,491,702 renglones; mientras que la tabla de posturas iniciales tiene 275,005. En el registro se encuentran todas las posturas que reciben a lo largo del día. Las tablas tienen los siguientes campos:\\
+
+\noindent
+\begin{tabbing}
+\textbf{id} \hspace{3cm} \= Número de identificación \hspace{1cm} \= \\
+\\
+\textbf{folio} \> Número asignado por la BMV a la postura\\
+Según el reglamento de la BMV; las órdenes que, en su caso, tengan modificaciones,\\
+perderán el folio de recepción que en un inicio les haya correspondido y se les asignará\\
+uno nuevo. No perderán su folio aquellas órdenes que sean modificadas únicamente\\
+para disminuir su volumen.\\
+\\
+\textbf{fecha\_vig/vigencia} \> Fecha de vigencia de la postura \\
+\\
+\textbf{casabolsa} \> Casa de Bolsa\\
+\\
+\textbf{tipo\_mov} \> Tipo de Movimiento\\
+\underline{Posibles Valores} \\
+CO \> Compra\\
+VE \> Venta\\
+MO \> Modificación\\
+CA \> Cancelación\\
+AH \> AH description\\
+MH \> MH description\\
+CH \> CH description\\
+\\
+\textbf{tipo\_op} \> Tipo de Operación\\
+\underline{Posibles Valores} \\
+CO \> Contado\\
+PI \> Pico\\
+HC \> Operación a Precio de Cierre\\
+DC \> Operaciones al Precio de Cierre Modalidad Después del Cierre\\
+OR \> Operaciones de Registro\\
+OP \> Oferta Pública\\
+SR \> Suscripción Recíproca\\
+SA \> Sobre Asignación\\
+\\\textbf{tipo\_ord} \> Tipo de Orden\\
+\underline{Posibles Valores} \\
+LP \> Limitada\\
+MC \> Mercado\\
+MA \> Mejor Postura Limitada Activa\\
+Aquella que sigue el mejor precio límite visible en su mismo sentido y su precio \\
+buscará cerrar posturas en sentido contrario que se ubiquen dentro de su precio\\
+de protección.\\
+MP \> Mejor Postura Limitada Pasiva\\
+Aquella que sigue el mejor precio límite visible en su mismo sentido. Aún y cuando\\
+existan posturas en sentido contrario dentro de su precio de protección la postura\\
+no buscará cerrarlas.\\
+VO \> Postura Limitada con Volumen Oculto\\
+LO \> Mejor Postura Limitada Activa con Volumen Oculto\\
+HC \> Operación a Precio de Cierre\\
+DC \> Operaciones al Precio de Cierre Modalidad Después del Cierre\\
+PQ \> Paquete \\
+\\\textbf{tipo\_val} \> Tipo de Valor\\
+\\\textbf{emisora} \> Emisora\\
+\\
+\textbf{serie} \> Serie\\
+\\
+\textbf{precio} \> Precio\\
+\\
+\textbf{volumen} \> Volumen\\
+\\
+La tabla de posturas iniciales utiliza además estos campos:\\
+\\
+\textbf{fecha} \> Fecha\\
+Este campo se utiliza para distinguir las órdenes que están activas al principio del\\
+día e inicializar el libro de órdenes.\\
+\\
+\textbf{orig\_timestamp} \> Fecha original de la postura expresada como la cantidad de\\
+\> milésimas de segundo transcurridas desde la medianoche del\\
+\>1 de enero de 1970\\
+\\
+La tabla de registro utiliza estos campos:\\
+\\
+\textbf{timestamp} \> Fecha de la postura expresada como la cantidad de milésimas\\
+\> de segundo transcurridas desde la medianoche del 1 de enero\\
+\>de 1970\\
+\\
+\textbf{folio\_anterior} \> Folio Anterior\\
+Se utiliza para localizar el folio de una postura que se va a modificar o cancelar.\\
+\\
+\textbf{fecha\_folio\_ant} \> Fecha de Folio Anterior\\
+\end{tabbing}
 
 \begin{landscape}
 
