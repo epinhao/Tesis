@@ -28,9 +28,9 @@ public class SQLReadSingle {
 	public static void main(String[] args) throws IOException {
 
 		Sql reader = new Sql();
-		final String emisora = "BIMBO";
+		final String emisora = "KUO";
 		final String serie = "";
-		final Calendar day = new GregorianCalendar(2010,10,16);
+		final Calendar day = new GregorianCalendar(2010,11,31);
 		ArrayList<Orden> ordenes = reader.readIniciales(emisora, serie, day);
 		reader.read(ordenes, emisora, serie, day);
 
@@ -193,8 +193,8 @@ public class SQLReadSingle {
 			{
 				//Execute when button is pressed
 				int i = 0;
-				while(tableOrdenes.getRowCount() > 0 && i < 100) {
-					//while(tableOrdenes.getRowCount() > 0) {
+				//while(tableOrdenes.getRowCount() > 0 && i < 100) {
+				while(tableOrdenes.getRowCount() > 0) {
 					Date cal = (Date) modelOrdenes.getValueAt(0, 3);
 					action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2, bwc, bwv);
 					//modelCompra.getValueAt(0, 1)
