@@ -273,9 +273,10 @@ public class SQLReadSingle {
 			tempe[0] = modelOrdenes.getValueAt(0, 3);
 			tempe[1] = modelOrdenes.getValueAt(0, 1);
 			tempe[2] = modelOrdenes.getValueAt(0, 2);
+			Date timestamp = (Date) tempe[0];
 			modelExec.addRow(tempe);
 			try {
-				bw.write(tempe[0].toString() + ',' + tempe[1].toString() + ',' + tempe[2].toString());
+				bw.write(tempe[0].toString() + ',' + tempe[1].toString() + ',' + tempe[2].toString() + ',' + timestamp.getTime());
 				bw.newLine();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -397,9 +398,10 @@ public class SQLReadSingle {
 				tempe[0] = modelOrdenes.getValueAt(0, 3);
 				tempe[1] = precio;
 				tempe[2] = volumen;
+				Date timestamp = (Date) tempe[0];
 				modelExec2.addRow(tempe);
 				try {
-					bw2.write(tempe[0].toString() + ',' + tempe[1].toString() + ',' + tempe[2].toString());
+					bw2.write(tempe[0].toString() + ',' + tempe[1].toString() + ',' + tempe[2].toString() + ',' + timestamp.getTime());
 					bw2.newLine();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
