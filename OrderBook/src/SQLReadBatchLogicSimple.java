@@ -27,8 +27,8 @@ public class SQLReadBatchLogicSimple {
 
 	public static void main(String[] args) throws IOException {
 
-		final String emisora = "BIMBO";
-		final String serie = "";
+		final String emisora = "KUO";
+		final String serie = "B";
 
 		//final Calendar cal = new GregorianCalendar(2010,11,15);
 		//final int days = 2;
@@ -219,7 +219,7 @@ public class SQLReadBatchLogicSimple {
 		case CO:
 			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
-					if(tableVenta.getRowCount()>0) {
+					if(tableVenta.getRowCount()>0 && tableCompra.getRowCount()>0) {
 						BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
 						BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
 						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
@@ -249,7 +249,7 @@ public class SQLReadBatchLogicSimple {
 		case VE:
 			if(cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH) && cal.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
 				if(cal.get(Calendar.HOUR_OF_DAY) > 8 || (cal.get(Calendar.HOUR_OF_DAY) >= 8 && cal.get(Calendar.MINUTE) >= 30)) {
-					if(tableCompra.getRowCount()>0) {
+					if(tableCompra.getRowCount()>0 && tableVenta.getRowCount()>0) {
 						BigDecimal bidpx = (BigDecimal) tableCompra.getValueAt(0, 1);
 						BigDecimal askpx = (BigDecimal) tableVenta.getValueAt(modelVenta.getRowCount()-1, 1);
 						BigDecimal price = (BigDecimal) modelOrdenes.getValueAt(0, 1);
