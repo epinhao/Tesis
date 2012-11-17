@@ -51,7 +51,7 @@ public class Sql {
 		String opt = "?zeroDateTimeBehavior=convertToNull";
 		String driver = "com.mysql.jdbc.Driver";
 		String user = "tesis"; 
-		String pass = "01477410";
+		String pass = Password.password;
 		try{
 			Class.forName(driver).newInstance();
 			con = DriverManager.getConnection(url+db+opt, user, pass);
