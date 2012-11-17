@@ -10,8 +10,8 @@ public class Sql {
 		String db = "tesis";
 		String opt = "?zeroDateTimeBehavior=convertToNull";
 		String driver = "com.mysql.jdbc.Driver";
-		String user = "tesis"; 
-		String pass = "01477410";
+		String user = "tesis";
+		String pass = Password.password;
 		ArrayList<Orden> ordenes = new ArrayList<Orden>();
 		try{
 			Class.forName(driver).newInstance();
