@@ -27,8 +27,8 @@ public class SQLReadBatchLogicSimple {
 
 	public static void main(String[] args) throws IOException {
 
-		final String emisora = "KUO";
-		final String serie = "B";
+		final String emisora = "WALMEX";
+		final String serie = "";
 
 		//final Calendar cal = new GregorianCalendar(2010,11,15);
 		//final int days = 2;

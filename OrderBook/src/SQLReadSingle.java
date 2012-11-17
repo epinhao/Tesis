@@ -29,8 +29,8 @@ public class SQLReadSingle {
 
 		Sql reader = new Sql();
 		final String emisora = "KUO";
-		final String serie = "";
-		final Calendar day = new GregorianCalendar(2010,11,31);
+		final String serie = "B";
+		final Calendar day = new GregorianCalendar(2011,0,28);
 		ArrayList<Orden> ordenes = reader.readIniciales(emisora, serie, day);
 		reader.read(ordenes, emisora, serie, day);
 
