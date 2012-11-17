@@ -6,12 +6,12 @@ import java.util.GregorianCalendar;
 public class Sql {
 	public ArrayList<Orden> readIniciales(String emisora, String serie, Calendar cal) {
 		Connection con = null;
-		String url = "jdbc:mysql://192.168.1.102:3306/";
-		String db = "test";
+		String url = "jdbc:mysql://tesis.ci9ubv2adbti.us-east-1.rds.amazonaws.com:3306/";
+		String db = "tesis";
 		String opt = "?zeroDateTimeBehavior=convertToNull";
 		String driver = "com.mysql.jdbc.Driver";
-		String user = "remote"; 
-		String pass = "test";
+		String user = "tesis"; 
+		String pass = "01477410";
 		ArrayList<Orden> ordenes = new ArrayList<Orden>();
 		try{
 			Class.forName(driver).newInstance();
@@ -46,12 +46,12 @@ public class Sql {
 	}
 	public void read(ArrayList<Orden> ordenes, String emisora, String serie, Calendar cal) {
 		Connection con = null;
-		String url = "jdbc:mysql://192.168.1.102:3306/";
-		String db = "test";
+		String url = "jdbc:mysql://tesis.ci9ubv2adbti.us-east-1.rds.amazonaws.com:3306/";
+		String db = "tesis";
 		String opt = "?zeroDateTimeBehavior=convertToNull";
 		String driver = "com.mysql.jdbc.Driver";
-		String user = "remote"; 
-		String pass = "test";
+		String user = "tesis"; 
+		String pass = "01477410";
 		try{
 			Class.forName(driver).newInstance();
 			con = DriverManager.getConnection(url+db+opt, user, pass);

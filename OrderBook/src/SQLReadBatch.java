@@ -27,7 +27,7 @@ public class SQLReadBatch {
 
 	public static void main(String[] args) throws IOException {
 
-		final String emisora = "CONTAL";
+		final String emisora = "HERDEZ";
 		final String serie = "";
 
 		//final Calendar cal = new GregorianCalendar(2010,11,15);
