@@ -26,7 +26,17 @@
 
 \section{Introducción}
 
-Los mercados de valores permiten el intercambio de activos con facilidad. La mayoría de los estudios de los mercados tratan de explicar el comportamiento de los mismos a través de procesos autorregresivos, en los cuales se trata de explicar la relación del valor actual de una serie de tiempo con los valores anteriores; sin embargo la mayoría de estos estudios ignoran el mecanismo básico detrás de estos mercados: la interacción entre compradores y vendedores.
+Los mercados de valores permiten el intercambio de activos con facilidad. La mayoría de los estudios de los mercados tratan de explicar el comportamiento de los mismos a través de procesos autorregresivos, en los cuales se trata de explicar la relación del valor actual de una serie de tiempo con los valores anteriores; sin embargo la mayoría de estos estudios ignoran el mecanismo básico detrás de estos mercados: la interacción entre compradores y vendedores.\\
+
+Los mercados se pueden clasificar en dos tipos:
+\begin{itemize}
+  \item Regidos por formadores de mercado (Quote-driven market)
+  \item Regidos por órdenes (Order-driven market)
+\end{itemize}
+
+En los mercados regidos por formadores de mercado, éstos centralizan las órdenes proveyendo liquidez al fijar una postura de compra y una venta; por ejemplo el especialista en el NYSE. En los mercados regidos por órdenes, las posturas de todos los participantes se agregan en lo que se conoce como el libro de posturas. Los mercados regidos por órdenes tienen como ventaja la transparencia, ya que todos los participantes conocen las posturas de los demás. Existen algunos mercados híbridos donde los formadores de mercado interactúan en el libro de posturas. La Bolsa Mexicana de Valores y NASDAQ son ejemplos de mercados híbridos.
+
+\clearpage
 
 \section{Descripción de las Base de Datos}
 La Bolsa Mexicana de Valores proporcionó para este trabajo una base de datos con las posturas en todas las emisoras entre el 16 de noviembre de 2010 y el 18 de febrero de 2011. La base de datos se compone de dos tablas:
@@ -159,6 +169,8 @@ Se utiliza para localizar el folio de una postura que se va a modificar o cancel
 
 \end{landscape}
 
+\clearpage
+
 \section{Reconstrucción del Libro de Posturas}
 
 Con los datos proporcionados se reconstruyó el libro de posturas. A lo largo del día existen un gran número de modificaciones y cancelaciones, por lo que para el análisis de los datos es indispensable identificar las posturas activas en cada instante. Aproximadamente el 11\% de los registros en la base de datos son modificaciones, mientras que casi el 35\% son cancelaciones.\\
@@ -197,6 +209,9 @@ Aún más importante que el volumen operado es la tendencia de precios. Una form
 \clearpage
 
 \section{Características Estadísticas del Libro de Posturas}
+
+Los mercados financieros ofrecen un gran número de información, es posible identificar algunos patrones. Por ejemplo se ha identificado que la distribución
+
 
 \clearpage
 
