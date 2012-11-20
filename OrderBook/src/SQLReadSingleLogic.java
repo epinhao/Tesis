@@ -29,25 +29,27 @@ public class SQLReadSingleLogic {
 	public static void main(String[] args) throws IOException {
 
 		Sql reader = new Sql();
-		final String emisora = "KUO";
+		final String emisora = "BIMBO";
 		final String serie = "";
-		final Calendar day = new GregorianCalendar(2010,10,16);
+		final Calendar day = new GregorianCalendar(2010,10,17);
 		ArrayList<Orden> ordenes = reader.readIniciales(emisora, serie, day);
 		reader.read(ordenes, emisora, serie, day);
-
-		FileWriter fw = new FileWriter("ordenes.txt");
+		
+		String datetext = day.get(Calendar.YEAR) + "" + (day.get(Calendar.MONTH)+1) + ""  + day.get(Calendar.DATE);
+		
+		FileWriter fw = new FileWriter("ordenes" + emisora + datetext + ".txt");
 		final BufferedWriter bw = new BufferedWriter(fw);
 
-		FileWriter fw2 = new FileWriter("ordenes2.txt");
+		FileWriter fw2 = new FileWriter("ordenes2" + emisora + datetext + ".txt");
 		final BufferedWriter bw2 = new BufferedWriter(fw2);
 
-		FileWriter fwc = new FileWriter("compra.txt");
+		FileWriter fwc = new FileWriter("compra" + emisora + datetext + ".txt");
 		final BufferedWriter bwc = new BufferedWriter(fwc);
 
-		FileWriter fwv = new FileWriter("venta.txt");
+		FileWriter fwv = new FileWriter("venta" + emisora + datetext + ".txt");
 		final BufferedWriter bwv = new BufferedWriter(fwv);
 
-		FileWriter fwd = new FileWriter("distancia.txt");
+		FileWriter fwd = new FileWriter("distancia" + emisora + datetext + ".txt");
 		final BufferedWriter bwd = new BufferedWriter(fwd);
 
 		JFrame frame = new JFrame();
@@ -317,7 +319,8 @@ public class SQLReadSingleLogic {
 			tempe[2] = modelOrdenes.getValueAt(0, 2);
 			modelExec.addRow(tempe);
 			try {
-				bw.write(tempe[0].toString() + ',' + tempe[1].toString() + ',' + tempe[2].toString());
+				Date timestamp = (Date) tempe[0];
+				bw.write(tempe[0].toString() + ',' + tempe[1].toString() + ',' + tempe[2].toString() + ',' + timestamp.getTime());
 				bw.newLine();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -499,7 +502,8 @@ public class SQLReadSingleLogic {
 				tempe[2] = volumen;
 				modelExec2.addRow(tempe);
 				try {
-					bw2.write(tempe[0].toString() + ',' + tempe[1].toString() + ',' + tempe[2].toString());
+					Date timestamp = (Date) tempe[0]; 
+					bw2.write(tempe[0].toString() + ',' + tempe[1].toString() + ',' + tempe[2].toString() + ',' + timestamp.getTime());
 					bw2.newLine();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
