@@ -2,6 +2,7 @@
 
 \usepackage[paperheight=22.5 cm, paperwidth=17 cm, top=2 cm, bottom=2 cm, left=2.5 cm, right=1.5 cm]{geometry}
 \usepackage[spanish,mexico]{babel}
+\usepackage{amsmath}
 \usepackage[utf8]{inputenc}
 \usepackage{lscape} %Landscape mode
 \usepackage[nottoc]{tocbibind} %Include bibliography in TOC
@@ -210,8 +211,11 @@ Aún más importante que el volumen operado es la tendencia de precios. Una form
 
 \section{Características Estadísticas del Libro de Posturas}
 
-Los mercados financieros ofrecen un gran número de información, es posible identificar algunos patrones. Por ejemplo se ha identificado que la distribución
+Los mercados financieros ofrecen un gran número de información, es posible identificar algunos patrones. Por ejemplo se ha identificado que la distribución de los precios de las posturas sigue una ley de potencias, es decir las frecuencias decrecen exponencialmente al aumentar la variable. Es decir si definimos a $b(t)$ como el precio de la mejora postura de compra y $a(t)$ el precio de la mejor postura de venta. El precio de una nueva postura de compra o venta se puede expresar como $b(t)-\Delta$ ó $a(t)+\Delta$ respectivamente. Cabe mencionar que $\Delta$ puede tomar valores negativos. Si por ejemplo, con $\Delta <0$, se registra una postura con el precio $b(t)-\Delta \geq a(t)$ entonces se concretará un hecho, mientras que si $b(t)-\Delta < a(t)$ entonces el precio $b(t+1)=b(t)-\Delta$. Ahora si se excluyen las posturas donde $\Delta \leq 0$ se puede decir que los precios siguen una distribución definida por:
 
+\[
+P\left(\Delta\right) \propto {{A} \over {\left(\Delta+\lambda\right)}^{\alpha+1}}
+\]
 
 \clearpage
 
