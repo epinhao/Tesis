@@ -2,10 +2,11 @@
 
 \usepackage[paperheight=22.5 cm, paperwidth=17 cm, top=2 cm, bottom=2 cm, left=2.5 cm, right=1.5 cm]{geometry}
 \usepackage[spanish,mexico]{babel}
-\usepackage{amsmath}
+\usepackage{amsmath} % Some math functions
+\usepackage{subcaption} % Subfigures
 \usepackage[utf8]{inputenc}
-\usepackage{lscape} %Landscape mode
-\usepackage[nottoc]{tocbibind} %Include bibliography in TOC
+\usepackage{lscape} % Landscape mode
+\usepackage[nottoc]{tocbibind} % Include bibliography in TOC
 
 \usepackage[letter,cam,center]{crop}
 \usepackage[labelfont=bf]{caption}
@@ -69,9 +70,9 @@ CO \> Compra\\
 VE \> Venta\\
 MO \> Modificación\\
 CA \> Cancelación\\
-AH \> *AH description\\
-MH \> *MH description\\
-CH \> *CH description\\
+AH \> Reconocimiento de Hecho\\
+MH \> Modificación de Hecho\\
+CH \> Cancelación de Hecho\\
 \\
 \textbf{tipo\_op} \> Tipo de Operación\\
 \underline{Posibles Valores} \\
@@ -184,26 +185,26 @@ Ignorando acciones de muy baja bursatilidad, si se considera la acción de KUO s
 Aún más importante que el volumen operado es la tendencia de precios. Una forma de evaluar esto es el VWAP (Volume-weighted average price). El VWAP es el precio promedio ponderado por volumen. Para la acción de KUO el VWAP de por ejemplo el 28 de enero de 2011 registrado por la BMV es de 21.72491, el registrado por el algoritmo es de 21.72289. En un día en donde el volumen operado difiere de mayor forma como el 31 de diciembre de 2010, el VWAP de la bolsa y del algoritmo son similares, 20.35595 y 20.27741 respectivamente. En el caso de AMX, el 28 de diciembre es el día en que el algoritmo reproduce de peor forma el volumen, con un 69.0\% sin embargo la tendencia del precio de las operaciones es bastante similar. El VWAP de las operaciones registradas por la BMV es de 35.12914 mientras que el de el del algoritmo es de 35.10326. Mientras que para el día en el que el algoritmo sigue de mejor forma a las operaciones por la BMV, el 20 de enero de 2011, el VWAP de la bolsa es de 35.28202 mientras que el del algoritmo es de 35.26883.
 
 \begin{figure}[htbp] \centering
-\includegraphics[scale=0.75, trim=0 0 0 2cm]{kuo123110.eps}
-\caption{KUO diciembre 31}
+\includegraphics[scale=0.75, trim=0 0.5cm 0 1.5cm]{kuo123110.eps}
+\caption{Reconstrucción: KUO diciembre 31}
 \label{kuo1231}
 \end{figure}
 
 \begin{figure}[htbp] \centering
-\includegraphics[scale=0.75, trim=0 0 0 2cm]{kuo012811.eps}
-\caption{KUO enero 28}
+\includegraphics[scale=0.75, trim=0 0.5cm 0 1.5cm]{kuo012811.eps}
+\caption{Reconstrucción: KUO enero 28}
 \label{kuo0128}
 \end{figure}
 
 \begin{figure}[htbp] \centering
-\includegraphics[scale=0.75, trim=0 0 0 2cm]{amx012011.eps}
-\caption{AMX enero 20}
+\includegraphics[scale=0.75, trim=0 0.5cm 0 1.5cm]{amx012011.eps}
+\caption{Reconstrucción: AMX enero 20}
 \label{amx0120}
 \end{figure}
 
 \begin{figure}[htbp] \centering
-\includegraphics[scale=0.75, trim=0 0 0 2cm]{amx122810.eps}
-\caption{AMX diciembre 28}
+\includegraphics[scale=0.75, trim=0 0.5cm 0 1.5cm]{amx122810.eps}
+\caption{Reconstrucción: AMX diciembre 28}
 \label{amx1228}
 \end{figure}
 
@@ -211,28 +212,92 @@ Aún más importante que el volumen operado es la tendencia de precios. Una form
 
 \section{Características Estadísticas del Libro de Posturas}
 
-Los mercados financieros ofrecen un gran número de información, es posible identificar algunos patrones. Por ejemplo se ha identificado que la distribución de los precios de las posturas sigue una ley de potencias, es decir las frecuencias decrecen exponencialmente al aumentar la variable. Es decir si definimos a $b(t)$ como el precio de la mejora postura de compra y $a(t)$ el precio de la mejor postura de venta. El precio de una nueva postura de compra o venta se puede expresar como $b(t)-\Delta$ ó $a(t)+\Delta$ respectivamente. Cabe mencionar que $\Delta$ puede tomar valores negativos. Si por ejemplo, con $\Delta <0$, se registra una postura con el precio $b(t)-\Delta \geq a(t)$ entonces se concretará un hecho, mientras que si $b(t)-\Delta < a(t)$ entonces el precio $b(t+1)=b(t)-\Delta$. Ahora si se excluyen las posturas donde $\Delta \leq 0$ se puede decir que los precios siguen una distribución definida por:
+Los mercados financieros ofrecen un gran número de información, es posible identificar algunos patrones. Por ejemplo se ha identificado que la distribución de los precios de las posturas sigue una ley de potencias, es decir las frecuencias decrecen exponencialmente al aumentar la variable. Es decir si definimos a $b(t)$ como el precio de la mejora postura de compra y $a(t)$ el precio de la mejor postura de venta. El precio de una nueva postura de compra o venta se puede expresar como $b(t)-\Delta$ ó $a(t)+\Delta$ respectivamente, donde la $\Delta$ esta expresada en pujas o ticks, es decir el importe minimo en que puede variar el precio unitario de cada título. Cabe mencionar que $\Delta$ puede tomar valores negativos. Si por ejemplo, con $\Delta <0$, se registra una postura con el precio $b(t)-\Delta \geq a(t)$ entonces se concretará un hecho, mientras que si $b(t)-\Delta < a(t)$ entonces el precio $b(t+1)=b(t)-\Delta$. Ahora si se excluyen las posturas donde $\Delta \leq 0$ se puede decir que los precios siguen una distribución definida por:
 
 \[
-P\left(\Delta\right) \propto {{A} \over {\left(\Delta+\lambda\right)}^{\alpha+1}}
-\]
+P\left(\Delta\right) \propto \frac{A}{{\left(\Delta+\lambda\right)}^{\alpha+1}}
+\]\\
 
-% Table generated by Excel2LaTeX from sheet 'Sheet1'
+Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyeron la modificaciones, las cuales se podrían considerar como una nueva postura en algunos casos. Otros estudios han encontrado que el parámetro $alpha$ es muy similar entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, en este caso las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución esta definida cuando $\alpha>1$, por lo que en este caso para algunas de las emisoras se podría definir la media. Otro hecho que se destaca en otros trabajos es que el parámetro $\alpha$ es similar para las posturas de compra y venta \cite{Bouchaud2002}. Para las acciones estudiadas en este caso, para una misma emisora el parámetro es similar en la mayoría de los casos, sin embargo, en el caso de GRUMA el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de venta.
+
 \begin{table}[htbp]
 \centering
-\caption{Add caption}
-\begin{tabular}{rrrrrrrrr}
-& Compra &       &       &       & Venta &       &       &  \\
-AMX   & 7.4441 & 1.7098 & 629,302 & 454,039 & 6.2232 & 1.5022 & 767,215 & 555,595 \\
-BIMBO & 14.7809 & 0.8242 & 37,021 & 9,042 & 31.2291 & 1.2005 & 36,671 & 11,400 \\
-CMX   & 7.6756 & 1.2256 & 20,955 & 4,201 & 11.0780 & 1.6555 & 28,893 & 6,584 \\
-GRUMA & 58.6601 & 4.4624 & 49,895 & 27,845 & 63.2991 & 4.1402 & 49,026 & 30,012 \\
-HERDEZ & 21.1333 & 2.3332 & 6,811 & 1,773 & 21.1781 & 2.3215 & 5,493 & 1,263 \\
-KUO   & 11.3803 & 0.8556 & 495   & 93    & 42.1747 & 1.3034 & 319   & 19 \\
+\caption{Distribución de Precios de las Posturas}
+\setlength\tabcolsep{2pt}
+\begin{tabular}{r|r|r|r|r|r|r|r|r|r|}
+\multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Compra}} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Venta}} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} \\
+\cline{2-5}
+\cline{7-10}
+ & $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ & & $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ \\
+\cline{2-5}
+\cline{7-10}
+\textbf{AMX}   & 7.4441 & 1.7098 & 629,302 & 454,039 & & 6.2232 & 1.5022 & 767,215 & 555,595 \\
+\textbf{BIMBO} & 14.7809 & 0.8242 & 37,021 & 9,042 & & 31.2291 & 1.2005 & 36,671 & 11,400 \\
+\textbf{COMERCI}   & 7.6756 & 1.2256 & 20,955 & 4,201 & & 11.0780 & 1.6555 & 28,893 & 6,584 \\
+\textbf{GRUMA} & 58.6601 & 4.4624 & 49,895 & 27,845 & & 63.2991 & 4.1402 & 49,026 & 30,012 \\
+\textbf{HERDEZ} & 21.1333 & 2.3332 & 6,811 & 1,773 & & 21.1781 & 2.3215 & 5,493 & 1,263 \\
+\textbf{KUO}   & 11.3803 & 0.8556 & 495   & 93    & & 42.1747 & 1.3034 & 319   & 19 \\
+\cline{2-5}
+\cline{7-10}
 \end{tabular}%
-\label{tab:addlabel}%
+\label{tab:power}%
 \end{table}%
 
+\begin{figure}[htbp]
+        \centering
+        \begin{subfigure}[b]{0.5\textwidth}
+                \centering
+                \includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxcompra.eps}
+                \caption{AMX compra}
+                \label{fig:amxcompra}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.5\textwidth}
+                \centering
+                \includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxventa.eps}
+                \caption{AMX venta}
+                \label{fig:amxventa}
+        \end{subfigure}
+        %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+          %(or a blank line to force the subfigure onto a new line)
+          
+        \begin{subfigure}[b]{0.5\textwidth}
+                \centering
+                \includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comercicompra.eps}
+                \caption{COMERCI compra}
+                \label{fig:comercicompra}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.5\textwidth}
+                \centering
+                \includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comerciventa.eps}
+                \caption{COMERCI venta}
+                \label{fig:comerciventa}
+        \end{subfigure}
+        %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+          %(or a blank line to force the subfigure onto a new line)
+          
+          \begin{subfigure}[b]{0.5\textwidth}
+                \centering
+                \includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuocompra.eps}
+                \caption{KUO compra}
+                \label{fig:kuocompra}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.5\textwidth}
+                \centering
+                \includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuoventa.eps}
+                \caption{KUO venta}
+                \label{fig:kuoventa}
+        \end{subfigure}
+        %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+          %(or a blank line to force the subfigure onto a new line)
+          
+        \caption{Ajuste del Modelo}\label{fig:fit}
+\end{figure}
 
 \clearpage
 
