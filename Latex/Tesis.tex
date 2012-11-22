@@ -1,6 +1,6 @@
 \documentclass[10pt]{article}
 
-\usepackage[paperheight=22.5 cm, paperwidth=17 cm, top=2 cm, bottom=2 cm, left=2.5 cm, right=1.5 cm]{geometry}
+\usepackage[paperheight=23 cm, paperwidth=17 cm, top=2 cm, bottom=2 cm, left=2.5 cm, right=1.5 cm]{geometry}
 \usepackage[spanish,mexico]{babel}
 \usepackage{amsmath} % Some math functions
 \usepackage{subcaption} % Subfigures
@@ -8,7 +8,7 @@
 \usepackage{lscape} % Landscape mode
 \usepackage[nottoc]{tocbibind} % Include bibliography in TOC
 
-\usepackage[letter,cam,center]{crop}
+\usepackage[letter,cam,center]{crop} % Crop marks
 \usepackage[labelfont=bf]{caption}
 
 \usepackage{graphicx} % OS X
@@ -159,9 +159,9 @@ Se utiliza para localizar el folio de una postura que se va a modificar o cancel
 \setlength\tabcolsep{1.5pt}
 \begin{tabular}{rrrrrrrrrrrrrrr}
 \textbf{ id}    & \textbf{timestamp} & \textbf{folio} & \textbf{vigencia} & \textbf{folio\_anterior} & \textbf{fecha\_folio\_ant} & \textbf{tipo\_mov} & \textbf{casa\_bolsa} & \textbf{tipo\_op} & \textbf{tipo\_ord} & \textbf{tipo\_val} & \textbf{emisora} & \textbf{serie} & \textbf{precio} & \textbf{volumen} \\
-48 & 1289916001700 & 19    &       & 0     &       & VE    & 1369  & CO    & LP    & 1     & MEXCHEM & *     & 39.6  & 800 \\
+48 & 1289916001700 & 19    &       & 0     &       & VE    & 1369  & CO    & LP    & 1     & ARA & *     & 39.6  & 800 \\
 329 & 1290785630710 & 124082 & 26/11/2010 & 0     &       & CO    & 1369  & CO    & LP    & 1     & AMX   & L     & 35.69 & 12000 \\
-519 & 1291907916550 & 16032 &       & 0     &       & AH    & 1305  & CO    & VO    & 1     & GFNORTE & O     & 58.1  & 1100 \\
+519 & 1291907916550 & 16032 &       & 0     &       & AH    & 1305  & CO    & VO    & 1     & GNP & *     & 58.1  & 1100 \\
 652 & 1296246310460 & 911020 &       & 0     &       & VE    & 1369  & PI    & MC    & 1     & ASUR  & B     & 64.05 & 76 \\
 998 & 1298062094720 & 566388 & 18/02/2011 & 566388 & 18/02/2011 & MO    & 1288  & CO    & MA    & 1     & BIMBO & A     & 97.51 & 300 \\
 \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
@@ -208,6 +208,16 @@ Aún más importante que el volumen operado es la tendencia de precios. Una form
 \label{amx1228}
 \end{figure}
 
+\begin{landscape}
+
+\begin{figure}[htbp] \centering
+\includegraphics{screenshot.png}
+\caption{Java}
+\label{java}
+\end{figure}
+
+\end{landscape}
+
 \clearpage
 
 \section{Características Estadísticas del Libro de Posturas}
@@ -218,7 +228,7 @@ Los mercados financieros ofrecen un gran número de información, es posible ide
 P\left(\Delta\right) \propto \frac{A}{{\left(\Delta+\lambda\right)}^{\alpha+1}}
 \]\\
 
-Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyeron la modificaciones, las cuales se podrían considerar como una nueva postura en algunos casos. Otros estudios han encontrado que el parámetro $alpha$ es muy similar entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, en este caso las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución esta definida cuando $\alpha>1$, por lo que en este caso para algunas de las emisoras se podría definir la media. Otro hecho que se destaca en otros trabajos es que el parámetro $\alpha$ es similar para las posturas de compra y venta \cite{Bouchaud2002}. Para las acciones estudiadas en este caso, para una misma emisora el parámetro es similar en la mayoría de los casos, sin embargo, en el caso de GRUMA el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de venta.
+Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyeron la modificaciones, las cuales se podrían considerar como una nueva postura en algunos casos. Otros estudios han encontrado que el parámetro $alpha$ es muy similar entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, en este caso las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución esta definida cuando $\alpha>1$, por lo que en este caso para algunas de las emisoras se podría definir la media. Otro hecho que se destaca en otros trabajos es que el parámetro $\alpha$ es similar para las posturas de compra y venta \cite{Bouchaud2002}. Para las acciones estudiadas en este caso, para una misma emisora el parámetro es similar en la mayoría de los casos, sin embargo, en el caso de KUO el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de compra.
 
 \begin{table}[htbp]
 \centering
@@ -296,7 +306,7 @@ Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyero
 %add desired spacing between images, e. g. ~, \quad, \qquad etc.
 %(or a blank line to force the subfigure onto a new line)
 
-\caption{Ajuste del Modelo}\label{fig:fit}
+\caption{Ajuste del Modelo de Distribución de Precios de las Posturas}\label{fig:fit}
 \end{figure}
 
 \clearpage

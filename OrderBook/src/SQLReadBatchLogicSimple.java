@@ -27,7 +27,7 @@ public class SQLReadBatchLogicSimple {
 
 	public static void main(String[] args) throws IOException {
 
-		final String emisora = "WALMEX";
+		final String emisora = "COMERCI";
 		final String serie = "";
 
 		//final Calendar cal = new GregorianCalendar(2010,11,15);
@@ -227,7 +227,7 @@ public class SQLReadBatchLogicSimple {
 						System.out.println(askpx.subtract(price));
 						try {
 							Long ts = time.getTime();
-							bwd.write("Compra," + ts.toString() + "," + askpx.subtract(price).toString() + "," + askpx.subtract(bidpx).toString());
+							bwd.write("Compra," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + askpx.subtract(price).toString() + "," + askpx.subtract(bidpx).toString());
 							bwd.newLine();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
@@ -257,7 +257,7 @@ public class SQLReadBatchLogicSimple {
 						System.out.println(price.subtract(bidpx));
 						try {
 							Long ts = time.getTime();
-							bwd.write("Venta," + ts.toString() + "," + price.subtract(bidpx).toString() + "," + askpx.subtract(bidpx).toString());
+							bwd.write("Venta," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + price.subtract(bidpx).toString() + "," + askpx.subtract(bidpx).toString());
 							bwd.newLine();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
@@ -312,7 +312,7 @@ public class SQLReadBatchLogicSimple {
 								System.out.println(askpx.subtract(cancpx));
 								try {
 									Long ts = time.getTime();
-									bwd.write("CancCompra," + ts.toString() + "," + askpx.subtract(cancpx).toString() + "," + askpx.subtract(bidpx).toString());
+									bwd.write("CancCompra," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + askpx.subtract(cancpx).toString() + "," + askpx.subtract(bidpx).toString());
 									bwd.newLine();
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
@@ -337,7 +337,7 @@ public class SQLReadBatchLogicSimple {
 								System.out.println(cancpx.subtract(bidpx));
 								try {
 									Long ts = time.getTime();
-									bwd.write("CancVenta," + ts.toString() + "," + cancpx.subtract(bidpx).toString() + "," + askpx.subtract(bidpx).toString());
+									bwd.write("CancVenta," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + cancpx.subtract(bidpx).toString() + "," + askpx.subtract(bidpx).toString());
 									bwd.newLine();
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
@@ -376,9 +376,9 @@ public class SQLReadBatchLogicSimple {
 								System.out.println(askpx.subtract(cancpx));
 								try {
 									Long ts = time.getTime();
-									bwd.write("CancCompraMod," + ts.toString() + "," + askpx.subtract(cancpx).toString());
+									bwd.write("CancCompraMod," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + askpx.subtract(cancpx).toString());
 									bwd.newLine();
-									bwd.write("CompraMod," + ts.toString() + "," + askpx.subtract(price).toString() + "," + askpx.subtract(bidpx).toString());
+									bwd.write("CompraMod," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + askpx.subtract(price).toString() + "," + askpx.subtract(bidpx).toString());
 									bwd.newLine();
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
@@ -407,9 +407,9 @@ public class SQLReadBatchLogicSimple {
 								System.out.println(cancpx.subtract(bidpx));
 								try {
 									Long ts = time.getTime();
-									bwd.write("CancVentaMod," + ts.toString() + "," + cancpx.subtract(bidpx).toString());
+									bwd.write("CancVentaMod," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + cancpx.subtract(bidpx).toString());
 									bwd.newLine();
-									bwd.write("VentaMod," + ts.toString() + "," + price.subtract(bidpx).toString() + "," + askpx.subtract(bidpx).toString());
+									bwd.write("VentaMod," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + price.subtract(bidpx).toString() + "," + askpx.subtract(bidpx).toString());
 									bwd.newLine();
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
