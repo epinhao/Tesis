@@ -199,8 +199,8 @@ public class SQLReadSingleLogic {
 			{
 				//Execute when button is pressed
 				int i = 0;
-				while(tableOrdenes.getRowCount() > 0 && i < 100) {
-					//while(tableOrdenes.getRowCount() > 0) {
+				//while(tableOrdenes.getRowCount() > 0 && i < 100) {
+				while(tableOrdenes.getRowCount() > 0) {
 					Date cal = (Date) modelOrdenes.getValueAt(0, 3);
 					action(day, modelCompra, modelVenta, modelOrdenes, modelExec, modelExec2, tableCompra, tableVenta, tableExec, tableExec2, bw, bw2, bwc, bwv, bwd);
 					//modelCompra.getValueAt(0, 1)

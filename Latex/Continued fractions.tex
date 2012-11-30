@@ -1,0 +1,123 @@
+\documentclass[10pt]{article}
+
+\usepackage[paperheight=23 cm, paperwidth=17 cm, top=2 cm, bottom=2 cm, left=2.5 cm, right=1.5 cm]{geometry}
+\usepackage[spanish,mexico]{babel}
+\usepackage{amsmath} % Some math functions
+\usepackage{subcaption} % Subfigures
+\usepackage[utf8]{inputenc}
+\usepackage{lscape} % Landscape mode
+\usepackage[nottoc]{tocbibind} % Include bibliography in TOC
+
+\usepackage[letter,cam,center]{crop} % Crop marks
+\usepackage[labelfont=bf]{caption}
+
+\usepackage{graphicx} % OS X
+
+%\usepackage[pdftex]{graphicx} % Windows
+%\usepackage{epstopdf} % Windows
+
+\renewcommand{\baselinestretch}{1.6} %double-spacing
+
+\begin{document}
+
+Un proceso estocástico $\{X(t);t\geq 0\}$ con un conjunto de estados $\mathcal{S} \subset I$ se dice que es una cadena de Markov homogénea si para toda $n \in I$, estados $i_{0},i_{1},\ldots,i_{n},i,j$ y tiempos $0\leq\tau_0<\tau_1<\cdots<\tau_n<s$
+
+\[
+\begin{array}{lcl}
+P\{X(t+s)=j|X(\tau_0)=i_0\ldots X(\tau_n)\tau_n)=i_n,X(s)=i\} & = & P\{X(t+s)=j|X(s)=i\} \\
+& = & P\{X(t)=j|X(0)=i\}
+\end{array}
+\]
+
+Un proceso estocástico se conoce como proceso de nacimiento y muerte con un estado de espacios $\mathcal{S}$ si cumple con los siguientes axiomas:
+
+\begin{enumerate}
+  \item $\mathcal{S} \subset I = \{ 0,1,2,\ldots\}$
+  \item Es una cadena Markov homogénea
+  \item Existen las constantes no negativas $\lambda_j$ y $\mu_j$, con $j=0,1,\ldots$ con $\mu_0=0$, tal que para $s>0$ y $t\geq 0$, se cumple:
+\begin{equation}
+P\{X(t+s)=j+1|X(t)=j\}=\lambda_js + o(s)\quad j \in I 
+\end{equation}
+\begin{equation}
+P\{X(t+s)=j-1|X(t)=j\}=\mu_js + o(s)\quad j \in I 
+\end{equation}
+\begin{equation}
+P\{X(t+s)=j|X(t)=j\}=1-(\lambda_j+\mu_j)s + o(s)\quad j \in I 
+\end{equation}
+\end{enumerate}
+
+$X(t)$ se conoce como el tamaño de la población al tiempo $t$. A $\lambda_j$ se le conoce como la tasa de nacimiento y $\mu_j$ como la tasa de muerte. Una medida interesante de los procesos de nacimiento y muerte es el tiempo del primer paso del estado {i} al estado {j}, que se denota como $T_{i,j}$. Para calcular la distribución de esta variable aleatoria es conveniente utilizar la transformación de Laplace bilateral. La cual se define de la siguiente forma:
+
+\[
+F(s) = \mathcal{L} \left\{f(t)\right\}=\int_{-\infty}^{\infty} e^{-st} f(t) \,dt
+\]\\
+
+El tiempo $T_{i,j}$ se puede expresar de la siguiente forma:
+\[
+T_{i,j}=T_{i,i+1}+T_{i+1,i+2}+\ldots+T_{j-1,j}
+\]
+donde $T_{k,k+1}$ con $k=1,2,\ldots,j-1$ son independientes, lo cual permite utilizar la siguiente propiedad de la transformación de Laplace:
+\[
+\hat{f}_{X+Y}(s)=\operatorname{E}[e^{-s(X+Y)}]=\operatorname{E}[e^{-sX}]\operatorname{E}[e^{-sY}]=\hat{f}_{X}(s)\hat{f}_{Y}(s)
+\]
+
+\[
+T_{i,i-1} =
+\begin{cases}
+S_{1}, & \mbox{if } X(S_{1})=i-1 \\
+S_{1}+T_{i+1,i-1}, & \mbox{if } X(S_{1})=i+1
+\end{cases}
+\]
+ 
+\[
+T_{i+1,i-1}=T_{i+1,i}+T_{i,i-1}
+\]
+ 
+\[
+\begin{array}{rcrcl}
+F_{i,i-1}(t) & = & P\{ T_{i+1,i-1}\leq t \} & = & P\{ T_{i,i-1}\leq t | X(S_{1})=i-1 \}P\{ X(S_{1})=i-1 \} +\\
+ & & & & P\{ T_{i,i-1}\leq t | X(S_{1})=i+1 \}P\{ X(S_{1})=i+1 \} \\
+ & & & = & P\{ S_{1}\leq t\}P\{ X(S_{1})=i-1 \} +\\
+ & & & & P\{ S_{1} + T_{i+1,i-1}\leq t\}P\{ X(S_{1})=i+1 \} \\
+ & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} P\{ S_{1}\leq t\} + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} P\{ S_{1} + T_{i+1,i-1}\leq t\}\\
+ & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} F_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} F_{ S_{1} + T_{i+1,i-1}}(t)\\
+\end{array}
+\]
+ 
+\[
+\begin{array}{rcrcl}
+\frac{d}{dt} F_{i,i-1}(t) & = & f_{i,i-1}(t) & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} \frac{d}{dt} F_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} \frac{d}{dt} F_{ S_{1} + T_{i+1,i-1}}(t)\\
+ & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} f_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} f_{ S_{1} + T_{i+1,i-1}}(t)\\
+\end{array}
+\]
+ 
+\[
+\begin{array}{rcrcl}
+\mathcal{L} \{ f_{i,i-1}(t) \} & = & \hat{f}_{i,i-1}(s) & = & \mathcal{L} \{ \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} f_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} f_{ S_{1} + T_{i+1,i-1}}(t) \}\\
+ & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} \hat{f}_{S_{1}}(s) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} f_{ S_{1} + T_{i+1,i-1}}(s) \\
+ & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} \frac{\lambda_{i}+\mu_{i}}{\lambda_{i}+\mu_{i}+s} + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} \hat{f}_{S_{1}}(s) \hat{f}_{T_{i+1,i}}(s) \hat{f}_{T_{i,i-1}}(s) \\
+ & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} \frac{\lambda_{i}+\mu_{i}}{\lambda_{i}+\mu_{i}+s} + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} \frac{\lambda_{i}+\mu_{i}}{\lambda_{i}+\mu_{i}+s} \hat{f}_{i+1,i}(s) \hat{f}_{i,i-1}(s) \\
+\end{array}
+\]
+ 
+\[
+\hat{f}_i (s) = \hat{f}_{i,i-1}(s) = \frac{\mu_{i}}{\lambda_{i}+\mu_{i}+s-\lambda_{i}\hat{f}_{i+1}(s)}
+\]
+
+\[
+\hat{f}_i (s) = \cfrac{\mu_{i}}{\lambda_{i}+\mu_{i} + s - \lambda_{i}
+\cfrac{\mu_{i+1}}{\lambda_{i+1}+\mu_{i+1} + s - \lambda_{i+1}
+\cfrac{\mu_{i+2}}{\lambda_{i+2}+\mu_{i+2} + s + \ddots}}}
+\]
+
+\[
+\hat{f}_i (s) = -\frac{1}{\lambda_{i-1}} \cfrac{-\lambda_{i-1}\mu_{i}}{\lambda_{i}+\mu_{i} + s +
+\cfrac{-\lambda_{i}\mu_{i+1}}{\lambda_{i+1}+\mu_{i+1} + s +
+\cfrac{-\lambda_{i+1}\mu_{i+2}}{\lambda_{i+2}+\mu_{i+2} + s + \ddots}}}
+\]
+
+\[
+\hat{f}_i (s) = -\frac{1}{\lambda_{i-1}}\Phi_{k=i}^{\infty}\frac{-\lambda_{k-1}\mu_{k}}{\lambda_{k}+\mu_{k}+s}
+\]
+
+\end{document}
