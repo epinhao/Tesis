@@ -16,7 +16,7 @@
 %\usepackage[pdftex]{graphicx} % Windows
 %\usepackage{epstopdf} % Windows
 
-\renewcommand{\baselinestretch}{1.6} %double-spacing
+%\renewcommand{\baselinestretch}{1.6} %double-spacing
 
 \begin{document}
 
@@ -61,6 +61,17 @@ donde $T_{k,k+1}$ con $k=1,2,\ldots,j-1$ son independientes, lo cual permite uti
 \hat{f}_{X+Y}(s)=\operatorname{E}[e^{-s(X+Y)}]=\operatorname{E}[e^{-sX}]\operatorname{E}[e^{-sY}]=\hat{f}_{X}(s)\hat{f}_{Y}(s)
 \]
 
+Lo cual permite expresar a la transformación de la función de densidad de $T_{i,j}$ como:
+\[
+\hat{f}_{i,j}(s)=\prod_{k=i}^{j-1}\hat{f}_{k,k+1}(s)
+\]
+haciendo deseable encontrar una transformación $\mathcal{L}^{-1}$ tal que:
+\[
+\mathcal{L}^{-1}\{\hat{f}(s)\}=f(t)
+\]
+
+Primer es necesario encontrar una expresión para $\hat{f}_{i,i-1}$. Ahora si condicionamos $T_{i,i-1}$ a la primera transición, donde $S_1$ es el tiempo para el primer evento, podemos expresarlo como:
+
 \[
 T_{i,i-1} =
 \begin{cases}
@@ -90,7 +101,12 @@ F_{i,i-1}(t) & = & P\{ T_{i+1,i-1}\leq t \} & = & P\{ T_{i,i-1}\leq t | X(S_{1})
  & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} f_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} f_{ S_{1} + T_{i+1,i-1}}(t)\\
 \end{array}
 \]
- 
+
+Ahora $S_1$ tiene una distribución exponencial con media $\frac{1}{\lambda_i+\mu_i}$ por lo que:
+\[
+\mathcal{L}\{f_{S_1}(t)\}=\int_{0}^{\infty} e^{-st} f_{S_1}(t)\,dt=(\lambda_i+\mu_i)\int_{0}^{\infty} e^{-(\lambda_i+\mu_i+s)t}\,dt=\frac{\lambda_i+\mu_i}{\lambda_i+\mu_i+s}
+\]
+
 \[
 \begin{array}{rcrcl}
 \mathcal{L} \{ f_{i,i-1}(t) \} & = & \hat{f}_{i,i-1}(s) & = & \mathcal{L} \{ \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} f_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} f_{ S_{1} + T_{i+1,i-1}}(t) \}\\
@@ -103,6 +119,29 @@ F_{i,i-1}(t) & = & P\{ T_{i+1,i-1}\leq t \} & = & P\{ T_{i,i-1}\leq t | X(S_{1})
 \[
 \hat{f}_i (s) = \hat{f}_{i,i-1}(s) = \frac{\mu_{i}}{\lambda_{i}+\mu_{i}+s-\lambda_{i}\hat{f}_{i+1}(s)}
 \]
+\\
+
+Otro concepto que es necesario introducir es lo que se conoce como fracciones continuas. Las cuales son expresiones de la forma:
+\[
+\cfrac{a_1}{b_1 + 
+\cfrac{a_2}{b_2 + 
+\cfrac{a_3}{b_3+ \ddots}}}
+\]
+
+Una fracción continua infinita se define con las sucesiones $\left[\{a_n\}_1^{\infty},\{b_n\}_1^{\infty},\{w_n\}_1^{\infty}\right]$ donde $t_k$ se define como:
+\[
+t_k:\rightarrow \frac{a_k}{b_k+u}
+\]
+donde:
+\[
+w_n:=t_1\circ t_2 \circ \cdots \circ t_n(0)
+\]
+por lo que se puede denotar a la fracción continua $\left[\{a_n\}_1^{\infty},\{b_n\}_1^{\infty},\{w_n\}_1^{\infty}\right]$ de la siguiente forma:
+\[
+\Phi_{k=i}^{\infty}\frac{a_n}{b_n}
+\]
+
+Ahora iterando en la expresión que se obtuvo previamente para $\hat{f}_i(s)$, obtenemos:
 
 \[
 \hat{f}_i (s) = \cfrac{\mu_{i}}{\lambda_{i}+\mu_{i} + s - \lambda_{i}
@@ -119,5 +158,8 @@ F_{i,i-1}(t) & = & P\{ T_{i+1,i-1}\leq t \} & = & P\{ T_{i,i-1}\leq t | X(S_{1})
 \[
 \hat{f}_i (s) = -\frac{1}{\lambda_{i-1}}\Phi_{k=i}^{\infty}\frac{-\lambda_{k-1}\mu_{k}}{\lambda_{k}+\mu_{k}+s}
 \]
+\\
+
+Debido a las propiedades de la función de densidad $f$, se puede probar 
 
 \end{document}
