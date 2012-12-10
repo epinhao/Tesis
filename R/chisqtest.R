@@ -1,0 +1,9 @@
+bin=seq(0,0.99,0.01)
+bindata=cut(data,bin)
+bindata=table(bindata)
+n=length(data)
+val = m$estimate
+p=n*(plomax(bin+0.01,val[1],val[2])-plomax(bin,val[1],val[2]))
+p=p[1:100]
+p=p/sum(p)
+chisq.test(bindata,p=p)
