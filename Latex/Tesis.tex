@@ -664,6 +664,20 @@ Dada una configuración inicial del libro de posturas, la probabilidad de que en
 P\{p_M(T)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=S\}
 \]
 
+Los procesos $X_A$ y $X_B$ son procesos de nacimiento nacimiento y muerte con las siguientes tasas de transición:
+\[
+n\rightarrow n+1 \text{ con una tasa }\lambda(S)
+\]
+\[
+n\rightarrow n-1 \text{ con una tasa }\mu+n\theta(S)
+\]\\
+
+En particular cuando $S=1$ el precio medio $p_M(t)$ se altera cuando $X_A$ ó $X_B$ alcanzan el estado 0. Ahora si se denota $\sigma_A$ y $\sigma_B$ como el tiempo del primer paso de los procesos $X_A$ y $X_B$ a cero.  La distribución de $T$ esta dada por el mínimo de los tiempos del primer paso de los procesos $X_A$ y $X_B$. La probabilidad de interés se puede expresar como $P\{\sigma_A<\sigma_B|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. La transformación de Laplace de la distribución condicional de $\sigma_A-\sigma_B$ esta dada por $\hat{f}_A(s)\hat{f}_B(-s)$ donde:
+
+\[
+\hat{f_Z}(s)=-\left(\frac{1}{\lambda(S)}\right)
+\]
+
 \clearpage
 
 \listoftables
