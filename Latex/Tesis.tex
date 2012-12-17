@@ -19,6 +19,8 @@
 
 %\renewcommand{\baselinestretch}{1.6} %double-spacing
 
+\numberwithin{equation}{section} %equation numbers
+
 \begin{document}
 
 \thispagestyle{empty}
@@ -225,9 +227,10 @@ Aún más importante que el volumen operado es la tendencia de precios. Una form
 
 Los mercados financieros ofrecen un gran número de información, es posible identificar algunos patrones. Por ejemplo se ha identificado que la distribución de los precios de las posturas sigue una ley de potencias, es decir las frecuencias decrecen exponencialmente al aumentar la variable. Es decir si definimos a $b(t)$ como el precio de la mejora postura de compra y $a(t)$ el precio de la mejor postura de venta. El precio de una nueva postura de compra o venta se puede expresar como $b(t)-\Delta$ ó $a(t)+\Delta$ respectivamente, donde la $\Delta$ esta expresada en pujas o ticks, es decir el importe minimo en que puede variar el precio unitario de cada título. Cabe mencionar que $\Delta$ puede tomar valores negativos. Si por ejemplo, con $\Delta <0$, se registra una postura con el precio $b(t)-\Delta \geq a(t)$ entonces se concretará un hecho, mientras que si $b(t)-\Delta < a(t)$ entonces el precio $b(t+1)=b(t)-\Delta$. Ahora si se excluyen las posturas donde $\Delta \leq 0$ se puede decir que los precios siguen una distribución definida por:
 
-\[
+\begin{equation}
 P\left(\Delta\right) \propto \frac{A}{{\left(\Delta+\lambda\right)}^{\alpha+1}}
-\]\\
+\end{equation}
+\\
 
 Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyeron la modificaciones, las cuales se podrían considerar como una nueva postura en algunos casos. Otros estudios han encontrado que el parámetro $alpha$ es muy similar entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, en este caso las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución esta definida cuando $\alpha>1$, por lo que en este caso para algunas de las emisoras se podría definir la media. Otro hecho que se destaca en otros trabajos es que el parámetro $\alpha$ es similar para las posturas de compra y venta \cite{Bouchaud2002}. Para las acciones estudiadas en este caso, para una misma emisora el parámetro es similar en la mayoría de los casos, sin embargo, en el caso de KUO el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de compra.\\
 
@@ -319,11 +322,11 @@ Se realizó un estudio similar para la distribución del volumen de las posturas
 Un proceso estocástico $\{X(t);t\geq 0\}$ con un conjunto de estados $\mathcal{S} \subset I$ se dice que es una cadena de Markov homogénea si para toda $n \in I$, estados $i_{0},i_{1},\ldots,i_{n},i,j$ y tiempos $0\leq\tau_0<\tau_1<\cdots<\tau_n<s$
 
 \[
-\begin{array}{lcl}
-P\{X(t+s)=j|X(\tau_0)=i_0\ldots X(\tau_n)\tau_n)=i_n,X(s)=i\} & = & P\{X(t+s)=j|X(s)=i\} \\
-& = & P\{X(t)=j|X(0)=i\}
-\end{array}
+P\{X(t+s)=j|X(\tau_0)=i_0\ldots X(\tau_n)\tau_n)=i_n,X(s)=i\}
 \]
+\begin{equation}
+= P\{X(t+s)=j|X(s)=i\} = P\{X(t)=j|X(0)=i\}
+\end{equation}
 
 Un proceso estocástico se conoce como proceso de nacimiento y muerte con un espacio de estados $\mathcal{S}$ si cumple con los siguientes axiomas:
 
@@ -331,54 +334,52 @@ Un proceso estocástico se conoce como proceso de nacimiento y muerte con un esp
   \item $\mathcal{S} \subset I = \{ 0,1,2,\ldots\}$
   \item Es una cadena Markov homogénea
   \item Existen las constantes no negativas $\lambda_j$ y $\mu_j$, con $j=0,1,\ldots$ con $\mu_0=0$, tal que para $s>0$ y $t\geq 0$, se cumple:
-\[
-P\{X(t+s)=j+1|X(t)=j\}=\lambda_js + o(s)\quad j \in I 
-\]
-\[
-P\{X(t+s)=j-1|X(t)=j\}=\mu_js + o(s)\quad j \in I 
-\]
-\[
-P\{X(t+s)=j|X(t)=j\}=1-(\lambda_j+\mu_j)s + o(s)\quad j \in I 
-\]
+\begin{subequations}
+\begin{eqnarray}
+P\{X(t+s)=j+1|X(t)=j\} = \lambda_j s + o(s)\quad j \in I \\
+P\{X(t+s)=j-1|X(t)=j\} = \mu_js + o(s)\quad j \in I \\
+P\{X(t+s)=j|X(t)=j\} = 1-(\lambda_j+\mu_j)s + o(s)\quad j \in I 
+\end{eqnarray}
+\end{subequations}
 \end{enumerate}
+
 
 $X(t)$ se conoce como el tamaño de la población al tiempo $t$. A $\lambda_j$ se le conoce como la tasa de nacimiento y $\mu_j$ como la tasa de muerte. Una medida interesante de los procesos de nacimiento y muerte es el tiempo del primer paso del estado {i} al estado {j}, que se denota como $T_{i,j}$. Para calcular la distribución de esta variable aleatoria es conveniente utilizar la transformación de Laplace bilateral. La cual se define de la siguiente forma:
 
-\[
-F(s) = \mathcal{L} \left\{f(t)\right\}=\int_{-\infty}^{\infty} e^{-st} f(t) \,dt
-\]\\
+\begin{equation}
+\hat{f}(s) = \mathcal{L} \left\{f(t)\right\}=\int_{-\infty}^{\infty} e^{-st} f(t) \,dt
+\end{equation}\\
 
 El tiempo $T_{i,j}$ se puede expresar de la siguiente forma:
-\[
+\begin{equation}
 T_{i,j}=T_{i,i+1}+T_{i+1,i+2}+\ldots+T_{j-1,j}
-\]
+\end{equation}
 donde $T_{k,k+1}$ con $k=1,2,\ldots,j-1$ son independientes, lo cual permite utilizar la siguiente propiedad de la transformación de Laplace:
-\[
+\begin{equation}
 \hat{f}_{X+Y}(s)=\operatorname{E}[e^{-s(X+Y)}]=\operatorname{E}[e^{-sX}]\operatorname{E}[e^{-sY}]=\hat{f}_{X}(s)\hat{f}_{Y}(s)
-\]
+\end{equation}
 
 Lo cual permite expresar a la transformación de la función de densidad de $T_{i,j}$ como:
-\[
+\begin{equation}
 \hat{f}_{i,j}(s)=\prod_{k=i}^{j-1}\hat{f}_{k,k+1}(s)
-\]
+\end{equation}
 haciendo deseable encontrar una transformación $\mathcal{L}^{-1}$ tal que:
-\[
+\begin{equation}
 \mathcal{L}^{-1}\{\hat{f}(s)\}=f(t)
-\]
+\end{equation}
 
 Primero es necesario encontrar una expresión para $\hat{f}_{i,i-1}$. Ahora si condicionamos $T_{i,i-1}$ a la primera transición, donde $S_1$ es el tiempo para el primer evento, podemos expresarlo como:
 
-\[
+\begin{equation}
 T_{i,i-1} =
 \begin{cases}
 S_{1}, & \mbox{si } X(S_{1})=i-1 \\
 S_{1}+T_{i+1,i-1}, & \mbox{si } X(S_{1})=i+1
 \end{cases}
-\]
- 
-\[
+\end{equation}
+\begin{equation}
 T_{i+1,i-1}=T_{i+1,i}+T_{i,i-1}
-\]
+\end{equation}
  
 \[
 \begin{array}{rcrcl}
@@ -412,10 +413,9 @@ Ahora $S_1$ tiene una distribución exponencial con media $\frac{1}{\lambda_i+\m
 \end{array}
 \]
  
-\[
+\begin{equation}
 \hat{f}_i (s) = \hat{f}_{i,i-1}(s) = \frac{\mu_{i}}{\lambda_{i}+\mu_{i}+s-\lambda_{i}\hat{f}_{i+1}(s)}
-\]
-\\
+\end{equation}\\
 
 Otro concepto que es necesario introducir es lo que se conoce como fracciones continuas. Las cuales son expresiones de la forma:
 \[
@@ -451,16 +451,14 @@ Ahora iterando en la expresión que se obtuvo previamente para $\hat{f}_i(s)$, o
 \cfrac{-\lambda_{i+1}\mu_{i+2}}{\lambda_{i+2}+\mu_{i+2} + s + \ddots}}}
 \]
 
-\[
+\begin{equation}
 \hat{f}_i (s) = -\frac{1}{\lambda_{i-1}}\Phi_{k=i}^{\infty}\frac{-\lambda_{k-1}\mu_{k}}{\lambda_{k}+\mu_{k}+s}
-\]
-\\
+\end{equation}\\
 
 Debido a las propiedades de la función de densidad $f$, se puede probar \cite{abate1999} que $\hat{f}$ converge y esta acotada entre la sucesión creciente de aproximantes pares $w_{2n}$ y la sucesión decreciente de aproximantes impares $w_{2n+1}$:
 \[
 w_{2n}(s)<\hat{f}(s)<w_{2n+1}(s) \text{ para toda }n 
 \]
-
 Donde $w_n$ se puede calcular de la siguiente forma:
 \[
 w_n=\frac{P_n}{Q_n}
@@ -555,14 +553,13 @@ Ahora si se introduce un factor de atenuación tal que:
 \[
 h(t)=e^{-at}f(t)
 \]
-de tal forma que $A(w_k)$ es la transformación de Laplace de una función en los números reales.
+de tal forma que $A(w_k)$ es la transformación de Laplace de una función en los números reales.\\
 
 De esta forma, multiplicando ambos lados por el factor de atenuación:
 \[
 \sum_{n=0}^{\infty}e^{at}g_n(t)=\frac{2e^{at}}{T}\left[\frac{1}{2} \{\hat{f}(a) \}+\sum_{k=1}^{\infty}Re\left(\hat{f}\left(a+\frac{k\pi i}{T}\right)\right)cos\left(\frac{k\pi}{T}t\right)\right]
 \]
-
-Por lo que de la definición de $g_n(t)$:
+por lo que de la definición de $g_n(t)$:
 \[
 \sum_{n=0}^{\infty}e^{at}g_n(t)=\sum_{n=0}^{\infty}e^{at}h(2nT+t)+\sum_{n=1}^{\infty}e^{at}h(2nT-t)
 \]
@@ -572,9 +569,9 @@ de tal forma que sustituyendo $h(t)=e^{-at}f(t)$:
 \]
 
 Con esto podemos deducir el resultado:
-\[
+\begin{equation}
 f(t) \approx \frac{2e^{at}}{T}\left[\frac{1}{2} \{\hat{f}(a) \}+\sum_{k=1}^{\infty}Re\left(\hat{f}\left(a+\frac{k\pi i}{T}\right)\right)cos\left(\frac{k\pi}{T}t\right)\right]
-\]
+\end{equation}
 
 Esto es similar al resultado que se obtiene si se utilizará la regla del trapecio para evaluar la integral de la transformación inversa. La cual tiene como resultado la siguiente expresión:
 
@@ -672,11 +669,69 @@ n\rightarrow n+1 \text{ con una tasa }\lambda(S)
 n\rightarrow n-1 \text{ con una tasa }\mu+n\theta(S)
 \]\\
 
-En particular cuando $S=1$ el precio medio $p_M(t)$ se altera cuando $X_A$ ó $X_B$ alcanzan el estado 0. Ahora si se denota $\sigma_A$ y $\sigma_B$ como el tiempo del primer paso de los procesos $X_A$ y $X_B$ a cero.  La distribución de $T$ esta dada por el mínimo de los tiempos del primer paso de los procesos $X_A$ y $X_B$. La probabilidad de interés se puede expresar como $P\{\sigma_A<\sigma_B|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. La transformación de Laplace de la distribución condicional de $\sigma_A-\sigma_B$ esta dada por $\hat{f}_A(s)\hat{f}_B(-s)$ donde:
-
+En particular cuando $S=1$ el precio medio $p_M(t)$ se altera cuando $X_A$ ó $X_B$ alcanzan el estado 0. Ahora si se denota $\sigma_A$ y $\sigma_B$ como el tiempo del primer paso de los procesos $X_A$ y $X_B$ a cero.  La distribución de $T$ esta dada por el mínimo de los tiempos del primer paso de los procesos $X_A$ y $X_B$. La probabilidad de interés se puede expresar como $P\{\sigma_A<\sigma_B|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. La transformación de Laplace de la distribución condicional de $\sigma_A-\sigma_B$ esta dada por:
 \[
-\hat{f_Z}(s)=-\left(\frac{1}{\lambda(S)}\right)
+\hat{f}^A(s)\hat{f}^B(-s)
 \]
+donde:
+\[
+\hat{f}_{j,0}^Z(s)=-\left(\frac{1}{\lambda(S)}\right)^j\left( \prod_{i=1}^b \Phi_{k=i}^\infty \frac{-\lambda(S)(\mu+k\theta(S))}{\lambda(S)+\mu+k\theta(S)+s} \right)
+\]\\
+
+Por lo que la probabilidad buscada se obtiene al evaluar la función de distribución acumulada en 0. Para hacer esto es necesario encontrar la transformación inversa de $\hat{f}^A(s)\hat{f}^B(-s)$ e integrar esta función.\\
+
+En el caso de que $S>1$, es necesario considerar que si se recibe una postura dentro del spread el precio medio $p_M(t)$ también se alterará. Por lo que si denotamos $\sigma_A^i$ y $\sigma_B^i$ como el tiempo en el que llega la primera orden a $i$ pujas del mejor precio de venta o compra respectivamente. El tiempo en el que cambia por primera vez $p_M(t)$ esta dado por el mínimo de los tiempos $\sigma_A,\sigma_B,\sigma_A^i$ y $\sigma_B^i$ con $i=1,\ldots,S-1$. Es importante mencionar que $\sigma_A^i$ y $\sigma_B^i$ se distribuyen de manera exponencial con tasa $\lambda(i)$. Para $p_M(t)$ aumente es necesario que arribe una orden de compra a $S-1$ pujas del mejor precio de venta o se agoten las posturas al mejor precio de venta antes de que llegue una postura de venta a $S-1$ pujas de la mejor postura de compra o se agoten las posturas al mejor precio de compra.\\
+
+En este caso la probablidad buscada esta dada por $P\{\sigma_A \land \sigma_B^1 \land \cdots \land \sigma_B^{S-1} < \sigma_B \land \sigma_A^1 \land \cdots \land \sigma_A^{S-1}|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. El mínimo de un conjunto de variables aleatorias que se distribuyen de forma exponencial con parametros $\lambda_1,\ldots,\lambda_n$ tiene una distribución exponencial con parámetro $\lambda_1+\ldots+\lambda_n$. Por lo que podemos expresar la probabilidad de interés de la siguiente forma $P\{\sigma_A \land \sigma_B^\Sigma < \sigma_B \land \sigma_A^\Sigma|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. Por lo que la transformación de Laplace de la función de densidad de $\sigma_A \land \sigma_B^\Sigma - \sigma_B \land \sigma_A^\Sigma$ esta dada por:
+\[
+\left(\hat{f}^A(\Lambda+s)+\frac{\Lambda}{\Lambda+s}(1-\hat{f}_A(\Lambda+s))\right)
+\left(\hat{f}^B(\Lambda+s)+\frac{\Lambda}{\Lambda+s}(1-\hat{f}_B(\Lambda+s))\right)
+\]
+donde $\Lambda=\sum_{i=1}^{S-1}\lambda(i)$. De igual forma es necesario encontrar la transformación, integrar la función y evaluar en 0.\\
+
+Los métodos para invertir la transformación de Laplace discutidos en la sección anterior están diseñados para la transformación unilateral de Laplace, es decir definida en los reales positivos. La distribución de  $\sigma_A \land \sigma_B^\Sigma - \sigma_B \land \sigma_A^\Sigma$ están definidas en todos los reales, por lo que es necesario utilizar algunas herramientas para poder encontrar la transformación inversa.\\
+
+Es importante tener presente que el método utilizado para encontrar la transformación inversa presentado en este trabajo basado en la expansión en series de Fourier utiliza funciones pares. Además es importante notar que el método permite encontrar la transformación inversa para $t \in (0,T)$. Para resolver este problema definimos la función $g(t)=
+f(t-a)$, donde $a$ es tal que:
+\[
+\lim_{t\to 0^-} g(t)=0
+\]
+
+En este caso se realizaron diversas simulaciones de los procesos $X_A$ y $X_B$ para evaluar la distribución de $T$ la cual disminuye exponencialmente para cierta de ambos lados a partir de un cierto máximo.\\
+
+\begin{figure}[htbp] \centering
+\includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpm.eps}
+\caption{Función de densidad de $T$}
+\label{probmt}
+\end{figure}
+
+Si definimos a $u(t)$ como la función de escalón unitario, es decir:
+\[
+u(t) =
+\begin{cases}
+0, & \mbox{si } x<0 \\
+1, & \mbox{si } x\geq0
+\end{cases}
+\]
+debido a las propiedades de la transformación de Laplace:
+\[
+\mathcal{L} \left\{g(t)u(t-a)\right\}=\mathcal{L} \left\{f(t-a)u(t-a)\right\}=e^{-as}\hat{f}(s)
+\]
+por lo que de esta forma podemos desplazar la función de densidad de forma que $\lim_{t\to 0^-} g(t)=0$.\\
+
+\begin{figure}[htbp] \centering
+\includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmshift.eps}
+\caption{Función de densidad de $T$}
+\label{probmtshift}
+\end{figure}
+
+También es importante utilizar el parámetro correcto $T$ para
+
+\begin{figure}[htbp] \centering
+\includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmpar.eps}
+\caption{Función de densidad de $T$}
+\label{probmtpar}
+\end{figure}
 
 \clearpage
 
