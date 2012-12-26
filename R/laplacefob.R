@@ -9,5 +9,5 @@ laplacef <- function(s,lambda,mu,theta,i,j) {
 		p2=p2*laplacefi(-s,lambda,mu,theta,j)
 		j=j-1
 	}
-	return(p1*p2*exp(-10*s))
+	return(p1*p2*exp(-15*s))
 }

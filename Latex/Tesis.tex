@@ -236,25 +236,38 @@ Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyero
 
 \begin{table}[htbp]
 \centering
-\caption{Distribución de Precios de las Posturas}
-\setlength\tabcolsep{2pt}
-\begin{tabular}{r|r|r|r|r|r|r|r|r|r|}
-\multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Compra}} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Venta}} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} \\
+\caption{Distribución de Precios de las Posturas de Compra}
+\begin{tabular}{r|r|r|r|r|}
 \cline{2-5}
-\cline{7-10}
-& $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ & & $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ \\
+& $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ \\
 \cline{2-5}
-\cline{7-10}
-\textbf{AMX}   & 7.4441 & 1.7098 & 629,302 & 454,039 & & 6.2232 & 1.5022 & 767,215 & 555,595 \\
-\textbf{BIMBO} & 14.7809 & 0.8242 & 37,021 & 9,042 & & 31.2291 & 1.2005 & 36,671 & 11,400 \\
-\textbf{COMERCI}   & 7.6756 & 1.2256 & 20,955 & 4,201 & & 11.0780 & 1.6555 & 28,893 & 6,584 \\
-\textbf{GRUMA} & 58.6601 & 4.4624 & 49,895 & 27,845 & & 63.2991 & 4.1402 & 49,026 & 30,012 \\
-\textbf{HERDEZ} & 21.1333 & 2.3332 & 6,811 & 1,773 & & 21.1781 & 2.3215 & 5,493 & 1,263 \\
-\textbf{KUO}   & 11.3803 & 0.8556 & 495   & 93    & & 42.1747 & 1.3034 & 319   & 19 \\
+\textbf{AMX}   & 7.4441 & 1.7098 & 629,302 & 454,039 \\
+\textbf{BIMBO} & 14.7809 & 0.8242 & 37,021 & 9,042 \\
+\textbf{COMERCI}   & 7.6756 & 1.2256 & 20,955 & 4,201 \\
+\textbf{GRUMA} & 58.6601 & 4.4624 & 49,895 & 27,845 \\
+\textbf{HERDEZ} & 21.1333 & 2.3332 & 6,811 & 1,773 \\
+\textbf{KUO}   & 11.3803 & 0.8556 & 495   & 93 \\
 \cline{2-5}
-\cline{7-10}
 \end{tabular}%
-\label{tab:power}%
+\label{tab:powercompra}%
+\end{table}%
+
+\begin{table}[htbp]
+\centering
+\caption{Distribución de Precios de las Posturas de Venta}
+\begin{tabular}{r|r|r|r|r|}
+\cline{2-5}
+& $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ \\
+\cline{2-5}
+\textbf{AMX}   & 6.2232 & 1.5022 & 767,215 & 555,595 \\
+\textbf{BIMBO} & 31.2291 & 1.2005 & 36,671 & 11,400 \\
+\textbf{COMERCI}   & 11.0780 & 1.6555 & 28,893 & 6,584 \\
+\textbf{GRUMA} & 63.2991 & 4.1402 & 49,026 & 30,012 \\
+\textbf{HERDEZ} & 21.1781 & 2.3215 & 5,493 & 1,263 \\
+\textbf{KUO}   & 42.1747 & 1.3034 & 319   & 19 \\
+\cline{2-5}
+\end{tabular}%
+\label{tab:powerventa}%
 \end{table}%
 
 \begin{figure}[htbp]
@@ -313,7 +326,85 @@ Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyero
 \caption{Ajuste del Modelo de Distribución de Precios de las Posturas}\label{fig:fit}
 \end{figure}
 
-Se realizó un estudio similar para la distribución del volumen de las posturas. El volumen también se puede representar con una distribución Lomax, por lo menos para volúmenes superiores a 1000 títulos. Otro fenómeno interesante es la preferencia de los participantes por volúmenes múltiplos de 1000.
+Se realizó un estudio similar para la distribución del volumen de las posturas. El volumen también se puede representar con una distribución Lomax, por lo menos para volúmenes superiores a 1,000 títulos. Otro fenómeno interesante es la preferencia de los participantes por volúmenes múltiplos de 1,000.
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxvolumencompra.eps}
+\caption{AMX compra}
+\label{fig:amxvolumencompra}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxvolumenventa.eps}
+\caption{AMX venta}
+\label{fig:amxvolumenventa}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comercivolumencompra.eps}
+\caption{COMERCI compra}
+\label{fig:comercivolumencompra}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comercivolumenventa.eps}
+\caption{COMERCI venta}
+\label{fig:comercivolumenventa}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuovolumencompra.eps}
+\caption{KUO compra}
+\label{fig:kuovolumencompra}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuovolumenventa.eps}
+\caption{KUO venta}
+\label{fig:kuovolumenventa}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\caption{Ajuste del Modelo de Distribución del Volumen de las Posturas}\label{fig:fit}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{Distribución del Volumen de las Posturas}
+\begin{tabular}{r|r|r|r|r|r|r|r|r|r|}
+\multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Compra}} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Venta}} & \multicolumn{1}{r}{} \\
+\cline{2-3}
+\cline{5-6}
+& $\lambda$ & $\alpha$ & & $\lambda$ & $\alpha$ \\
+\cline{2-3}
+\cline{5-6}
+\textbf{AMX}   & 115,318.20 & 7.2939 & & 112,105.20 & 7.4092 \\
+\textbf{BIMBO} & 689.36 & 1.4184 & & 550.10 & 1.3052 \\
+\textbf{COMERCI}   & 863.75 & 0.8432 & & 648.47 & 0.8336 \\
+\textbf{GRUMA} & 6,135.30 & 2.6177 & & 9,413.25 & 3.1836 \\
+\textbf{HERDEZ}   & 4,064.11 & 1.2659 & & 2,316.45 & 0.8967 \\
+\textbf{KUO}   & 975.37 & 0.5320 & & 24,193.91 & 1.9253 \\
+\cline{2-3}
+\cline{5-6}
+\end{tabular}%
+\label{tab:power}%
+\end{table}%
 
 \clearpage
 
@@ -578,8 +669,7 @@ Esto es similar al resultado que se obtiene si se utilizará la regla del trapec
 \[
 f(t)\approx f_h(t)=\frac{he^{at}}{\pi} Re(\hat{f}(a))+\frac{2he^{at}}{\pi}\sum_{k=1}^{\infty}Re(\hat{f}(a+ikh))cos\,kht
 \]
-
-ara acelerar la convergencia de la serie \cite{abate1995}, se toma $h=\pi/2t$ y $a=A/2t$, se llega a la siguiente serie, la cual es casi alternante:
+para acelerar la convergencia de la serie \cite{abate1995}, se toma $h=\pi/2t$ y $a=A/2t$, se llega a la siguiente serie, la cual es casi alternante:
 
 \[
 f_h(t)=\frac{e^{A/2}}{2t} Re\left(\hat{f}\left(\frac{A}{2t}\right)\right)+\frac{e^{A/2}}{t}\sum_{k=1}^{\infty}(-1)^k Re\left(\hat{f}\left(\frac{A+2k\pi i}{2t}\right)\right)
