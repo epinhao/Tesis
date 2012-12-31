@@ -1,4 +1,4 @@
-mydata = read.csv("/Users/Emilio/Documents/workspace/Tesis/distanciaprecioAMX.txt", header = FALSE)
+mydata = read.csv("/Users/Emilio/Documents/workspace/Tesis/distanciaprecioKUO.txt", header = FALSE)
 #data = mydata[mydata$V1 == "Compra", ]
 #data = mydata[mydata$V1 == "CompraMod", ]
 data = mydata[mydata$V1 == "Venta", ]
@@ -15,7 +15,7 @@ g <- function(a) {
 m = maxLik(f,g,start=c(4,7),method="NM",tol=1e-16)
 val = m$estimate
 cdf=ecdf(vol)
-plot(cdf,verticals=TRUE,do.points=FALSE,xlim=c(0,90000),main=NULL)
+plot(cdf,verticals=TRUE,do.points=FALSE,xlim=c(0,80000),main=NULL)
 volf <- function(x) 1-(1+x/val[1])^(-val[2])
-curve(volf,0,90000,lwd=0.5,add=TRUE)
-legend('right', c("Distribución Empírica del Volumen","Modelo Ajustado"),cex=0.6,lty=c(1,1),lwd=c(2,0.5),bty="n")
+curve(volf,0,80000,lwd=0.5,add=TRUE)
+legend('right', c("Empírica","Modelo"),cex=0.6,lty=c(1,1),lwd=c(2,0.5),bty="n")

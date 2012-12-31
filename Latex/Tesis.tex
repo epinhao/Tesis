@@ -225,14 +225,14 @@ Aún más importante que el volumen operado es la tendencia de precios. Una form
 
 \section{Características Estadísticas del Libro de Posturas}
 
-Los mercados financieros ofrecen un gran número de información, es posible identificar algunos patrones. Por ejemplo se ha identificado que la distribución de los precios de las posturas sigue una ley de potencias, es decir las frecuencias decrecen exponencialmente al aumentar la variable. Es decir si definimos a $b(t)$ como el precio de la mejora postura de compra y $a(t)$ el precio de la mejor postura de venta. El precio de una nueva postura de compra o venta se puede expresar como $b(t)-\Delta$ ó $a(t)+\Delta$ respectivamente, donde la $\Delta$ esta expresada en pujas o ticks, es decir el importe minimo en que puede variar el precio unitario de cada título. Cabe mencionar que $\Delta$ puede tomar valores negativos. Si por ejemplo, con $\Delta <0$, se registra una postura con el precio $b(t)-\Delta \geq a(t)$ entonces se concretará un hecho, mientras que si $b(t)-\Delta < a(t)$ entonces el precio $b(t+1)=b(t)-\Delta$. Ahora si se excluyen las posturas donde $\Delta \leq 0$ se puede decir que los precios siguen una distribución definida por:
+Los mercados financieros ofrecen un gran número de información, sin embargo es posible identificar algunos patrones. Por ejemplo se ha identificado que la distribución de los precios de las posturas sigue una ley de potencias, es decir las frecuencias decrecen exponencialmente al aumentar la variable. Es decir si definimos a $b(t)$ como el precio de la mejora postura de compra y $a(t)$ el precio de la mejor postura de venta. El precio de una nueva postura de compra o venta se puede expresar como $b(t)-\Delta$ ó $a(t)+\Delta$ respectivamente, donde la $\Delta$ esta expresada en pujas o ticks, es decir el importe mínimo en que puede variar el precio unitario de cada título. Cabe mencionar que $\Delta$ puede tomar valores negativos. Si por ejemplo, con $\Delta <0$, se registra una postura con el precio $b(t)-\Delta \geq a(t)$ entonces se concretará un hecho, mientras que si $b(t)-\Delta < a(t)$ entonces el precio $b(t+1)=b(t)-\Delta$. Ahora si se excluyen las posturas donde $\Delta \leq 0$ se puede decir que los precios siguen una distribución definida por:
 
 \begin{equation}
 P\left(\Delta\right) \propto \frac{A}{{\left(\Delta+\lambda\right)}^{\alpha+1}}
 \end{equation}
 \\
 
-Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyeron la modificaciones, las cuales se podrían considerar como una nueva postura en algunos casos. Otros estudios han encontrado que el parámetro $alpha$ es muy similar entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, en este caso las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución esta definida cuando $\alpha>1$, por lo que en este caso para algunas de las emisoras se podría definir la media. Otro hecho que se destaca en otros trabajos es que el parámetro $\alpha$ es similar para las posturas de compra y venta \cite{Bouchaud2002}. Para las acciones estudiadas en este caso, para una misma emisora el parámetro es similar en la mayoría de los casos, sin embargo, en el caso de KUO el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de compra.\\
+Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyeron la modificaciones, las cuales se podrían considerar como una nueva postura en algunos casos. Otros estudios han encontrado que el parámetro $\alpha$ es muy similar entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, en este caso las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución esta definida cuando $\alpha>1$, por lo que en este caso para algunas de las emisoras se podría definir la media. Otro hecho que se destaca en otros trabajos es que el parámetro $\alpha$ es similar para las posturas de compra y venta \cite{Bouchaud2002}. Para las acciones estudiadas en este caso, para una misma emisora el parámetro es similar en la mayoría de los casos, sin embargo, en el caso de KUO el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de compra.\\
 
 \begin{table}[htbp]
 \centering
@@ -323,10 +323,35 @@ Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyero
 %add desired spacing between images, e. g. ~, \quad, \qquad etc.
 %(or a blank line to force the subfigure onto a new line)
 
-\caption{Ajuste del Modelo de Distribución de Precios de las Posturas}\label{fig:fit}
+\caption{Ajuste del Modelo de Distribución de Precios de las Posturas}
+\label{fig:precios}
 \end{figure}
 
-Se realizó un estudio similar para la distribución del volumen de las posturas. El volumen también se puede representar con una distribución Lomax, por lo menos para volúmenes superiores a 1,000 títulos. Otro fenómeno interesante es la preferencia de los participantes por volúmenes múltiplos de 1,000.
+Se realizó un estudio similar para la distribución del volumen de las posturas. El volumen también se puede representar con una distribución Lomax, por lo menos para volúmenes superiores a 1,000 títulos. Otro fenómeno interesante es la preferencia de los participantes por volúmenes múltiplos de 1,000. Como se puede ver en la Tabla \ref{tab:powervolumen}, en la mayoría de los casos los parámetros para una misma emisora son similares para las posturas de compra y venta. Para 4 de las 6 emisoras estudiadas se puede establecer la media. En el caso de COMERCI no se puede definir una media con el modelo ajustado tanto para las posturas de compra como las de venta. En el caso de KUO no se puede definir la media para las posturas de compra; para HERDEZ no esta definida para las posturas de venta.\\
+
+Por ejemplo, con el modelo ajustado, la media del volumen de las posturas de compra de AMX es de 18,322.35 títulos mientras que el de venta es de 17,491.36. La media del volumen de compra para BIMBO es de 1,647.74 mientras que la media las posturas de venta es de 1,802.22.\\
+
+\begin{table}[htbp]
+\centering
+\caption{Distribución del Volumen de las Posturas}
+\begin{tabular}{r|r|r|r|r|r|r|r|r|r|}
+\multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Compra}} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Venta}} & \multicolumn{1}{r}{} \\
+\cline{2-3}
+\cline{5-6}
+& $\lambda$ & $\alpha$ & & $\lambda$ & $\alpha$ \\
+\cline{2-3}
+\cline{5-6}
+\textbf{AMX}   & 115,318.20 & 7.2939 & & 112,105.20 & 7.4092 \\
+\textbf{BIMBO} & 689.36 & 1.4184 & & 550.10 & 1.3052 \\
+\textbf{COMERCI}   & 863.75 & 0.8432 & & 648.47 & 0.8336 \\
+\textbf{GRUMA} & 6,135.30 & 2.6177 & & 9,413.25 & 3.1836 \\
+\textbf{HERDEZ}   & 4,064.11 & 1.2659 & & 2,316.45 & 0.8967 \\
+\textbf{KUO}   & 975.37 & 0.5320 & & 24,193.91 & 1.9253 \\
+\cline{2-3}
+\cline{5-6}
+\end{tabular}%
+\label{tab:powervolumen}%
+\end{table}%
 
 \begin{figure}[htbp]
 \centering
@@ -381,30 +406,92 @@ Se realizó un estudio similar para la distribución del volumen de las posturas
 %add desired spacing between images, e. g. ~, \quad, \qquad etc.
 %(or a blank line to force the subfigure onto a new line)
 
-\caption{Ajuste del Modelo de Distribución del Volumen de las Posturas}\label{fig:fit}
+\caption{Ajuste del Modelo de Distribución del Volumen de las Posturas}
+\label{fig:volumen}
 \end{figure}
+
+La distribución de la distancia $\Delta$ de las cancelaciones de el mejor precio de compra $b(t)$ y de venta $a(t)$ también se puede modelar mediante una distribución Lomax. Se debe considerar como se mostrará en las distribuciones empíricas, que un gran número de las cancelaciones suceden con $\Delta=0$, es decir, al mejor precio de compra y venta respectivamente. La distribución Lomax asume que $F(0)=0$, lo cual no es así. Para evitar esto sólo se consideraran las posturas donde $\Delta>0$, se menciona por separado la proporción de las cancelaciones donde $\Delta=0$.\\
+
+Como se puede ver en la Figura \ref{fig:canc} en este caso la distribución Lomax no es la más adecuada, ya que el grueso de las cancelaciones se concentra en un intervalo con $\Delta<20$. De hecho la media de cada una de las emisoras en la muestra elegida es menor a 35. Esto quiere decir que las cancelaciones se concentran cerca de los mejores precios de compra y venta respectivamente. Otro dato interesante es que en las emisoras estudiadas en el peor de los casos cerca del 15\% de las cancelaciones suceden al mejor precio de compra o venta. En el caso de HERDEZ para las posturas de venta, más del 50\% de las cancelaciones se realizan en la punta.
 
 \begin{table}[htbp]
 \centering
-\caption{Distribución del Volumen de las Posturas}
-\begin{tabular}{r|r|r|r|r|r|r|r|r|r|}
-\multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Compra}} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Venta}} & \multicolumn{1}{r}{} \\
-\cline{2-3}
-\cline{5-6}
-& $\lambda$ & $\alpha$ & & $\lambda$ & $\alpha$ \\
-\cline{2-3}
-\cline{5-6}
-\textbf{AMX}   & 115,318.20 & 7.2939 & & 112,105.20 & 7.4092 \\
-\textbf{BIMBO} & 689.36 & 1.4184 & & 550.10 & 1.3052 \\
-\textbf{COMERCI}   & 863.75 & 0.8432 & & 648.47 & 0.8336 \\
-\textbf{GRUMA} & 6,135.30 & 2.6177 & & 9,413.25 & 3.1836 \\
-\textbf{HERDEZ}   & 4,064.11 & 1.2659 & & 2,316.45 & 0.8967 \\
-\textbf{KUO}   & 975.37 & 0.5320 & & 24,193.91 & 1.9253 \\
-\cline{2-3}
-\cline{5-6}
+\caption{Distribución de las Cancelaciones de las Posturas}
+\begin{tabular}{r|r|r|r|r|r|r|r|r|r|r|r|}
+\multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Compra}} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Venta}} & \multicolumn{1}{r}{} \\
+\cline{2-4}
+\cline{6-8}
+& $\lambda$ & $\alpha$ & $\Delta=0$ & & $\lambda$ & $\alpha$ & $\Delta=0$ \\
+\cline{2-4}
+\cline{6-8}
+\textbf{AMX}   & 7.6567 & 1.7677 & 0.1570\% & & 6.2821 & 1.5505 & 0.1575\% \\
+\textbf{BIMBO} & 3.9398 & 0.6827 & 0.4175\% & & 14.4289 & 1.1085 & 0.3817\% \\
+\textbf{COMERCI}   & 5.2260 & 1.3656 & 0.4670\% & & 6.8606 & 1.7948 & 0.5354\% \\
+\textbf{GRUMA} & 88.3815 & 6.9082 & 0.2002\% & & 91.1204 & 6.4492 & 0.1461\% \\
+\textbf{HERDEZ}   & 15.5851 & 1.7531 & 0.4269\% & & 20.0407 & 1.9113 & 0.5392\% \\
+\textbf{KUO}   & 26.0058 & 1.7855 & 0.4031\% & & 22.8162 & 1.7143 & 0.6486\% \\
+\cline{2-4}
+\cline{6-8}
 \end{tabular}%
-\label{tab:power}%
+\label{tab:powercanc}%
 \end{table}%
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxcanccompra.eps}
+\caption{AMX compra}
+\label{fig:amxvcanccompra}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxcancventa.eps}
+\caption{AMX venta}
+\label{fig:amxcancventa}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comercicanccompra.eps}
+\caption{COMERCI compra}
+\label{fig:comercicanccompra}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comercicancventa.eps}
+\caption{COMERCI venta}
+\label{fig:comercicancventa}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuocanccompra.eps}
+\caption{KUO compra}
+\label{fig:kuocanccompra}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuocancventa.eps}
+\caption{KUO venta}
+\label{fig:kuocancventa}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\caption{Ajuste del Modelo de Distribución de las Cancelaciones de las Posturas}
+\label{fig:canc}
+\end{figure}
 
 \clearpage
 
@@ -606,11 +693,33 @@ h((n+1)T+t), & \mbox{si } -T \leq t \leq 0
 \end{cases}
 \]
 
-\begin{figure}[htbp] \centering
-\includegraphics[scale=0.75]{fourier.png}
-\caption{$g_n(t)$}
-\label{fourier}
+\begin{figure}[htbp]
+\centering
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=\textwidth,trim=0 1.5cm 0 2.5cm]{ft.eps}
+\end{subfigure}
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=\textwidth,trim=0 1.5cm 0 2.5cm]{g1t.eps}
+\end{subfigure}
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=\textwidth,trim=0 1.5cm 0 2.5cm]{g2t.eps}
+\end{subfigure}
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=\textwidth,trim=0 1.5cm 0 2.5cm]{g3t.eps}
+\end{subfigure}
+
+\caption{Funciones $g_n(t)$}
+\label{foruier}
 \end{figure}
+
 
 La expansión en series de Fourier de $g_n(t)$ es la siguiente:
 
@@ -781,13 +890,13 @@ donde $\Lambda=\sum_{i=1}^{S-1}\lambda(i)$. De igual forma es necesario encontra
 
 Los métodos para invertir la transformación de Laplace discutidos en la sección anterior están diseñados para la transformación unilateral de Laplace, es decir definida en los reales positivos. La distribución de  $\sigma_A \land \sigma_B^\Sigma - \sigma_B \land \sigma_A^\Sigma$ están definidas en todos los reales, por lo que es necesario utilizar algunas herramientas para poder encontrar la transformación inversa.\\
 
-Es importante tener presente que el método utilizado para encontrar la transformación inversa presentado en este trabajo basado en la expansión en series de Fourier utiliza funciones pares. Además es importante notar que el método permite encontrar la transformación inversa para $t \in (0,T)$. Para resolver este problema definimos la función $g(t)=
+Es importante tener presente que el método utilizado para encontrar la transformación inversa presentado en este trabajo esta basado en la expansión en series de Fourier, el cual utiliza funciones pares. Además es importante notar que el método permite encontrar la transformación inversa para $t \in (0,T)$. Las funciones de densidad estudiadas no son pares y están definidas para $t<0$ por lo que para resolver este problema definimos la función $g(t)=
 f(t-a)$, donde $a$ es tal que:
 \[
 \lim_{t\to 0^-} g(t)=0
 \]
 
-En este caso se realizaron diversas simulaciones de los procesos $X_A$ y $X_B$ para evaluar la distribución de $T$ la cual disminuye exponencialmente para cierta de ambos lados a partir de un cierto máximo.\\
+En este caso se realizaron diversas simulaciones de los procesos $X_A$ y $X_B$ para evaluar la distribución de $T$ la cual disminuye exponencialmente de ambos lados a partir de un cierto máximo. En la Figura \ref{probmt} se muestra el resultado que se obtiene de las simulaciones y el que se obtiene al utilizar el método de la transformación inversa de Laplace.\\
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpm.eps}
@@ -807,7 +916,7 @@ debido a las propiedades de la transformación de Laplace:
 \[
 \mathcal{L} \left\{g(t)u(t-a)\right\}=\mathcal{L} \left\{f(t-a)u(t-a)\right\}=e^{-as}\hat{f}(s)
 \]
-por lo que de esta forma podemos desplazar la función de densidad de forma que $\lim_{t\to 0^-} g(t)=0$.\\
+por lo que de esta forma podemos desplazar la función de densidad de forma que $\lim_{t\to 0^-} g(t)=0$., como se puede apreciar en la Figura \ref{probmtshift}.\\
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmshift.eps}
@@ -815,7 +924,7 @@ por lo que de esta forma podemos desplazar la función de densidad de forma que 
 \label{probmtshift}
 \end{figure}
 
-También es importante utilizar el parámetro correcto $T$ para
+También es importante utilizar el parámetro correcto $T$ para encontrar la distribución correcta. Como de puede ver en la Figura \ref{probmtpar}, la función de densidad es radicalmente distinta cuando $T$ no es lo suficientemente grande.
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmpar.eps}
