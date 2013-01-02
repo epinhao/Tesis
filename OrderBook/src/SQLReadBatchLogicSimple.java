@@ -376,7 +376,7 @@ public class SQLReadBatchLogicSimple {
 								System.out.println(askpx.subtract(cancpx));
 								try {
 									Long ts = time.getTime();
-									bwd.write("CancCompraMod," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + askpx.subtract(cancpx).toString());
+									bwd.write("CancCompraMod," + modelCompra.getValueAt(listcm.get(index).num, 2) + "," + ts.toString() + "," + askpx.subtract(cancpx).toString() + "," + askpx.subtract(bidpx).toString());
 									bwd.newLine();
 									bwd.write("CompraMod," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + askpx.subtract(price).toString() + "," + askpx.subtract(bidpx).toString());
 									bwd.newLine();
@@ -407,7 +407,7 @@ public class SQLReadBatchLogicSimple {
 								System.out.println(cancpx.subtract(bidpx));
 								try {
 									Long ts = time.getTime();
-									bwd.write("CancVentaMod," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + cancpx.subtract(bidpx).toString());
+									bwd.write("CancVentaMod," + modelVenta.getValueAt(listvm.get(index).num, 2) + "," + ts.toString() + "," + cancpx.subtract(bidpx).toString() + "," + askpx.subtract(bidpx).toString());
 									bwd.newLine();
 									bwd.write("VentaMod," + modelOrdenes.getValueAt(0, 2) + "," + ts.toString() + "," + price.subtract(bidpx).toString() + "," + askpx.subtract(bidpx).toString());
 									bwd.newLine();

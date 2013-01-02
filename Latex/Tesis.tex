@@ -916,7 +916,7 @@ debido a las propiedades de la transformación de Laplace:
 \[
 \mathcal{L} \left\{g(t)u(t-a)\right\}=\mathcal{L} \left\{f(t-a)u(t-a)\right\}=e^{-as}\hat{f}(s)
 \]
-por lo que de esta forma podemos desplazar la función de densidad de forma que $\lim_{t\to 0^-} g(t)=0$., como se puede apreciar en la Figura \ref{probmtshift}.\\
+por lo que de esta forma podemos desplazar la función de densidad de forma que $\lim_{t\to 0^-} g(t)=0$, como se puede apreciar en la Figura \ref{probmtshift}.\\
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmshift.eps}
@@ -931,6 +931,33 @@ También es importante utilizar el parámetro correcto $T$ para encontrar la dis
 \caption{Función de densidad de $T$}
 \label{probmtpar}
 \end{figure}
+
+\subsubsection{Estimación de los Parámetros}
+
+Debido a como se mencionó anteriormente el modelo considera posturas con un volumen estandarizado o único, es necesario encontrar el promedio de las posturas limitadas $S_l$, posturas a mercado $S_m$ y de las cancelaciones $S_c$. Con esto se estima la tasa de llegada de las ordenes limitadas $\lambda$ a una distancia de $i$ pujas, $1\leq i \leq 5$
+
+\[
+\hat{\lambda}(i)=\frac{N_l(i)}{T_*}
+\]
+donde $N_l(i)$ es el número de posturas que llegaron a una distancia $i$ de la mejor postura contraria y $T_*$ es el tiempo total en el que el mercado estuvo abierto expresado en minutos. Para $i>5$ esto se extrapola siguiendo la siguiente ley de potencias:
+\[
+\hat{\lambda}(i)=\frac{k}{i^\alpha}
+\]\\
+
+La tasa de llegada de las posturas a mercado $\mu$ se estima de la siguiente forma:
+\[
+\hat{\mu}=\frac{N_m}{T_*}\frac{S_m}{S_l}
+\]
+En este caso se consideran como posturas de mercado todas aquellas que superan la mejor postura contraria.\\
+
+En trabajos anteriores no se cuenta con información tan detallada del libro de posturas, por lo que no se ha considerado las modificaciones que en este caso forman una parte muy importante de la muestra. Como se puede ver en la Tabla ??, el promedio del volumen de las modificaciones para BIMBO es casi 10 veces mayor al de las nuevas posturas. Esto se puede deber a que los participantes del mercado que están interesados en comprar o vender un volumen mayor seguramente lo harán a través de posturas limitadas. Las posturas limitadas garantizan un precio, mientras que a través de un postura a mercado se garantizan la ejecución pero no el precio. Los participantes con posturas de gran volumen serán los que adaptarán el precio de sus posturas a través de modificaciones. Existen tres alternativas:
+\begin{itemize}
+  \item Considerar las modificaciones como una cancelación y una nueva postura
+  \item Ignorar las modificaciones
+  \item Modelar las modificaciones como otro proceso\\
+\end{itemize}
+
+La primera alternativa es la que más se acerca a estudios anteriores ya que estos no cuentan con la noción de las modificaciones, al tener las información de las puntas del libro de posturas sólo notan la cancelación de una postura y la aparición de una nueva a otro nivel. No se considera la diferencia en el volumen de las nuevas posturas y de las modificaciones. Por ejemplo en la acción de BIMBO el volumen de las nuevas posturas limitadas de compra es de 4,331.93. Mientras si se toman en conjunto las nuevas posturas y las modificaciones el promedio del volumen es de 21,103.19. Esto se debe al que el promedio del volumen de las modificaciones de compra es de 35,338.21. La segunda alternativa no es viable ya que hay un gran número de modificaciones, al ignorarlas se descartaría información importante en el modelo. La tercera alternativa le agrega un poco de complejidad al modelo, ya que es necesario modelar de alguna forma la llegada de las modificaciones y el comportamiento de ellas. En este caso se optará por la primera alternativa.
 
 \clearpage
 
