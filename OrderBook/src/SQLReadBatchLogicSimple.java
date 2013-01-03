@@ -27,14 +27,14 @@ public class SQLReadBatchLogicSimple {
 
 	public static void main(String[] args) throws IOException {
 
-		final String emisora = "AMX";
-		final String serie = "L";
+		final String emisora = "KOF";
+		final String serie = "";
 
-		final Calendar day = new GregorianCalendar(2011,0,21);
-		final int days = 24;
+		//final Calendar day = new GregorianCalendar(2011,0,21);
+		//final int days = 24;
 
-		//final Calendar day = new GregorianCalendar(2010,10,16);
-		//final int days = 68;
+		final Calendar day = new GregorianCalendar(2010,10,16);
+		final int days = 68;
 
 		final Sql reader = new Sql();
 
