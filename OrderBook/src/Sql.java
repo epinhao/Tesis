@@ -63,11 +63,11 @@ public class Sql {
 		String pass = "test";
 		// Remote
 		/*String url = "jdbc:mysql://tesis.ci9ubv2adbti.us-east-1.rds.amazonaws.com:3306/";
-				String db = "tesis";
-				String opt = "?zeroDateTimeBehavior=convertToNull";
-				String driver = "com.mysql.jdbc.Driver";
-				String user = "tesis";
-				String pass = Password.password;*/
+		String db = "tesis";
+		String opt = "?zeroDateTimeBehavior=convertToNull";
+		String driver = "com.mysql.jdbc.Driver";
+		String user = "tesis";
+		String pass = Password.password;*/
 		try{
 			Class.forName(driver).newInstance();
 			con = DriverManager.getConnection(url+db+opt, user, pass);
