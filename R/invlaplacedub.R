@@ -19,3 +19,15 @@ calc<-function(a,b,dt,T,N,at) {
 	h=c((g[1:(length(g)-1)]+g[2:length(g)])/2,0)
 	return(data.frame(c,g,h))
 }
+
+calc2<-function(a,b,dt,com,ven,T,N,at) {
+	c=seq(a,b,dt)
+	g=vector()
+	i=a
+	for(k in 1:((b-a)/dt+1)) {
+		g[k]=invlaplacef(i,0.1669,0.1438,0.2716,com,ven,at,T,N)
+		i=i+dt
+	}
+	h=c((g[1:(length(g)-1)]+g[2:length(g)])/2,0)
+	return(data.frame(c,g,h))
+}
