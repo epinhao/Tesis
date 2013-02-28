@@ -948,16 +948,22 @@ La tasa de llegada de las posturas a mercado $\mu$ se estima de la siguiente for
 \[
 \hat{\mu}=\frac{N_m}{T_*}\frac{S_m}{S_l}
 \]
-En este caso se consideran como posturas de mercado todas aquellas que superan la mejor postura contraria.\\
+$N_m$ es el número de posturas de mercado; en este caso se consideran como posturas de mercado todas aquellas que superan la mejor postura contraria.\\
 
-En trabajos anteriores no se cuenta con información tan detallada del libro de posturas, por lo que no se ha considerado las modificaciones que en este caso forman una parte muy importante de la muestra. Como se puede ver en la Tabla ??, el promedio del volumen de las modificaciones para BIMBO es casi 10 veces mayor al de las nuevas posturas. Esto se puede deber a que los participantes del mercado que están interesados en comprar o vender un volumen mayor seguramente lo harán a través de posturas limitadas, ya que son más sensibles al precio. Las posturas limitadas garantizan un precio, mientras que a través de un postura a mercado se garantizan la ejecución pero no el precio. Los participantes con posturas de gran volumen se verán obligados a adaptar el precio de sus posturas a través de modificaciones para lograr la ejecución de las mismas. Existen tres alternativas:
+En trabajos anteriores no se cuenta con información tan detallada del libro de posturas, por lo que no se ha considerado las modificaciones que en este caso forman una parte muy importante de la muestra. El promedio del volumen de las modificaciones para BIMBO es casi 10 veces mayor al de las nuevas posturas. Esto se puede deber a que los participantes del mercado que están interesados en comprar o vender un volumen mayor seguramente lo harán a través de posturas limitadas, ya que son más sensibles al precio. Las posturas limitadas garantizan un precio, mientras que a través de un postura a mercado se garantizan la ejecución pero no el precio. Los participantes con posturas de gran volumen se verán obligados a adaptar el precio de sus posturas a través de modificaciones para lograr la ejecución de las mismas. Existen tres alternativas:
 \begin{itemize}
   \item Considerar las modificaciones como una cancelación y una nueva postura
   \item Ignorar las modificaciones
   \item Modelar las modificaciones como otro proceso\\
 \end{itemize}
 
-La primera alternativa es la que más se acerca a estudios anteriores ya que estos no cuentan con la noción de las modificaciones, al tener las información de las puntas del libro de posturas sólo notan la cancelación de una postura y la aparición de una nueva a otro nivel. No se considera la diferencia en el volumen de las nuevas posturas y de las modificaciones. Por ejemplo en la acción de BIMBO el volumen de las nuevas posturas limitadas de compra es de 2,005.23. Mientras si se toman en conjunto las nuevas posturas y las modificaciones el promedio del volumen es de 10,518.09. Esto se debe al que el promedio del volumen de las modificaciones de compra es de 27,237.23. La segunda alternativa no es viable ya que hay un gran número de modificaciones, al ignorarlas se descartaría información importante en el modelo. La tercera alternativa le agrega un poco de complejidad al modelo, ya que es necesario modelar de alguna forma la llegada de las modificaciones y el comportamiento de ellas. En este caso se optará por la primera alternativa.
+La primera alternativa es la que más se acerca a estudios anteriores ya que estos no cuentan con la noción de las modificaciones, al tener las información de las puntas del libro de posturas sólo notan la cancelación de una postura y la aparición de una nueva a otro nivel. No se considera la diferencia en el volumen de las nuevas posturas y de las modificaciones. Por ejemplo en la acción de BIMBO el volumen de las nuevas posturas limitadas de compra es de 2,005.23. Mientras si se toman en conjunto las nuevas posturas y las modificaciones el promedio del volumen es de 10,518.09. Esto se debe al que el promedio del volumen de las modificaciones de compra es de 27,237.23. La segunda alternativa no es viable ya que hay un gran número de modificaciones, al ignorarlas se descartaría información importante en el modelo. La tercera alternativa le agrega un poco de complejidad al modelo, ya que es necesario modelar de alguna forma la llegada de las modificaciones y el comportamiento de ellas. En este caso se optará por la primera alternativa.\\
+
+Finalmente para calcular los parámetros de cancelación $\theta(i)$, es necesario calcular el libro promedio. En la figura \ref{fig:bookavg} se encuentra el libro promedio para BIMBO. Bajo los supuestos del modelo, el número de cancelaciones depende del número de órdenes activas. Si definimos $Q_i^A$ y $Q_i^B$ como el número promedio de ordenes activas a $i$ pujas de la mejor postura de venta y compra respectivamente,  $\theta(i)$ para $1\leq i \leq 5$ se pueden calcular de la siguiente forma, donde $Q_i$ es el promedio de $Q_i^A$ y $Q_i^B$:
+\[
+\hat{\theta}(i)=\frac{N_c(i) S_c}{Q_i T_*}
+\]
+$N_c(i)$ es el número de posturas de cancelación a una distancia $i$ de la mejor postura contraria. Para $i>5$, $\hat{\theta}(i)=\hat{\theta}(5)$.
 
 \begin{figure}[htbp]
 \centering
@@ -981,6 +987,28 @@ La primera alternativa es la que más se acerca a estudios anteriores ya que est
 \caption{Libro Promedio}
 \label{fig:bookavg}
 \end{figure}
+
+Al realizar los cálculos antes descritos para la emisora BIMBO se obtienen los siguientes parámetros:
+
+\begin{table}[htbp]
+\centering
+\caption{Parámetros del Modelo}
+\begin{tabular}{r|r|r|r|r|r|}
+\cline{2-6}
+& 1& 2 & 3 & 4 & 5 \\
+\cline{2-6}
+$\lambda(i)$ & 0.1669 & 0.0732 & 0.0655 & 0.0601 & 0.0731 \\
+$\theta(i)$ & 0.6480 & 0.9954 & 1.3240 & 1.5714 & 0.7582 \\
+\cline{2-6}
+$\mu$ & 0.1438 & & & & \\
+\cline{2-6}
+\end{tabular}%
+\label{tab:paremeters}%
+\end{table}%
+
+\subsubsection{Resultados}
+
+Para entender los resultados en primer lugar, es necesario obtener las probabilidades empíricas para compararlas con las obtenidas por el modelo.
 
 \clearpage
 
