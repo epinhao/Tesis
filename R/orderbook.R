@@ -1,6 +1,6 @@
-lambda=1.85
-mu=0.94
-theta=0.71
+lambda=0.1669
+mu=0.1438
+theta=0.6480
 
 orderbook<-function(X,N) {
 
