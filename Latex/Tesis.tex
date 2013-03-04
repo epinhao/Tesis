@@ -39,7 +39,7 @@ Los mercados se pueden clasificar en dos tipos:
   \item Regidos por órdenes (Order-driven market)
 \end{itemize}
 
-En los mercados regidos por formadores de mercado, éstos centralizan las órdenes proveyendo liquidez al fijar una postura de compra y una venta; por ejemplo el especialista en el NYSE. En los mercados regidos por órdenes, las posturas de todos los participantes se agregan en lo que se conoce como el libro de posturas. Los mercados regidos por órdenes tienen como ventaja la transparencia, ya que todos los participantes conocen las posturas de los demás. Existen algunos mercados híbridos donde los formadores de mercado interactúan en el libro de posturas. La Bolsa Mexicana de Valores y NASDAQ son ejemplos de mercados híbridos.
+En los mercados regidos por formadores de mercado, éstos centralizan las órdenes proveyendo liquidez al fijar una postura de compra y una de venta; por ejemplo el especialista en el NYSE. En los mercados regidos por órdenes, las posturas de todos los participantes se agregan en lo que se conoce como el libro de posturas. Los mercados regidos por órdenes tienen como ventaja la transparencia, ya que todos los participantes conocen las posturas de los demás. Existen algunos mercados híbridos donde los formadores de mercado interactúan en el libro de posturas. La Bolsa Mexicana de Valores y NASDAQ son ejemplos de mercados híbridos.
 
 \clearpage
 
@@ -180,12 +180,11 @@ Se utiliza para localizar el folio de una postura que se va a modificar o cancel
 
 Con los datos proporcionados se reconstruyó el libro de posturas. A lo largo del día existen un gran número de modificaciones y cancelaciones, por lo que para el análisis de los datos es indispensable identificar las posturas activas en cada instante. Aproximadamente el 11\% de los registros en la base de datos son modificaciones, mientras que casi el 35\% son cancelaciones.\\
 
-El algoritmo que se ideó para reconstruir el libro de posturas no toma en cuenta el tipo de orden. Esto se hizo con el fin de simplificar el libro; además de la falta de información como el volumen de las posturas del tipo VO (Volumen Oculto). Las posturas de tipo VO comprenden sólo el 0.55\% del total, mientras que las de tipo LP (Limitadas) representan el 93.81\%. Las operaciones del tipo PI (Picos), las cuales implican la compra/venta de una cantidad de acciones inferior a un lote (para la mayoría de la emisoras son 100 acciones), no se incluyen en el libro de posturas como lo establece el reglamento de la BMV. Las operaciones de tipo PI representan el 0.61\% de la muestra. Adicionalmente como lo establece también el reglamento de la bolsa antes de las 8:30 no se puede concretar ningún hecho, el algoritmo también respeta esto. En primera instancia se cargan las posturas que quedaron abiertas en días anteriores de la tabla de Posturas Iniciales, a continuación se procesa el registro.\\
+El algoritmo que se ideó para reconstruir el libro de posturas no toma en cuenta el tipo de orden. Esto se hizo con el fin de simplificar el libro; además de la falta de información como el volumen de las posturas del tipo VO (Volumen Oculto). Las posturas de tipo VO comprenden sólo el 0.55\% del total, mientras que las de tipo LP (Limitadas) representan el 93.81\%. Las operaciones del tipo PI (Picos), las cuales implican la compra/venta de una cantidad de acciones inferior a un lote (para la mayoría de la emisoras son 100 acciones), no se incluyen en el libro de posturas como lo establece el reglamento de la BMV. Las operaciones de tipo PI representan el 0.61\% de la muestra. Adicionalmente como lo establece también el reglamento de la bolsa, antes de las 8:30 no se puede concretar ningún hecho, el algoritmo también respeta esto. En primera instancia se cargan las posturas que quedaron abiertas en días anteriores de la tabla de Posturas Iniciales, a continuación se procesa el registro.\\
 
-Para medir la efectividad del algoritmo se compararon los hechos reportados por la BMV con los hechos arrojados por el algoritmo.
-Ignorando acciones de muy baja bursatilidad, si se considera la acción de KUO serie B, la cual tiene en promedio alrededor de 28 posturas diarias en la base de datos comparado con la media de 2,550 posturas diarias para las demás emisoras. Para la muestra de 68 días, el algoritmo reproduce el 50.3\% del volumen operado según la BMV. Al analizar el volumen operado con mayor profundidad, esto se debe a una serie de posturas de muy alto volumen que se registraron el 29 de diciembre de 2010. Se puede presumir que se tratan de posturas de volumen oculto. Si se excluye esa fecha el algoritmo reporta un volumen de 5,607,600 acciones mientras que la BMV 5,972,500, es decir el algoritmo registra 6.1\% menos volumen que la bolsa. Para AMX serie L, la acción con mayor volumen en la BMV con un promedio 44,396 posturas por día, el algoritmo reproduce el 89.7\% de las operaciones.\\
+Para medir la efectividad del algoritmo se compararon los hechos reportados por la BMV con los hechos arrojados por el algoritmo. Ignorando acciones de muy baja bursatilidad, si se considera la acción de KUO serie B, la cual tiene en promedio alrededor de 28 posturas diarias en la base de datos comparado con la media de 2,550 posturas diarias para las demás emisoras. Para la muestra de 68 días, el algoritmo reproduce el 50.3\% del volumen operado según la BMV. Al analizar el volumen operado con mayor profundidad, esto se debe a una serie de posturas de muy alto volumen que se registraron el 29 de diciembre de 2010. Se puede presumir que se trata de posturas de volumen oculto. Si se excluye esa fecha, el algoritmo reporta un volumen de 5,607,600 acciones mientras que la BMV reporta 5,972,500, es decir el algoritmo registra 6.1\% menos volumen que la bolsa. Para AMX serie L, la acción con mayor volumen en la BMV con un promedio 44,396 posturas por día, el algoritmo reproduce el 89.7\% de las operaciones.\\
 
-Aún más importante que el volumen operado es la tendencia de precios. Una forma de evaluar esto es el VWAP (Volume-weighted average price). El VWAP es el precio promedio ponderado por volumen. Para la acción de KUO el VWAP de por ejemplo el 28 de enero de 2011 registrado por la BMV es de 21.72491, el registrado por el algoritmo es de 21.72289. En un día en donde el volumen operado difiere de mayor forma como el 31 de diciembre de 2010, el VWAP de la bolsa y del algoritmo son similares, 20.35595 y 20.27741 respectivamente. En el caso de AMX, el 28 de diciembre es el día en que el algoritmo reproduce de peor forma el volumen, con un 69.0\% sin embargo la tendencia del precio de las operaciones es bastante similar. El VWAP de las operaciones registradas por la BMV es de 35.12914 mientras que el de el del algoritmo es de 35.10326. Mientras que para el día en el que el algoritmo sigue de mejor forma a las operaciones por la BMV, el 20 de enero de 2011, el VWAP de la bolsa es de 35.28202 mientras que el del algoritmo es de 35.26883.
+Aún más importante que el volumen operado es la tendencia de precios. Una forma de evaluar esto es el VWAP (Volume-weighted average price). El VWAP es el precio promedio ponderado por volumen. Para la acción de KUO el VWAP de por ejemplo el 28 de enero de 2011 registrado por la BMV es de 21.72491, el registrado por el algoritmo es de 21.72289. En un día en donde el volumen operado difiere de mayor forma como sucedió el 31 de diciembre de 2010, el VWAP de la bolsa y del algoritmo son similares, 20.35595 y 20.27741 respectivamente. En el caso de AMX, el 28 de diciembre es el día en que el algoritmo reproduce de peor forma el volumen, con un 69.0\% sin embargo la tendencia del precio de las operaciones es bastante similar. El VWAP de las operaciones registradas por la BMV es de 35.12914 mientras que el del algoritmo es de 35.10326. Mientras que para el el 20 de enero de 2011, día en el que el algoritmo sigue de mejor forma a las operaciones registradas por la BMV, el VWAP de la bolsa es de 35.28202 mientras que el del algoritmo es de 35.26883.
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75, trim=0 0.5cm 0 1.5cm]{kuo123110.eps}
@@ -225,14 +224,14 @@ Aún más importante que el volumen operado es la tendencia de precios. Una form
 
 \section{Características Estadísticas del Libro de Posturas}
 
-Los mercados financieros ofrecen un gran número de información, sin embargo es posible identificar algunos patrones. Por ejemplo se ha identificado que la distribución de los precios de las posturas sigue una ley de potencias, es decir las frecuencias decrecen exponencialmente al aumentar la variable. Es decir si definimos a $b(t)$ como el precio de la mejora postura de compra y $a(t)$ el precio de la mejor postura de venta. El precio de una nueva postura de compra o venta se puede expresar como $b(t)-\Delta$ ó $a(t)+\Delta$ respectivamente, donde la $\Delta$ esta expresada en pujas o ticks, es decir el importe mínimo en que puede variar el precio unitario de cada título. Cabe mencionar que $\Delta$ puede tomar valores negativos. Si por ejemplo, con $\Delta <0$, se registra una postura con el precio $b(t)-\Delta \geq a(t)$ entonces se concretará un hecho, mientras que si $b(t)-\Delta < a(t)$ entonces el precio $b(t+1)=b(t)-\Delta$. Ahora si se excluyen las posturas donde $\Delta \leq 0$ se puede decir que los precios siguen una distribución definida por:
+Los mercados financieros ofrecen una gran cantidad de información, sin embargo, es posible identificar algunos patrones. Por ejemplo, se ha identificado que la distribución de los precios de las posturas sigue una ley de potencias, es decir, que las frecuencias decrecen exponencialmente al aumentar la variable. Es decir si definimos a $b(t)$ como el precio de la mejor postura de compra y $a(t)$ como el precio de la mejor postura de venta, el precio de una nueva postura de compra o venta se puede expresar como $b(t)-\Delta$ ó $a(t)+\Delta$ respectivamente, donde la $\Delta$ está expresada en pujas o ticks, es decir el importe mínimo en que puede variar el precio unitario de cada título. Cabe mencionar que $\Delta$ puede tomar valores negativos. Si por ejemplo, con $\Delta <0$, se registra una postura con el precio $b(t)-\Delta \geq a(t)$ entonces se concretará un hecho, mientras que si $b(t)-\Delta < a(t)$ entonces el precio $b(t+1)=b(t)-\Delta$. Ahora si se excluyen las posturas donde $\Delta \leq 0$ se puede decir que los precios siguen una distribución definida por:
 
 \begin{equation}
 P\left(\Delta\right) \propto \frac{A}{{\left(\Delta+\lambda\right)}^{\alpha+1}}
 \end{equation}
 \\
 
-Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyeron la modificaciones, las cuales se podrían considerar como una nueva postura en algunos casos. Otros estudios han encontrado que el parámetro $\alpha$ es muy similar entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, en este caso las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución esta definida cuando $\alpha>1$, por lo que en este caso para algunas de las emisoras se podría definir la media. Otro hecho que se destaca en otros trabajos es que el parámetro $\alpha$ es similar para las posturas de compra y venta \cite{Bouchaud2002}. Para las acciones estudiadas en este caso, para una misma emisora el parámetro es similar en la mayoría de los casos, sin embargo, en el caso de KUO el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de compra.\\
+Se ajustó el modelo para distintas acciones. Para ajustar el modelo se excluyeron la modificaciones, las cuales se podrían considerar como una nueva postura en algunos casos. Otros estudios han encontrado que el parámetro $\alpha$ es muy similar entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, en este caso las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución está definida cuando $\alpha>1$, por lo que en este caso para algunas de las emisoras se podría definir la media. Otro hecho que se destaca en otros trabajos es que el parámetro $\alpha$ es similar para las posturas de compra y venta \cite{Bouchaud2002}. Para las acciones estudiadas en este caso, para una misma emisora el parámetro es similar en la mayoría de los casos, sin embargo, en el caso de KUO el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de compra.\\
 
 \begin{table}[htbp]
 \centering
@@ -327,9 +326,9 @@ Se ajusto el modelo para distintas acciones. Para ajustar el modelo se excluyero
 \label{fig:precios}
 \end{figure}
 
-Se realizó un estudio similar para la distribución del volumen de las posturas. El volumen también se puede representar con una distribución Lomax, por lo menos para volúmenes superiores a 1,000 títulos. Otro fenómeno interesante es la preferencia de los participantes por volúmenes múltiplos de 1,000. Como se puede ver en la Tabla \ref{tab:powervolumen}, en la mayoría de los casos los parámetros para una misma emisora son similares para las posturas de compra y venta. Para 4 de las 6 emisoras estudiadas se puede establecer la media. En el caso de COMERCI no se puede definir una media con el modelo ajustado tanto para las posturas de compra como las de venta. En el caso de KUO no se puede definir la media para las posturas de compra; para HERDEZ no esta definida para las posturas de venta.\\
+Se realizó un estudio similar para la distribución del volumen de las posturas. El volumen también se puede representar con una distribución Lomax, por lo menos para volúmenes superiores a 1,000 títulos. Otro fenómeno interesante es la preferencia de los participantes por volúmenes múltiplos de 1,000. Como se puede ver en la Tabla \ref{tab:powervolumen}, en la mayoría de los casos los parámetros para una misma emisora son similares para las posturas de compra y venta. Para 4 de las 6 emisoras estudiadas se puede establecer la media. En el caso de COMERCI no se puede definir una media con el modelo ajustado tanto para las posturas de compra como las de venta. En el caso de KUO no se puede definir la media para las posturas de compra; para HERDEZ no está definida para las posturas de venta.\\
 
-Por ejemplo, con el modelo ajustado, la media del volumen de las posturas de compra de AMX es de 18,322.35 títulos mientras que el de venta es de 17,491.36. La media del volumen de compra para BIMBO es de 1,647.74 mientras que la media las posturas de venta es de 1,802.22.\\
+Por ejemplo, con el modelo ajustado, la media del volumen de las posturas de compra de AMX es de 18,322.35 títulos, mientras que el de venta es de 17,491.36. La media del volumen de compra para BIMBO es de 1,647.74 mientras que la media las posturas de venta es de 1,802.22.\\
 
 \begin{table}[htbp]
 \centering
@@ -410,9 +409,9 @@ Por ejemplo, con el modelo ajustado, la media del volumen de las posturas de com
 \label{fig:volumen}
 \end{figure}
 
-La distribución de la distancia $\Delta$ de las cancelaciones de el mejor precio de compra $b(t)$ y de venta $a(t)$ también se puede modelar mediante una distribución Lomax. Se debe considerar como se mostrará en las distribuciones empíricas, que un gran número de las cancelaciones suceden con $\Delta=0$, es decir, al mejor precio de compra y venta respectivamente. La distribución Lomax asume que $F(0)=0$, lo cual no es así. Para evitar esto sólo se consideraran las posturas donde $\Delta>0$, se menciona por separado la proporción de las cancelaciones donde $\Delta=0$.\\
+La distribución de la distancia $\Delta$ de las cancelaciones del mejor precio de compra $b(t)$ y de venta $a(t)$ también se puede modelar mediante una distribución Lomax. Se debe considerar como se mostrará en las distribuciones empíricas, que un gran número de las cancelaciones suceden con $\Delta=0$, es decir, al mejor precio de compra y venta respectivamente. La distribución Lomax asume que $F(0)=0$, lo cual no es así en este caso. Para evitar esto, sólo se considerarán las posturas donde $\Delta>0$, se menciona por separado la proporción de las cancelaciones donde $\Delta=0$.\\
 
-Como se puede ver en la Figura \ref{fig:canc} en este caso la distribución Lomax no es la más adecuada, ya que el grueso de las cancelaciones se concentra en un intervalo con $\Delta<20$. De hecho la media de cada una de las emisoras en la muestra elegida es menor a 35. Esto quiere decir que las cancelaciones se concentran cerca de los mejores precios de compra y venta respectivamente. Otro dato interesante es que en las emisoras estudiadas en el peor de los casos cerca del 15\% de las cancelaciones suceden al mejor precio de compra o venta. En el caso de HERDEZ para las posturas de venta, más del 50\% de las cancelaciones se realizan en la punta.
+Como se puede ver en la Figura \ref{fig:canc}, en este caso la distribución Lomax no es la más adecuada, ya que el grueso de las cancelaciones se concentra en un intervalo con $\Delta<20$. De hecho la media de cada una de las emisoras en la muestra elegida es menor a 35. Esto quiere decir que las cancelaciones se concentran cerca de los mejores precios de compra y venta respectivamente. Otra consideración importante es que en las emisoras estudiadas en el peor de los casos cerca del 15\% de las cancelaciones suceden al mejor precio de compra o venta. En el caso de HERDEZ para las posturas de venta, más del 50\% de las cancelaciones se realizan en la punta.
 
 \begin{table}[htbp]
 \centering
@@ -546,7 +545,7 @@ haciendo deseable encontrar una transformación $\mathcal{L}^{-1}$ tal que:
 \mathcal{L}^{-1}\{\hat{f}(s)\}=f(t)
 \end{equation}
 
-Primero es necesario encontrar una expresión para $\hat{f}_{i,i-1}$. Ahora si condicionamos $T_{i,i-1}$ a la primera transición, donde $S_1$ es el tiempo para el primer evento, podemos expresarlo como:
+Primero es necesario encontrar una expresión para $\hat{f}_{i,i-1}$. Ahora, si condicionamos $T_{i,i-1}$ a la primera transición, donde $S_1$ es el tiempo para el primer evento, podemos expresarlo como:
 
 \begin{equation}
 T_{i,i-1} =
@@ -633,7 +632,7 @@ Ahora iterando en la expresión que se obtuvo previamente para $\hat{f}_i(s)$, o
 \hat{f}_i (s) = -\frac{1}{\lambda_{i-1}}\Phi_{k=i}^{\infty}\frac{-\lambda_{k-1}\mu_{k}}{\lambda_{k}+\mu_{k}+s}
 \end{equation}\\
 
-Debido a las propiedades de la función de densidad $f$, se puede probar \cite{abate1999} que $\hat{f}$ converge y esta acotada entre la sucesión creciente de aproximantes pares $w_{2n}$ y la sucesión decreciente de aproximantes impares $w_{2n+1}$:
+Debido a las propiedades de la función de densidad $f$, se puede probar \cite{abate1999} que $\hat{f}$ converge y está acotada entre la sucesión creciente de aproximantes pares $w_{2n}$ y la sucesión decreciente de aproximantes impares $w_{2n+1}$:
 \[
 w_{2n}(s)<\hat{f}(s)<w_{2n+1}(s) \text{ para toda }n 
 \]
@@ -652,7 +651,7 @@ Q_n=b_n Q_{n-1}+a_n Q_{n-2}
 
 \subsection{La Transformación de Laplace Inversa}
 
-El reto que aún queda es encontrar una forma de calcular numéricamente $\mathcal{L}^{-1}$, la cual esta definida por la siguiente integral de variable compleja, la cual se puede evaluar a lo largo de la línea vertical $\gamma=a$, de la siguiente manera:
+El reto que aún queda es encontrar una forma de calcular numéricamente $\mathcal{L}^{-1}$, la cual está definida por la siguiente integral de variable compleja, que se puede evaluar a lo largo de la línea vertical $\gamma=a$, de la siguiente manera:
 
 \[
 \begin{array}{rcl}
@@ -664,7 +663,7 @@ f(t) = \mathcal{L}^{-1} \{\hat{f}(s)\} & = & \displaystyle \frac{1}{2 \pi i} \li
 \end{array}
 \]
 
-Para evaluar esta integral seguimos se utiliza un método \cite{dubner1968} que se basa en la expansión de series de Fourier. Si se considera una función $h(t)$ tal que $h(t)=0$ para $t<0$ la cual se dividirá en segmentos de tamaño $T$. Al reflejar cada segmento, se puede construir un conjunto de funciones pares $g_n(t)$, tal que:
+Para evaluar esta integral se utiliza un método \cite{dubner1968} que se basa en la expansión de series de Fourier. Si se considera una función $h(t)$ tal que $h(t)=0$ para $t<0$ la cual se dividirá en segmentos de tamaño $T$, al reflejar cada segmento, se puede construir un conjunto de funciones pares $g_n(t)$, tal que:
 
 \[
 g_n(t) =
@@ -726,7 +725,7 @@ La expansión en series de Fourier de $g_n(t)$ es la siguiente:
 \[
 g_n(t)=\frac{a_{n,0}}{2}+\sum_{k=1}^{\infty}a_{n,k}\cos\left(\frac{k\pi t}{T}\right)
 \]
-donde $a_{a,k}$ esta definido como:
+donde $a_{a,k}$ está definido como:
 \[
 a_{n,k} =
 \begin{cases}
@@ -773,7 +772,7 @@ Con esto podemos deducir el resultado:
 f(t) \approx \frac{2e^{at}}{T}\left[\frac{1}{2} \{\hat{f}(a) \}+\sum_{k=1}^{\infty}Re\left(\hat{f}\left(a+\frac{k\pi i}{T}\right)\right)cos\left(\frac{k\pi}{T}t\right)\right]
 \end{equation}
 
-Esto es similar al resultado que se obtiene si se utilizará la regla del trapecio para evaluar la integral de la transformación inversa. La cual tiene como resultado la siguiente expresión:
+Esto es similar al resultado que se obtiene si se utilizarax la regla del trapecio para evaluar la integral de la transformación inversa. La cual tiene como resultado la siguiente expresión:
 
 \[
 f(t)\approx f_h(t)=\frac{he^{at}}{\pi} Re(\hat{f}(a))+\frac{2he^{at}}{\pi}\sum_{k=1}^{\infty}Re(\hat{f}(a+ikh))cos\,kht
@@ -833,9 +832,9 @@ donde el 1 se encuentra en la posición $p$ del vector anterior. De esta forma:
 \item Una cancelación de una postura activa de venta a un precio $p>p_B(t)$ disminuye la cantidad al nivel $p$: $x\rightarrow x^{p-1}$\\
 \end{itemize}
 
-Los eventos mencionados arriba se modelan con procesos de Poisson independientes de tal forma que para $i \geq 0$:
+Los eventos mencionados arriba se modelan con procesos de Poisson independientes, de tal forma que para $i \geq 0$:
 \begin{itemize}
-\item Las posturas limitadas de compra (venta) arriban a una distancia de $i$ pujas de la mejor postura contraria de acuerdo a distribuciones exponencial independientes con tasa $\lambda(i)$
+\item Las posturas limitadas de compra (venta) arriban a una distancia de $i$ pujas de la mejor postura contraria de acuerdo a distribuciones exponenciales independientes con tasa $\lambda(i)$
 \item La llegada de las posturas a mercado siguen distribuciones exponenciales independientes con tasa $\mu$
 \item La cancelación de posturas a una distancia de $i$ pujas de la mejor postura contraria sucede de acuerdo a una distribución exponencial donde la tasa es proporcional al número de órdenes activas, es decir, si a cierto nivel existe un número $x$ de posturas activas, la tasa de cancelación es $\theta(i)x$
 \item Los eventos mencionados anteriormente son independientes\\
@@ -853,14 +852,14 @@ De este forma se puede decir que el proceso X es una cadena de Markov en tiempo 
 
 \subsection{Dirección de los Movimientos en el Precio}
 
-Se puede calcular la probabilidad de que en el siguiente movimiento el precio medio $p_M(t)$ aumente. El precio medio se altera en el tiempo del primer paso de las colas al mejor precio de compra o venta a cero. También este precio se puede alterar si cuando el ``spread'' $p_S(t)>1$ y llega una postura dentro de este ``spread''. Definimos a $X_A=X_{p_A(\cdot)}(\cdot)$ y $X_B=X_{p_B(\cdot)}(\cdot)$ y $T=\inf\{t\geq 0, p_M(t) \neq P_M(0)\}$.\\
+Se puede calcular la probabilidad de que en el siguiente movimiento el precio medio $p_M(t)$ aumente. El precio medio se altera en el tiempo del primer paso de las colas al mejor precio de compra o venta a cero. También este precio se puede alterar si el ``spread'' $p_S(t)>1$ y llega una postura dentro de este ``spread''. Definimos a $X_A=X_{p_A(\cdot)}(\cdot)$ y $X_B=X_{p_B(\cdot)}(\cdot)$ y $T=\inf\{t\geq 0, p_M(t) \neq P_M(0)\}$.\\
 
 Dada una configuración inicial del libro de posturas, la probabilidad de que en el siguiente movimiento el precio medio aumente se puede expresar de la siguiente forma:
 \[
 P\{p_M(T)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=S\}
 \]
 
-Los procesos $X_A$ y $X_B$ son procesos de nacimiento nacimiento y muerte con las siguientes tasas de transición:
+Los procesos $X_A$ y $X_B$ son procesos de nacimiento y muerte con las siguientes tasas de transición:
 \[
 n\rightarrow n+1 \text{ con una tasa }\lambda(S)
 \]
@@ -868,7 +867,7 @@ n\rightarrow n+1 \text{ con una tasa }\lambda(S)
 n\rightarrow n-1 \text{ con una tasa }\mu+n\theta(S)
 \]\\
 
-En particular cuando $S=1$ el precio medio $p_M(t)$ se altera cuando $X_A$ ó $X_B$ alcanzan el estado 0. Ahora si se denota $\sigma_A$ y $\sigma_B$ como el tiempo del primer paso de los procesos $X_A$ y $X_B$ a cero.  La distribución de $T$ esta dada por el mínimo de los tiempos del primer paso de los procesos $X_A$ y $X_B$. La probabilidad de interés se puede expresar como $P\{\sigma_A<\sigma_B|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. La transformación de Laplace de la distribución condicional de $\sigma_A-\sigma_B$ esta dada por:
+En particular cuando $S=1$ el precio medio $p_M(t)$ se altera cuando $X_A$ ó $X_B$ alcanzan el estado 0. Ahora, si se denota $\sigma_A$ y $\sigma_B$ como el tiempo del primer paso de los procesos $X_A$ y $X_B$ a cero, la distribución de $T$ está dada por el mínimo de los tiempos del primer paso de los procesos $X_A$ y $X_B$. La probabilidad de interés se puede expresar como $P\{\sigma_A<\sigma_B|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. La transformación de Laplace de la distribución condicional de $\sigma_A-\sigma_B$ está dada por:
 \[
 \hat{f}^A(s)\hat{f}^B(-s)
 \]
@@ -879,9 +878,9 @@ donde:
 
 Por lo que la probabilidad buscada se obtiene al evaluar la función de distribución acumulada en 0. Para hacer esto es necesario encontrar la transformación inversa de $\hat{f}^A(s)\hat{f}^B(-s)$ e integrar esta función.\\
 
-En el caso de que $S>1$, es necesario considerar que si se recibe una postura dentro del spread el precio medio $p_M(t)$ también se alterará. Por lo que si denotamos $\sigma_A^i$ y $\sigma_B^i$ como el tiempo en el que llega la primera orden a $i$ pujas del mejor precio de venta o compra respectivamente. El tiempo en el que cambia por primera vez $p_M(t)$ esta dado por el mínimo de los tiempos $\sigma_A,\sigma_B,\sigma_A^i$ y $\sigma_B^i$ con $i=1,\ldots,S-1$. Es importante mencionar que $\sigma_A^i$ y $\sigma_B^i$ se distribuyen de manera exponencial con tasa $\lambda(i)$. Para $p_M(t)$ aumente es necesario que arribe una orden de compra a $S-1$ pujas del mejor precio de venta o se agoten las posturas al mejor precio de venta antes de que llegue una postura de venta a $S-1$ pujas de la mejor postura de compra o se agoten las posturas al mejor precio de compra.\\
+En el caso de que $S>1$, es necesario considerar que si se recibe una postura dentro del spread el precio medio $p_M(t)$ también se alterará. Por lo que si denotamos $\sigma_A^i$ y $\sigma_B^i$ como el tiempo en el que llega la primera orden a $i$ pujas del mejor precio de venta o compra respectivamente. El tiempo en el que cambia por primera vez $p_M(t)$ está dado por el mínimo de los tiempos $\sigma_A,\sigma_B,\sigma_A^i$ y $\sigma_B^i$ con $i=1,\ldots,S-1$. Es importante mencionar que $\sigma_A^i$ y $\sigma_B^i$ se distribuyen de manera exponencial con tasa $\lambda(i)$. Para que $p_M(t)$ aumente es necesario que arribe una orden de compra a $S-1$ pujas del mejor precio de venta o se agoten las posturas al mejor precio de venta antes de que llegue una postura de venta a $S-1$ pujas de la mejor postura de compra o se agoten las posturas al mejor precio de compra.\\
 
-En este caso la probablidad buscada esta dada por $P\{\sigma_A \land \sigma_B^1 \land \cdots \land \sigma_B^{S-1} < \sigma_B \land \sigma_A^1 \land \cdots \land \sigma_A^{S-1}|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. El mínimo de un conjunto de variables aleatorias que se distribuyen de forma exponencial con parametros $\lambda_1,\ldots,\lambda_n$ tiene una distribución exponencial con parámetro $\lambda_1+\ldots+\lambda_n$. Por lo que podemos expresar la probabilidad de interés de la siguiente forma $P\{\sigma_A \land \sigma_B^\Sigma < \sigma_B \land \sigma_A^\Sigma|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. Por lo que la transformación de Laplace de la función de densidad de $\sigma_A \land \sigma_B^\Sigma - \sigma_B \land \sigma_A^\Sigma$ esta dada por:
+En este caso la probabilidad buscada está dada por $P\{\sigma_A \land \sigma_B^1 \land \cdots \land \sigma_B^{S-1} < \sigma_B \land \sigma_A^1 \land \cdots \land \sigma_A^{S-1}|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. El mínimo de un conjunto de variables aleatorias que se distribuyen de forma exponencial con parámetros $\lambda_1,\ldots,\lambda_n$ tiene una distribución exponencial con parámetro $\lambda_1+\ldots+\lambda_n$. Por lo que podemos expresar la probabilidad de interés de la siguiente forma $P\{\sigma_A \land \sigma_B^\Sigma < \sigma_B \land \sigma_A^\Sigma|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. Por lo que la transformación de Laplace de la función de densidad de $\sigma_A \land \sigma_B^\Sigma - \sigma_B \land \sigma_A^\Sigma$ está dada por:
 \[
 \left(\hat{f}^A(\Lambda+s)+\frac{\Lambda}{\Lambda+s}(1-\hat{f}_A(\Lambda+s))\right)
 \left(\hat{f}^B(\Lambda+s)+\frac{\Lambda}{\Lambda+s}(1-\hat{f}_B(\Lambda+s))\right)
@@ -890,7 +889,7 @@ donde $\Lambda=\sum_{i=1}^{S-1}\lambda(i)$. De igual forma es necesario encontra
 
 Los métodos para invertir la transformación de Laplace discutidos en la sección anterior están diseñados para la transformación unilateral de Laplace, es decir definida en los reales positivos. La distribución de  $\sigma_A \land \sigma_B^\Sigma - \sigma_B \land \sigma_A^\Sigma$ están definidas en todos los reales, por lo que es necesario utilizar algunas herramientas para poder encontrar la transformación inversa.\\
 
-Es importante tener presente que el método utilizado para encontrar la transformación inversa presentado en este trabajo esta basado en la expansión en series de Fourier, el cual utiliza funciones pares. Además es importante notar que el método permite encontrar la transformación inversa para $t \in (0,T)$. Las funciones de densidad estudiadas no son pares y están definidas para $t<0$ por lo que para resolver este problema definimos la función $g(t)=
+Es importante tener presente que el método utilizado para encontrar la transformación inversa presentado en este trabajo está basado en la expansión en series de Fourier, el cual utiliza funciones pares. Además es importante notar que el método permite encontrar la transformación inversa para $t \in (0,T)$. Las funciones de densidad estudiadas no son pares y están definidas para $t<0$ por lo que para resolver este problema definimos la función $g(t)=
 f(t-a)$, donde $a$ es tal que:
 \[
 \lim_{t\to 0^-} g(t)=0
@@ -924,7 +923,7 @@ por lo que de esta forma podemos desplazar la función de densidad de forma que 
 \label{probmtshift}
 \end{figure}
 
-También es importante utilizar el parámetro correcto $T$ para encontrar la distribución correcta. Como de puede ver en la Figura \ref{probmtpar}, la función de densidad es radicalmente distinta cuando $T$ no es lo suficientemente grande.
+También es importante utilizar el parámetro correcto $T$ para encontrar la distribución correcta. Como se puede ver en la Figura \ref{probmtpar}, la función de densidad es radicalmente distinta cuando $T$ no es lo suficientemente grande.
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmpar.eps}
@@ -950,16 +949,16 @@ La tasa de llegada de las posturas a mercado $\mu$ se estima de la siguiente for
 \]
 $N_m$ es el número de posturas de mercado; en este caso se consideran como posturas de mercado todas aquellas que superan la mejor postura contraria.\\
 
-En trabajos anteriores no se cuenta con información tan detallada del libro de posturas, por lo que no se ha considerado las modificaciones que en este caso forman una parte muy importante de la muestra. El promedio del volumen de las modificaciones para BIMBO es casi 10 veces mayor al de las nuevas posturas. Esto se puede deber a que los participantes del mercado que están interesados en comprar o vender un volumen mayor seguramente lo harán a través de posturas limitadas, ya que son más sensibles al precio. Las posturas limitadas garantizan un precio, mientras que a través de un postura a mercado se garantizan la ejecución pero no el precio. Los participantes con posturas de gran volumen se verán obligados a adaptar el precio de sus posturas a través de modificaciones para lograr la ejecución de las mismas. Existen tres alternativas:
+En trabajos anteriores no se cuenta con información tan detallada del libro de posturas, por lo que no se han considerado las modificaciones que en este caso forman una parte muy importante de la muestra. El promedio del volumen de las modificaciones para BIMBO es casi 10 veces mayor al de las nuevas posturas. Esto se puede deber a que los participantes del mercado que están interesados en comprar o vender un volumen mayor seguramente lo harán a través de posturas limitadas, ya que son más sensibles al precio. Las posturas limitadas garantizan un precio, mientras que a través de una postura a mercado se garantiza la ejecución pero no el precio. Los participantes con posturas de gran volumen se verán obligados a adaptar el precio de sus posturas a través de modificaciones para lograr la ejecución de las mismas. Existen tres alternativas:
 \begin{itemize}
   \item Considerar las modificaciones como una cancelación y una nueva postura
   \item Ignorar las modificaciones
   \item Modelar las modificaciones como otro proceso\\
 \end{itemize}
 
-La primera alternativa es la que más se acerca a estudios anteriores ya que estos no cuentan con la noción de las modificaciones, al tener las información de las puntas del libro de posturas sólo notan la cancelación de una postura y la aparición de una nueva a otro nivel. No se considera la diferencia en el volumen de las nuevas posturas y de las modificaciones. Por ejemplo en la acción de BIMBO el volumen de las nuevas posturas limitadas de compra es de 2,005.23. Mientras si se toman en conjunto las nuevas posturas y las modificaciones el promedio del volumen es de 10,518.09. Esto se debe al que el promedio del volumen de las modificaciones de compra es de 27,237.23. La segunda alternativa no es viable ya que hay un gran número de modificaciones, al ignorarlas se descartaría información importante en el modelo. La tercera alternativa le agrega un poco de complejidad al modelo, ya que es necesario modelar de alguna forma la llegada de las modificaciones y el comportamiento de ellas. En este caso se optará por la primera alternativa.\\
+La primera alternativa es la que más se acerca a estudios anteriores ya que estos no cuentan con la noción de las modificaciones, al tener la información de las puntas del libro de posturas sólo notan la cancelación de una postura y la aparición de una nueva a otro nivel. No se considera la diferencia en el volumen de las nuevas posturas y de las modificaciones. Por ejemplo, en la acción de BIMBO el volumen de las nuevas posturas limitadas de compra es de 2,005.23. Mientras que si se toman en conjunto las nuevas posturas y las modificaciones el promedio del volumen es de 10,518.09. Esto se debe a que el promedio del volumen de las modificaciones de compra es de 27,237.23. La segunda alternativa no es viable ya que hay un gran número de modificaciones, al ignorarlas se descartaría información importante en el modelo. La tercera alternativa le agrega un poco de complejidad al modelo, ya que es necesario modelar de alguna forma la llegada de las modificaciones y el comportamiento de ellas. En este caso se optará por la primera alternativa.\\
 
-Finalmente para calcular los parámetros de cancelación $\theta(i)$, es necesario calcular el libro promedio. En la figura \ref{fig:bookavg} se encuentra el libro promedio para BIMBO. Bajo los supuestos del modelo, el número de cancelaciones depende del número de órdenes activas. Si definimos $Q_i^A$ y $Q_i^B$ como el número promedio de ordenes activas a $i$ pujas de la mejor postura de venta y compra respectivamente,  $\theta(i)$ para $1\leq i \leq 5$ se pueden calcular de la siguiente forma, donde $Q_i$ es el promedio de $Q_i^A$ y $Q_i^B$:
+Finalmente para calcular los parámetros de cancelación $\theta(i)$, es necesario calcular el libro promedio. En la Figura \ref{fig:bookavg} se encuentra el libro promedio para BIMBO. Bajo los supuestos del modelo, el número de cancelaciones depende del número de órdenes activas. Si definimos $Q_i^A$ y $Q_i^B$ como el número promedio de ordenes activas a $i$ pujas de la mejor postura de venta y compra respectivamente,  $\theta(i)$ para $1\leq i \leq 5$ se pueden calcular de la siguiente forma, donde $Q_i$ es el promedio de $Q_i^A$ y $Q_i^B$:
 \[
 \hat{\theta}(i)=\frac{N_c(i) S_c}{Q_i T_*}
 \]
@@ -1008,7 +1007,63 @@ $\mu$ & 0.1438 & & & & \\
 
 \subsubsection{Resultados}
 
-Para entender los resultados en primer lugar, es necesario obtener las probabilidades empíricas para compararlas con las obtenidas por el modelo.
+Para entender los resultados en primer lugar, es necesario obtener las probabilidades empíricas para compararlas con las obtenidas por el modelo. En este caso, se eligió la acción de BIMBO, en particular los casos donde $S=1$, es decir, la distancia de la mejor postura de compra a la mejor postura de venta es de 1 puja. Para el caso de BIMBO, existen 21,256 eventos donde $S=1$ de los 173,616 eventos que sucedieron en los 68 días de estudio.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Ejemplo: Posturas BIMBO}
+    \begin{tabular}{rrrrrrrrrrr}
+    id    & timestamp &       & $p_B(t)$    & $X_{p_B}(t)$ &       & $p_A(t)$    & $X_{p_A}(t)$   &       & $S$     & $p_M(t)$ \\
+    151   & 1289919878430 &       & 97.79 & 600   &       & 97.8  & 2100  &       & 1  & 97.7950 \\
+    152   & 1289919878450 &       & 97.79 & 600   &       & 97.8  & 2100  &       & 1  & 97.7950 \\
+    153   & 1289919882930 &       & 97.79 & 600   &       & 97.8  & 1500  &       & 1  & 97.7950 \\
+    154   & 1289919882940 &       & 97.79 & 600   &       & 97.8  & 1500  &       & 1  & 97.7950 \\
+    155   & 1289919883070 &       & 97.75 & 39000 &       & 97.79 & 900   &       & 4  & 97.7700 \\
+    \end{tabular}%
+  \label{tab:bimbotab}%
+\end{table}%
+
+Para analizar los resultados, se considerará la primera postura donde $S=1$, en el ejemplo de la Tabla \ref{tab:bimbotab} esto sucede en el renglón 151, donde $p_M(t)$ es 97.7950 y el volumen de la mejor postura de venta excede el de la mejor postura de compra. Los siguientes eventos modifican posturas distintas a las puntas o el volumen en las puntas, hasta el evento 155 donde se modifica $p_M(t)$.\\
+
+Para la acción de BIMBO existen 2,196 instancias como esta; para poder realizar el análisis se encontró la media del volumen del primer evento de cada instancia donde $S=1$, la cual es de 2,707.45. El volumen de todos los eventos se dividió entre la media y se tomó el número entero más cercano mayor a este cociente para realizar los cálculos. Para el análisis se consideran las posturas donde el volumen normalizado es menor o igual a 5. De las 2,196 instancias mencionadas antes 2,043 cumplen esto, éstas se muestran en la Tabla \ref{tab:numempirca}.
+
+\begin{table}[htbp]
+\centering
+\caption{Número de Posturas}
+\begin{tabular}{r|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
+\multicolumn{6}{c}{venta}\\
+\cline{2-6}
+compra & 1& 2 & 3 & 4 & 5 \\
+\cline{2-6}
+1& 1,217 & 253 & 116 & 59 & 5 \\
+2 & 193 & 23 & 9 & 4 & 1 \\
+3 & 62 & 3 & 4 & 1 & 1 \\
+4 & 39 & 4 & 0 & 0 & 0 \\
+5 & 15 & 1 & 0 & 0 & 0 \\
+\cline{2-6}
+\end{tabular}%
+\label{tab:numempirca}%
+\end{table}%
+
+En la Tabla \ref{tab:resempirca} se encuentran los resultados que se obtuvieron. En los casos donde existen el mismo número de posturas de compra que de venta los resultados no son muy claros, ya que sólo en el 39.93\% y 34.78\% para 1 y 2 posturas respectivamente aumenta el precio; se esperaría un número cercano al 50\%. Sin embargo, los resultados sí reflejan algo que se esperaría, en los casos donde el número de posturas de compra es mayor al número de posturas de venta la probabilidad de un aumento de precio es mayor; al aumentar esta diferencia aumenta también la probabilidad de que el precio suba. Muchas de las combinaciones son poco concluyentes, ya que la muestra es muy pequeña.
+
+\begin{table}[htbp]
+\centering
+\caption{Resultados Empíricos}
+\begin{tabular}{r|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
+\multicolumn{6}{c}{venta}\\
+\cline{2-6}
+compra & 1& 2 & 3 & 4 & 5 \\
+\cline{2-6}
+1& 39.93\%& 11.86\% & 9.48\% & 11.86\% & 2.63\% \\
+2 & 60.62\% & 34.78\% & 11.11\% & 50.00\% & 0.00\% \\
+3 & 67.74\% & 33.33\% & 75.00\% & 0.00\% & 100.00\% \\
+4 & 76.92\% & 25.00\% & - & - & - \\
+5 & 93.33\% & 0.00\% & - & - & - \\
+\cline{2-6}
+\end{tabular}%
+\label{tab:resempirca}%
+\end{table}%
 
 \clearpage
 
