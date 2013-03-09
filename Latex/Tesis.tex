@@ -19,6 +19,9 @@
 
 %\renewcommand{\baselinestretch}{1.6} %double-spacing
 
+\let\EndItemize\enditemize
+\def\enditemize{\EndItemize\bigskip} %space after itemize
+
 \numberwithin{equation}{section} %equation numbers
 
 \begin{document}
@@ -39,7 +42,11 @@ Los mercados se pueden clasificar en dos tipos:
   \item Regidos por órdenes (Order-driven market)
 \end{itemize}
 
-En los mercados regidos por formadores de mercado, éstos centralizan las órdenes proveyendo liquidez al fijar una postura de compra y una de venta; por ejemplo el especialista en el NYSE. En los mercados regidos por órdenes, las posturas de todos los participantes se agregan en lo que se conoce como el libro de posturas. Los mercados regidos por órdenes tienen como ventaja la transparencia, ya que todos los participantes conocen las posturas de los demás. Existen algunos mercados híbridos donde los formadores de mercado interactúan en el libro de posturas. La Bolsa Mexicana de Valores y NASDAQ son ejemplos de mercados híbridos.
+En los mercados regidos por formadores de mercado, éstos centralizan las órdenes proveyendo liquidez al fijar una postura de compra y una de venta; por ejemplo el especialista en el NYSE. En los mercados regidos por órdenes, las posturas de todos los participantes se agregan en lo que se conoce como el libro de posturas. Los mercados regidos por órdenes tienen como ventaja la transparencia, ya que todos los participantes conocen las posturas de los demás. Existen algunos mercados híbridos donde los formadores de mercado interactúan en el libro de posturas. La Bolsa Mexicana de Valores y NASDAQ son ejemplos de mercados híbridos.\\
+
+El estudio de la microestuctura del mercado es de utilidad ya que permite identificar patrones dentro del mismo, los cuales pueden ser utilizados para la predicción y también para identificar comportamientos fraudulentos.\\
+
+Con el objetivo de estudiar el comportamiento de la Bolsa Mexicana de Valores, se obtuvo una base de datos con todas las posturas del libro de órdenes en un periodo determinado. En primer lugar se describirá esta base datos; después se explicará la forma en que se reconstruyó el libro de postura para poder llevar a cabo el análisis. Los resultados obtenidos tras la reconstrucción se compararán con los de otros estudios similares para otros mercados. Finalmente se describirá un modelo de el libro de posturas y método basado en la transformación inversa de Laplace para llevar a cabo la predicción del movimiento en el precio de una emisora.
 
 \clearpage
 
@@ -182,6 +189,29 @@ Con los datos proporcionados se reconstruyó el libro de posturas. A lo largo de
 
 El algoritmo que se ideó para reconstruir el libro de posturas no toma en cuenta el tipo de orden. Esto se hizo con el fin de simplificar el libro; además de la falta de información como el volumen de las posturas del tipo VO (Volumen Oculto). Las posturas de tipo VO comprenden sólo el 0.55\% del total, mientras que las de tipo LP (Limitadas) representan el 93.81\%. Las operaciones del tipo PI (Picos), las cuales implican la compra/venta de una cantidad de acciones inferior a un lote (para la mayoría de la emisoras son 100 acciones), no se incluyen en el libro de posturas como lo establece el reglamento de la BMV. Las operaciones de tipo PI representan el 0.61\% de la muestra. Adicionalmente como lo establece también el reglamento de la bolsa, antes de las 8:30 no se puede concretar ningún hecho, el algoritmo también respeta esto. En primera instancia se cargan las posturas que quedaron abiertas en días anteriores de la tabla de Posturas Iniciales, a continuación se procesa el registro.\\
 
+El algoritmo se implementó en Java y se desarrolló una interfaz gráfica. Como se puede ver en la Figura \ref{java} la interfaz permite analizar individualmente cada entrada del registro de una emisora para un día. La interfaz cuenta con 5 ventanas:
+\begin{itemize}
+  \item Corros de Venta
+  \item Corros de Compra
+  \item Hechos Reportados por la BMV
+  \item Hechos Reportados por el Algoritmo
+  \item Registro
+\end{itemize}
+
+Con el botón de siguiente se van procesando una a una las entradas del registro. En el caso de una postura de compra, en primer lugar se trata de buscar una postura en los corros de venta para perfeccionarla, si no existe, ésta se registra el los corros de compra los cuales están ordenados de mayor a menor precio. Esto se hace de igual forma para las posturas de venta, éstas están ordenadas también de mayor a menor precio, de tal forma, que la postura que se encuentra en la parte inferior de los corros de venta y la que se encuentra en la parte más alta de los corros de compra son las puntas. La interfaz también permite cancelar una postura de compra o una de venta al seleccionarla y oprimir el botón correspondiente con el objeto de poder depurar errores en el funcionamiento del algoritmo.\\
+
+Como se mencionó antes, los hechos se registran con la clave AH; éstos se mantienen en la ventana de ``Hechos Registrados por la BMV''. Cuando el algoritmo desarrollado perfecciona un hecho, éste se registra en la venta de ``Hechos Reportados por el Algoritmo''. Finalmente se encuentran las cancelaciones y las modificaciones, para éstas, es necesario localizar el folio correspondiente en los corros de compra o venta para hacer la cancelación o modificación correspondiente. Con el fin de poder analizar el registro con mayor rapidez, se implementó el botón de ``Play'', el cual permite avanzar 100 entradas del registro.
+
+\begin{landscape}
+
+\begin{figure}[htbp] \centering
+\includegraphics{screenshot.png}
+\caption{Captura de pantalla de la Interfaz desarrollada en Java}
+\label{java}
+\end{figure}
+
+\end{landscape}
+
 Para medir la efectividad del algoritmo se compararon los hechos reportados por la BMV con los hechos arrojados por el algoritmo. Ignorando acciones de muy baja bursatilidad, si se considera la acción de KUO serie B, la cual tiene en promedio alrededor de 28 posturas diarias en la base de datos comparado con la media de 2,550 posturas diarias para las demás emisoras. Para la muestra de 68 días, el algoritmo reproduce el 50.3\% del volumen operado según la BMV. Al analizar el volumen operado con mayor profundidad, esto se debe a una serie de posturas de muy alto volumen que se registraron el 29 de diciembre de 2010. Se puede presumir que se trata de posturas de volumen oculto. Si se excluye esa fecha, el algoritmo reporta un volumen de 5,607,600 acciones mientras que la BMV reporta 5,972,500, es decir el algoritmo registra 6.1\% menos volumen que la bolsa. Para AMX serie L, la acción con mayor volumen en la BMV con un promedio 44,396 posturas por día, el algoritmo reproduce el 89.7\% de las operaciones.\\
 
 Aún más importante que el volumen operado es la tendencia de precios. Una forma de evaluar esto es el VWAP (Volume-weighted average price). El VWAP es el precio promedio ponderado por volumen. Para la acción de KUO el VWAP de por ejemplo el 28 de enero de 2011 registrado por la BMV es de 21.72491, el registrado por el algoritmo es de 21.72289. En un día en donde el volumen operado difiere de mayor forma como sucedió el 31 de diciembre de 2010, el VWAP de la bolsa y del algoritmo son similares, 20.35595 y 20.27741 respectivamente. En el caso de AMX, el 28 de diciembre es el día en que el algoritmo reproduce de peor forma el volumen, con un 69.0\% sin embargo la tendencia del precio de las operaciones es bastante similar. El VWAP de las operaciones registradas por la BMV es de 35.12914 mientras que el del algoritmo es de 35.10326. Mientras que para el el 20 de enero de 2011, día en el que el algoritmo sigue de mejor forma a las operaciones registradas por la BMV, el VWAP de la bolsa es de 35.28202 mientras que el del algoritmo es de 35.26883.
@@ -209,16 +239,6 @@ Aún más importante que el volumen operado es la tendencia de precios. Una form
 \caption{Reconstrucción: AMX diciembre 28}
 \label{amx1228}
 \end{figure}
-
-\begin{landscape}
-
-\begin{figure}[htbp] \centering
-\includegraphics{screenshot.png}
-\caption{Captura de pantalla de la Interface desarrollada en Java}
-\label{java}
-\end{figure}
-
-\end{landscape}
 
 \clearpage
 
@@ -852,11 +872,11 @@ De este forma se puede decir que el proceso X es una cadena de Markov en tiempo 
 
 \subsection{Dirección de los Movimientos en el Precio}
 
-Se puede calcular la probabilidad de que en el siguiente movimiento el precio medio $p_M(t)$ aumente. El precio medio se altera en el tiempo del primer paso de las colas al mejor precio de compra o venta a cero. También este precio se puede alterar si el ``spread'' $p_S(t)>1$ y llega una postura dentro de este ``spread''. Definimos a $X_A=X_{p_A(\cdot)}(\cdot)$ y $X_B=X_{p_B(\cdot)}(\cdot)$ y $T=\inf\{t\geq 0, p_M(t) \neq P_M(0)\}$.\\
+Se puede calcular la probabilidad de que en el siguiente movimiento el precio medio $p_M(t)$ aumente. El precio medio se altera en el tiempo del primer paso de las colas al mejor precio de compra o venta a cero. También este precio se puede alterar si el ``spread'' $p_S(t)>1$ y llega una postura dentro de este ``spread''. Definimos a $X_A=X_{p_A(\cdot)}(\cdot)$ y $X_B=X_{p_B(\cdot)}(\cdot)$ y $\theta=\inf\{t\geq 0, p_M(t) \neq p_M(0)\}$.\\
 
 Dada una configuración inicial del libro de posturas, la probabilidad de que en el siguiente movimiento el precio medio aumente se puede expresar de la siguiente forma:
 \[
-P\{p_M(T)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=S\}
+P\{p_M(\theta)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=S\}
 \]
 
 Los procesos $X_A$ y $X_B$ son procesos de nacimiento y muerte con las siguientes tasas de transición:
@@ -867,7 +887,7 @@ n\rightarrow n+1 \text{ con una tasa }\lambda(S)
 n\rightarrow n-1 \text{ con una tasa }\mu+n\theta(S)
 \]\\
 
-En particular cuando $S=1$ el precio medio $p_M(t)$ se altera cuando $X_A$ ó $X_B$ alcanzan el estado 0. Ahora, si se denota $\sigma_A$ y $\sigma_B$ como el tiempo del primer paso de los procesos $X_A$ y $X_B$ a cero, la distribución de $T$ está dada por el mínimo de los tiempos del primer paso de los procesos $X_A$ y $X_B$. La probabilidad de interés se puede expresar como $P\{\sigma_A<\sigma_B|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. La transformación de Laplace de la distribución condicional de $\sigma_A-\sigma_B$ está dada por:
+En particular cuando $S=1$ el precio medio $p_M(t)$ se altera cuando $X_A$ ó $X_B$ alcanzan el estado 0. Ahora, si se denota $\sigma_A$ y $\sigma_B$ como el tiempo del primer paso de los procesos $X_A$ y $X_B$ a cero, la distribución de $\theta$ está dada por el mínimo de los tiempos del primer paso de los procesos $X_A$ y $X_B$. La probabilidad de interés se puede expresar como $P\{\sigma_A<\sigma_B|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. La transformación de Laplace de la distribución condicional de $\sigma_A-\sigma_B$ está dada por:
 \[
 \hat{f}^A(s)\hat{f}^B(-s)
 \]
@@ -895,11 +915,11 @@ f(t-a)$, donde $a$ es tal que:
 \lim_{t\to 0^-} g(t)=0
 \]
 
-En este caso se realizaron diversas simulaciones de los procesos $X_A$ y $X_B$ para evaluar la distribución de $T$ la cual disminuye exponencialmente de ambos lados a partir de un cierto máximo. En la Figura \ref{probmt} se muestra el resultado que se obtiene de las simulaciones y el que se obtiene al utilizar el método de la transformación inversa de Laplace.\\
+En este caso se realizaron diversas simulaciones de los procesos $X_A$ y $X_B$ para evaluar la distribución de $\theta$, la cual disminuye exponencialmente de ambos lados a partir de un cierto máximo. En la Figura \ref{probmt} se muestra el resultado que se obtiene de las simulaciones y el que se obtiene al utilizar el método de la transformación inversa de Laplace.\\
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpm.eps}
-\caption{Función de densidad de $T$}
+\caption{Función de densidad de $\theta$}
 \label{probmt}
 \end{figure}
 
@@ -919,7 +939,7 @@ por lo que de esta forma podemos desplazar la función de densidad de forma que 
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmshift.eps}
-\caption{Función de densidad de $T$}
+\caption{Función de densidad de $\theta$}
 \label{probmtshift}
 \end{figure}
 
@@ -927,7 +947,7 @@ También es importante utilizar el parámetro correcto $T$ para encontrar la dis
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmpar.eps}
-\caption{Función de densidad de $T$}
+\caption{Función de densidad de $\theta$}
 \label{probmtpar}
 \end{figure}
 
@@ -1065,6 +1085,8 @@ compra & 1& 2 & 3 & 4 & 5 \\
 \label{tab:resempirca}%
 \end{table}%
 
+Los resultados obtenidos al aplicar el método de la transformación de Laplace siguen una tendencia similar como se puede ver en la Tabla \ref{tab:reslaplace}. En este caso cuando el número de órdenes de compra es el mismo al de las de venta, la probabilidad de un aumento en $p_M(t)$ es cercana al 50\%. Cuando el número de posturas de compra excede al de venta existe una mayor probabilidad de que el precio suba para todos los casos; también al aumentar la diferencia entre las posturas de compra y venta aumenta la probabilidad de un aumento en el precio. Un resultado interesante es que se esperaría que $P\{p_M(T)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=1\}=1-P\{p_M(T)>p_M(0)|X_A(0)=b,X_B(0)=a,p_S(0)=1\}$, sin embargo, en este caso $P\{p_M(T)>p_M(0)|X_A(0)=1,X_B(0)=2,p_S(0)=1\}=69.31\%$ mientras que $P\{p_M(T)>p_M(0)|X_A(0)=2,X_B(0)=1,p_S(0)=1\}=35.32\%$. Esto se puede deber a la precisión de algunos de los cálculos que se realizaron, en particular las integraciones numéricas; esto se podría mejorar al alterar los parámetros.
+
 \begin{table}[htbp]
 \centering
 \caption{Resultados Transformación de Laplace}
@@ -1083,6 +1105,8 @@ compra & 1& 2 & 3 & 4 & 5 \\
 \label{tab:reslaplace}%
 \end{table}%
 
+Con los mismos parámetros que se utilizaron para el método de Laplace se realizaron simulaciones. Para cada una de las combinaciones se realizaron 10,000 simulaciones. Para las simulaciones en los casos donde el número de posturas de compra y venta son iguales, el porcentaje de las ocasiones donde el precio sube es el más cercano al 50\%. También en este método se cumplen las premisas que se establecieron en los otros dos métodos en cuanto al aumento de la probabilidad de que el precio suba dada la diferencia entre el número de posturas de compra y venta. En este caso se podría decir que $P\{p_M(T)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=1\}=1-P\{p_M(T)>p_M(0)|X_A(0)=b,X_B(0)=a,p_S(0)=1\}$ sí se cumple. Este método resulto ser bastante más rápido que el método de la transformación inversa de Laplace, sin embargo, probablemente el método de Laplace se podría mejorar considerablemente si se optimizaran algunos de los algoritmos utilizados.
+
 \begin{table}[htbp]
 \centering
 \caption{Resultados Simulación}
@@ -1100,6 +1124,10 @@ compra & 1& 2 & 3 & 4 & 5 \\
 \end{tabular}%
 \label{tab:ressim}%
 \end{table}%
+
+\clearpage
+
+\section{Conclusiones}
 
 \clearpage
 
