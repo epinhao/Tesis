@@ -44,9 +44,10 @@ Los mercados se pueden clasificar en dos tipos:
 
 En los mercados regidos por formadores de mercado, éstos centralizan las órdenes proveyendo liquidez al fijar una postura de compra y una de venta; por ejemplo el especialista en el NYSE. En los mercados regidos por órdenes, las posturas de todos los participantes se agregan en lo que se conoce como el libro de posturas. Los mercados regidos por órdenes tienen como ventaja la transparencia, ya que todos los participantes conocen las posturas de los demás. Existen algunos mercados híbridos donde los formadores de mercado interactúan en el libro de posturas. La Bolsa Mexicana de Valores y NASDAQ son ejemplos de mercados híbridos.\\
 
-El estudio de la microestuctura del mercado es de utilidad ya que permite identificar patrones dentro del mismo, los cuales pueden ser utilizados para la predicción y también para identificar comportamientos fraudulentos.\\
+El estudio de la microestuctura del mercado es de utilidad ya que permite identificar patrones dentro del mismo, los cuales pueden ser utilizados para la predicción y también para identificar comportamientos fraudulentos. Los comportamientos fraudulentos son de gran interés para los reguladores del mercado, bases de datos parecidas han sido utilizadas para identificar casos en el que varios participantes del mercado han conspirado para manipular precios.
+\\
 
-Con el objetivo de estudiar el comportamiento de la Bolsa Mexicana de Valores, se obtuvo una base de datos con todas las posturas del libro de órdenes en un periodo determinado. En primer lugar se describirá esta base datos; después se explicará la forma en que se reconstruyó el libro de postura para poder llevar a cabo el análisis. Los resultados obtenidos tras la reconstrucción se compararán con los de otros estudios similares para otros mercados. Finalmente se describirá un modelo de el libro de posturas y método basado en la transformación inversa de Laplace para llevar a cabo la predicción del movimiento en el precio de una emisora.
+Con el objetivo de estudiar el comportamiento de la Bolsa Mexicana de Valores, se obtuvo una base de datos con todas las posturas del libro de órdenes en un periodo determinado. En este trabajo, se describirá en primer lugar esta base datos; después se explicará la forma en que se reconstruyó el libro de posturas para poder llevar a cabo el análisis. Los resultados obtenidos tras la reconstrucción se compararán con los de otros estudios similares para otros mercados. Finalmente se describirá un modelo del libro de posturas y un método basado en la transformación inversa de Laplace para llevar a cabo la predicción del movimiento en el precio de una emisora.
 
 \clearpage
 
@@ -189,7 +190,7 @@ Con los datos proporcionados se reconstruyó el libro de posturas. A lo largo de
 
 El algoritmo que se ideó para reconstruir el libro de posturas no toma en cuenta el tipo de orden. Esto se hizo con el fin de simplificar el libro; además de la falta de información como el volumen de las posturas del tipo VO (Volumen Oculto). Las posturas de tipo VO comprenden sólo el 0.55\% del total, mientras que las de tipo LP (Limitadas) representan el 93.81\%. Las operaciones del tipo PI (Picos), las cuales implican la compra/venta de una cantidad de acciones inferior a un lote (para la mayoría de la emisoras son 100 acciones), no se incluyen en el libro de posturas como lo establece el reglamento de la BMV. Las operaciones de tipo PI representan el 0.61\% de la muestra. Adicionalmente como lo establece también el reglamento de la bolsa, antes de las 8:30 no se puede concretar ningún hecho, el algoritmo también respeta esto. En primera instancia se cargan las posturas que quedaron abiertas en días anteriores de la tabla de Posturas Iniciales, a continuación se procesa el registro.\\
 
-El algoritmo se implementó en Java y se desarrolló una interfaz gráfica. Como se puede ver en la Figura \ref{java} la interfaz permite analizar individualmente cada entrada del registro de una emisora para un día. La interfaz cuenta con 5 ventanas:
+El algoritmo se implementó en Java y se desarrolló una interfaz gráfica. Como se puede ver en la Figura \ref{java}, la interfaz permite analizar individualmente cada entrada del registro de una emisora para un día. La interfaz cuenta con 5 ventanas:
 \begin{itemize}
   \item Corros de Venta
   \item Corros de Compra
@@ -198,9 +199,9 @@ El algoritmo se implementó en Java y se desarrolló una interfaz gráfica. Como
   \item Registro
 \end{itemize}
 
-Con el botón de siguiente se van procesando una a una las entradas del registro. En el caso de una postura de compra, en primer lugar se trata de buscar una postura en los corros de venta para perfeccionarla, si no existe, ésta se registra el los corros de compra los cuales están ordenados de mayor a menor precio. Esto se hace de igual forma para las posturas de venta, éstas están ordenadas también de mayor a menor precio, de tal forma, que la postura que se encuentra en la parte inferior de los corros de venta y la que se encuentra en la parte más alta de los corros de compra son las puntas. La interfaz también permite cancelar una postura de compra o una de venta al seleccionarla y oprimir el botón correspondiente con el objeto de poder depurar errores en el funcionamiento del algoritmo.\\
+Con el botón de ``Siguiente'' se van procesando una a una las entradas del registro. En el caso de una postura de compra, se trata de buscar en primer lugar, una postura en los corros de venta para perfeccionarla, si no existe, ésta se registra en los corros de compra, los cuales están ordenados de mayor a menor precio. Esto se hace de igual forma para las posturas de venta, éstas están ordenadas también de mayor a menor precio, de tal forma, que la postura que se encuentra en la parte inferior de los corros de venta y la que se encuentra en la parte más alta de los corros de compra son las puntas. La interfaz también permite cancelar una postura de compra o una de venta al seleccionarla y oprimir el botón correspondiente con el objeto de poder depurar errores en el funcionamiento del algoritmo.\\
 
-Como se mencionó antes, los hechos se registran con la clave AH; éstos se mantienen en la ventana de ``Hechos Registrados por la BMV''. Cuando el algoritmo desarrollado perfecciona un hecho, éste se registra en la venta de ``Hechos Reportados por el Algoritmo''. Finalmente se encuentran las cancelaciones y las modificaciones, para éstas, es necesario localizar el folio correspondiente en los corros de compra o venta para hacer la cancelación o modificación correspondiente. Con el fin de poder analizar el registro con mayor rapidez, se implementó el botón de ``Play'', el cual permite avanzar 100 entradas del registro.
+Como se mencionó antes, los hechos se registran con la clave AH; éstos se mantienen en la ventana de ``Hechos Registrados por la BMV''. Cuando el algoritmo desarrollado perfecciona un hecho, éste se registra en la venta de ``Hechos Reportados por el Algoritmo''. Finalmente, se encuentran las cancelaciones y las modificaciones, para éstas es necesario localizar el folio correspondiente en los corros de compra o venta para hacer la cancelación o modificación correspondiente. Con el fin de poder analizar el registro con mayor rapidez, se implementó el botón de ``Play'', el cual permite avanzar 100 entradas del registro.
 
 \begin{landscape}
 
@@ -1128,6 +1129,8 @@ compra & 1& 2 & 3 & 4 & 5 \\
 \clearpage
 
 \section{Conclusiones}
+
+Después de reconstruir el libro de posturas de la Bolsa Mexicana de Valores, se compararon los resultados con los que se han realizado para otros mercados. Para algunas de las variables los resultados fueron similares a los encontrados en otros mercados; por ejemplo los precios siguen una ley de potencias.
 
 \clearpage
 
