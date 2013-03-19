@@ -1141,7 +1141,11 @@ En el trabajo se describió un modelo del libro de posturas simplificado, el cua
 
 El trabajo se concentró en describir el comportamiento de los movimientos del precio. Para realizar los cálculos necesarios se utilizó el método de Laplace y una expresión de la probabilidad buscada en términos de fracciones continuas. Para realizar los cálculos fue necesario estimar los parámetros. Para poder comparar los resultados obtenidos a través del método de Laplace, se realizaron los cálculos de las frecuencias empíricas y a través de simulación.\\
 
-En particular se calculó la probabilidad de un aumento en el precio cuando el ``spread'' es de una puja; las frecuencias empíricas muestran algunas diferencias con los resultados obtenidos a través de la transformación de Laplace y simulación, sin embargo los resultados eran consistentes con los que se esperaban; al aumentar la diferencia entre las posturas de compra y venta, aumenta la probabilidad de que aumente el precio. El método de la transformación de Laplace resultó ser significativamente más lento que las simulaciones.
+En particular se calculó la probabilidad de un aumento en el precio cuando el ``spread'' es de una puja; las frecuencias empíricas muestran algunas diferencias con los resultados obtenidos a través de la transformación de Laplace y simulación, sin embargo los resultados eran consistentes con los que se esperaban; al aumentar la diferencia entre las posturas de compra y venta, aumenta la probabilidad de que aumente el precio. El método de la transformación de Laplace resultó ser significativamente más lento que las simulaciones.\\
+
+En trabajos futuros en primer lugar se podría probar el método de la transformación inversa en casos donde el ``spread'' es mayor que 1, para estos casos podría ser que este método fuera más veloz que la simulación. También se deja para un trabajo posterior la implementación de estrategias para explotar los resultados encontrados en el trabajo. Para implementar estas estrategias es necesario en primer lugar los algoritmos utilizados en este trabajo. El algoritmo de la transformación de Laplace utilizada en el trabajo, utiliza los mismos resultados en varias ocasiones, por lo que estos se podrían almacenar para evitar calcularlos en cada ocasión.\\
+
+El modelo utilizado también puede perfeccionado; en particular se podría eliminar el supuesto de órdenes de un tamaño unitario o estándar. También se podrían utilizar distintos parámetros para las órdenes de compra y venta.
 
 
 \clearpage
