@@ -45,14 +45,14 @@ Los mercados se pueden clasificar en dos tipos:
 
 En los mercados regidos por formadores de mercado, éstos centralizan las órdenes proveyendo liquidez al fijar una postura de compra y una de venta; un ejemplo de esto es el especialista en el NYSE, el cual es el punto de contacto entre compradores y vendedores. El especialista tiene como misión mantener la continuidad del mercado, mantener a los inversionistas informados, comprometer capital cuando es necesario y asegurar equidad de oportunidades entre todos los clientes \cite{nyse}. En los mercados regidos por órdenes, las posturas de todos los participantes se agregan en lo que se conoce como el libro de posturas. Los mercados regidos por órdenes tienen la ventaja de dar transparencia a todos los participantes, ya que éstos conocen las características de cada una de las posturas. De igual forma, existen algunos mercados híbridos donde los formadores de mercado interactúan en el libro de posturas; la Bolsa Mexicana de Valores y NASDAQ son algunos ejemplos.\\
 
-La microestructura del mercado se define como el estudio del proceso y los resultados del intercambio de activos bajo un conjunto especifico de reglas \cite{1995market}. El estudio de la microestuctura del mercado es de utilidad ya que permite identificar patrones dentro del mismo. Estos patrones pueden ser utilizados para la predicción de los movimientos del mercado y para la identificación de comportamientos fraudulentos entre los participantes del mercado. Esta información es de de gran interés para los reguladores, ya que permite identificar casos de manipulación de precios.
+La microestructura del mercado se define como el estudio del proceso y los resultados del intercambio de activos bajo un conjunto especifico de reglas \cite{1995market}. El estudio de la microestuctura del mercado es de utilidad ya que permite identificar patrones dentro del mismo. Estos patrones pueden ser utilizados para la predicción de los movimientos del mercado y para la identificación de comportamientos fraudulentos entre los participantes del mercado. Esta información es de gran interés para los reguladores, ya que permite identificar casos de manipulación de precios.
 \\
 
 Con el objetivo de estudiar el comportamiento de la Bolsa Mexicana de Valores, se obtuvo una base de datos con todas las posturas del libro de órdenes en un periodo determinado. En este trabajo se describirá la base datos sujeta al estudio y se explicará la forma en que se reconstruyó el libro de posturas para llevar a cabo el análisis. Los resultados obtenidos tras la reconstrucción se compararán con los estudios de otros mercados similares. Finalmente, se describirá un modelo del libro de posturas y un método basado en la transformación inversa de Laplace para llevar a cabo la predicción del movimiento en el precio de una emisora.
 
 \clearpage
 
-\section{Descripción de las Base de Datos}
+\section{Descripción de la Base de Datos}
 La Bolsa Mexicana de Valores proporcionó para este trabajo una base de datos con las posturas en todas las emisoras entre el 16 de noviembre de 2010 y el 18 de febrero de 2011. La base de datos se compone de dos tablas:
 
 \begin{itemize}
@@ -191,7 +191,7 @@ Se utiliza para localizar el folio de una postura que se va a modificar o cancel
 
 Con los datos proporcionados se reconstruyó el libro de posturas. A lo largo del día existen un gran número de modificaciones y cancelaciones, aproximadamente el 11\% de los registros en la base de datos son modificaciones y el 35\% son cancelaciones. Por lo tanto, es indispensable identificar las posturas activas en todo momento.\\
 
-Con el fin de simplificar el análisis y debido a la falta de información del volumen de las posturas del tipo VO (Volumen Oculto), se creo un algoritmo que no segrega por tipo de orden. Las posturas de tipo VO comprenden sólo el 0.55\% del total, mientras que las de tipo LP (Limitadas) representan el 93.81\%; estas últimas sí cuentan con la información del volumen. Las operaciones del tipo PI (Picos) representan el 0.61\% de la muestra y de acuerdo al reglamento de la BMV no se incluyen en el libro de posturas. Adicionalmente el algoritmo respeta el horario establecido en el reglamento de la bolsa; por lo tanto, antes de las 8:30am no se concreta ningún hecho. En la primera fase el algoritmo carga las posturas que quedaron abiertas en días anteriores de la tabla de Posturas Iniciales y en la segunda se procesa el registro.\\
+Con el fin de simplificar el análisis y debido a la falta de información del volumen de las posturas del tipo VO (Volumen Oculto), se creó un algoritmo que no segrega por tipo de orden. Las posturas de tipo VO comprenden sólo el 0.55\% del total, mientras que las de tipo LP (Limitadas) representan el 93.81\%; estas últimas sí cuentan con la información del volumen. Las operaciones del tipo PI (Picos) representan el 0.61\% de la muestra y de acuerdo al reglamento de la BMV no se incluyen en el libro de posturas. Adicionalmente el algoritmo respeta el horario establecido en el reglamento de la bolsa; por lo tanto, antes de las 8:30am no se concreta ningún hecho. En la primera fase el algoritmo carga las posturas que quedaron abiertas en días anteriores de la tabla de Posturas Iniciales y en la segunda se procesa el registro.\\
 
 El algoritmo se implementó en Java y se desarrolló una interfaz gráfica. Como se puede ver en la Figura \ref{java}, la interfaz permite analizar individualmente cada entrada del registro de una emisora para un día. La interfaz cuenta con 5 ventanas:
 \begin{itemize}
@@ -1135,7 +1135,13 @@ compra & 1& 2 & 3 & 4 & 5 \\
 
 En el trabajo se reconstruyó el libro de posturas de la Bolsa Mexicana de Valores, el algoritmo logró reproducir con gran eficacia los hechos reportados por la BMV, medidos desde el punto de vista del volumen y del VWAP.\\
 
-Se compararon los resultados con los que se han realizado para otros mercados. Para algunas de las variables los resultados fueron similares a los encontrados en otros mercados; por ejemplo los precios siguen una ley de potencias. También se puede decir que el volumen de las ordenes sigue la ley de potencias, sin embargo, las cancelaciones no tienen un comportamiento similar.
+Se compararon los resultados obtenidos con los análisis que se han realizado para otros mercados. Para algunas de las variables los resultados fueron similares a los encontrados en otros mercados; por ejemplo los precios siguen una ley de potencias. También se puede decir que el volumen de las órdenes sigue la ley de potencias, sin embargo, las cancelaciones no tienen un comportamiento similar. La mayoría de las cancelaciones suceden cerca de las puntas.\\
+
+En el trabajo se describió un modelo del libro de posturas simplificado, el cual clasifica las órdenes en: órdenes limitadas, de mercado y cancelaciones, a las cuales les asigna una distinta tasa de llegada. El modelo tiene la bondad de permitir el cálculo de algunos resultados a través de la transformación inversa de Laplace, la cual facilita los mismos debido a sus propiedades.\\
+
+El trabajo se concentró en describir el comportamiento de los movimientos del precio. Para realizar los cálculos necesarios se utilizó el método de Laplace y una expresión de la probabilidad buscada en términos de fracciones continuas. Para realizar los cálculos fue necesario estimar los parámetros. Para poder comparar los resultados obtenidos a través del método de Laplace, se realizaron los cálculos de las frecuencias empíricas y a través de simulación.\\
+
+En particular se calculó la probabilidad de un aumento en el precio cuando el ``spread'' es de una puja; las frecuencias empíricas muestran algunas diferencias con los resultados obtenidos a través de la transformación de Laplace y simulación, sin embargo los resultados eran consistentes con los que se esperaban; al aumentar la diferencia entre las posturas de compra y venta, aumenta la probabilidad de que aumente el precio. El método de la transformación de Laplace resultó ser significativamente más lento que las simulaciones.
 
 
 \clearpage
