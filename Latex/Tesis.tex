@@ -958,7 +958,7 @@ También es importante utilizar el parámetro correcto $T$ para encontrar la dis
 
 \subsubsection{Estimación de los Parámetros}
 
-Debido a como se mencionó anteriormente el modelo considera posturas con un volumen estandarizado o único, es necesario encontrar el promedio de las posturas limitadas $S_l$, posturas a mercado $S_m$ y de las cancelaciones $S_c$. Con esto se estima la tasa de llegada de las ordenes limitadas $\lambda$ a una distancia de $i$ pujas, $1\leq i \leq 5$
+Debido a que el modelo considera posturas con un volumen estandarizado o único, es necesario encontrar el promedio de las posturas limitadas $S_l$, posturas a mercado $S_m$ y de las cancelaciones $S_c$. Con esto se estima la tasa de llegada de las ordenes limitadas $\lambda$ a una distancia de $i$ pujas, $1\leq i \leq 5$
 
 \[
 \hat{\lambda}(i)=\frac{N_l(i)}{T_*}
@@ -1144,7 +1144,7 @@ El trabajo se concentró en describir el comportamiento de los movimientos del p
 
 En particular se calculó la probabilidad de un aumento en el precio cuando el ``spread'' es de una puja; las frecuencias empíricas muestran algunas diferencias con los resultados obtenidos a través de la transformación de Laplace y simulación, sin embargo los resultados eran consistentes con los que se esperaban; al aumentar la diferencia entre las posturas de compra y venta, aumenta la probabilidad de que aumente el precio. El método de la transformación de Laplace resultó ser significativamente más lento que las simulaciones.\\
 
-En trabajos futuros en primer lugar se podría probar el método de la transformación inversa en casos donde el ``spread'' es mayor que 1, para estos casos podría ser que este método fuera más veloz que la simulación. También se deja para un trabajo posterior la implementación de estrategias para explotar los resultados encontrados en el trabajo. Para implementar estas estrategias es necesario en primer lugar los algoritmos utilizados en este trabajo. El algoritmo de la transformación de Laplace utilizada en el trabajo, utiliza los mismos resultados en varias ocasiones, por lo que estos se podrían almacenar para evitar calcularlos en cada ocasión.\\
+En trabajos futuros en primer lugar se podría probar el método de la transformación inversa en casos donde el ``spread'' es mayor que 1, para estos casos podría ser que este método fuera más veloz que la simulación. También se deja para un trabajo posterior la implementación de estrategias para explotar los resultados encontrados en el trabajo. Para implementar estas estrategias es necesario en primer lugar optimizar los algoritmos utilizados en este trabajo. El algoritmo de la transformación de Laplace utilizada en el trabajo, utiliza los mismos resultados en varias ocasiones, por lo que estos se podrían almacenar para evitar calcularlos en cada ocasión.\\
 
 El modelo utilizado también puede perfeccionado; en particular se podría eliminar el supuesto de órdenes de un tamaño unitario o estándar. También se podrían utilizar distintos parámetros para las órdenes de compra y venta.
 
