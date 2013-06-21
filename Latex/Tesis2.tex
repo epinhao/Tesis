@@ -189,7 +189,7 @@ Se utiliza para localizar el folio de una postura que se va a modificar o cancel
 
 \section{Reconstrucción del Libro de Posturas}
 
-Para realizar los diversos análisis fue necesario reconstruir el libro de posturas. El libro de posturas registra todas las posturas para cada una de las emisoras. Con los datos proporcionados se reconstruyó el libro de posturas de la BMV. Uno de los principales retos que se identificaron fueron las modificaciones y cancelaciones. A lo largo del día existen un gran número de modificaciones y cancelaciones; aproximadamente el 11\% de los registros en la base de datos son modificaciones y el 35\% son cancelaciones. Por lo tanto, es indispensable identificar las posturas activas en todo momento. En otros trabajos esto no ha presentado un reto ya que cuentan con una representación del libro que facilita el análisis. Trabajos anteriores han realizado el análisis con lo que se conoce como las ``puntas''. Las puntas son las mejores posturas de compra y venta en el libro de posturas. El análisis que se realiza en este trabajo es más completo ya que cuenta con la información de todas las posturas en cada instante de tiempo.\\
+Para realizar los diversos análisis fue necesario reconstruir el libro de posturas. El libro de posturas registra todas las posturas para cada una de las emisoras. Con los datos proporcionados se reconstruyó el libro de posturas de la BMV. Uno de los principales retos que se identificaron fueron las modificaciones y cancelaciones. A lo largo del día existen un gran número de modificaciones y cancelaciones; aproximadamente el 11\% de los registros en la base de datos son modificaciones y el 35\% son cancelaciones. Por lo tanto, es indispensable identificar las posturas activas en todo momento. En otros trabajos esto no ha presentado un reto ya que se ha contado con una representación del libro que facilita el análisis. Trabajos anteriores han realizado el análisis con lo que se conoce como las ``puntas''. Las puntas son las mejores posturas de compra y venta en el libro de posturas. El análisis que se realiza en este trabajo es más completo ya que cuenta con la información de todas las posturas en cada instante de tiempo; esta es la primera vez que se realiza un análisis como este con los datos de la BMV.\\
 
 Otro reto que se identificó fue el de las posturas de tipo VO (Volumen Oculto). La bases de datos que se utilizó no cuenta con la información del volumen que se encuentra oculto en este tipo de órdenes. Se optó por ignorar esta información ya que las posturas de tipo VO comprenden sólo el 0.55\% del total, mientras que las de tipo LP (Limitadas), las más comunes, representan el 93.81\%; estas últimas sí cuentan con la información del volumen. Como se muestra más adelante, ignorar las posturas de tipo VO no tuvo un gran impacto ya que los hechos reportados por el algoritmo son similares a los reportados por la BMV. Las operaciones del tipo PI (Picos) representan el 0.61\% de la muestra y de acuerdo al reglamento de la BMV no se incluyen en el libro de posturas, por lo que para el análisis también se ignoraron. Adicionalmente el algoritmo respeta el horario establecido en el reglamento de la bolsa; por lo tanto, antes de las 8:30am no se concreta ningún hecho. En la primera fase el algoritmo carga las posturas que quedaron abiertas en días anteriores de la tabla de Posturas Iniciales y en la segunda se procesa el registro.\\
 
@@ -219,7 +219,9 @@ Como se mencionó antes, los hechos se registran con la clave AH; éstos se mant
 Para medir la efectividad del algoritmo se compararon los hechos reportados por la BMV con los hechos arrojados por el algoritmo y se ignoraron acciones de muy baja bursatilidad. Por ejemplo, se analizó la acción de KUO serie B. Ésta tiene en promedio alrededor de 28 posturas diarias en la base de datos comparado con la media de 2,550 posturas diarias para las demás emisoras; y se observó que para la muestra de 68 días, el algoritmo solamente reprodujo el 50.3\% del volumen operado según la BMV. Al realizar un análisis más profundo del volumen operado de esta acción durante el plazo mencionado, se encontró que la baja efectividad del algoritmo se debe a una serie de posturas de volumen oculto que se registraron el 29 de diciembre de 2010. Si se excluye esta fecha, el algoritmo reporta un volumen de 5,607,600 acciones mientras que la BMV reporta 5,972,500, es decir, el algoritmo tiene una efectividad del 93.9\%. Para AMX serie L, la acción con mayor volumen en la BMV con un promedio 44,396 posturas por día, el algoritmo reproduce el 89.7\% de las operaciones.\\
 
 
-No sólo es importante analizar el volumen operado, sino también la evolución del precio de una acción. Para realizar el análisis de la tendencia del precio, se utilizó el precio promedio ponderado por volumen, VWAP (Volume-weighted average price). Para la acción de KUO el VWAP del 28 de enero de 2011 registrado por la BMV es de 21.72491, el registrado por el algoritmo es de 21.72289. Por ejemplo, el 31 de diciembre de 2010 se encontró una diferencia entre el volumen reportado por la bolsa y el del algoritmo mayor al 50\%; sin embargo, el VWAP de la bolsa y del algoritmo son similares, 20.35595 y 20.27741 respectivamente. Para el caso de AMX, el 28 de diciembre el algoritmo tuvo sólamente un 69.0\% de efectividad para replicar el volumen, sin embargo, la efectividad de la tendencia del precio de las operaciones superó el 99.92\%. El 20 de enero de 2011, día de mayor efectividad en términos del volumen, el algoritmo también reproduce el VWAP casi al 100\%.
+No sólo es importante analizar el volumen operado, sino también la evolución del precio de una acción. Para realizar el análisis de la tendencia del precio, se utilizó el precio promedio ponderado por volumen, VWAP (Volume-weighted average price). Para la acción de KUO el VWAP del 28 de enero de 2011 registrado por la BMV es de 21.72491, el registrado por el algoritmo es de 21.72289. Por ejemplo, el 31 de diciembre de 2010 se encontró una diferencia entre el volumen reportado por la bolsa y el del algoritmo mayor al 50\%; sin embargo, el VWAP de la bolsa y del algoritmo son similares, 20.35595 y 20.27741 respectivamente. En la Figura \ref{kuo1231} y la Figura \ref{kuo0128} se muestra de forma gráfica la evolución del precio de KUO a lo largo de los días mencionados antes.\\
+
+Para el caso de AMX, el 28 de diciembre el algoritmo tuvo solamente un 69.0\% de efectividad para replicar el volumen, sin embargo, el VWAP de la bolsa y el algoritmo difieren en menos de 0.08\%. El 20 de enero de 2011, día de mayor efectividad en términos del volumen, la bolsa reporta un VWAP de 35.28202 mientras que el algoritmo 35.26883. En la Figura \ref{amx0120} y la Figura \ref{amx1228} se encuentran unas gráficas con los precios de AMX a lo largo de esos días.
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75, trim=0 0.5cm 0 1.5cm]{kuo123110.eps}
@@ -363,7 +365,7 @@ En la Figura \ref{fig:precios} se muestra el ajuste del modelo propuesto anterio
 
 \subsection{Volúmenes}
 
-En REFERENCIA se demostró que los volúmenes superiores a 1,000 títulos también se pueden representar con una distribución Lomax. Se realizó un estudio similar al de precios para la distribución del volumen de las posturas en la Bolsa Mexicana de Valores. Como se puede ver en la Tabla \ref{tab:powervolumen}, en la mayoría de los casos los parámetros para una misma emisora son ``similares'' para las posturas de compra y venta. Para 4 de las 6 emisoras estudiadas se puede establecer la media, ya que $\alpha > 1$. En el caso de COMERCI no se puede definir una media con el modelo ajustado para las posturas de compra ni para las de venta. En el caso de KUO no se puede definir la media para las posturas de compra; para HERDEZ no está definida para las posturas de venta.\\
+En \cite{marketsdigest} se demostró que los volúmenes también se pueden representar con una distribución Lomax. Se realizó un estudio similar al de precios para la distribución del volumen de las posturas en la Bolsa Mexicana de Valores. Como se puede ver en la Tabla \ref{tab:powervolumen}, en la mayoría de los casos los parámetros para una misma emisora son ``similares'' para las posturas de compra y venta. Para 4 de las 6 emisoras estudiadas se puede establecer la media, ya que $\alpha > 1$. En el caso de COMERCI no se puede definir una media con el modelo ajustado para las posturas de compra ni para las de venta. En el caso de KUO no se puede definir la media para las posturas de compra; para HERDEZ no está definida para las posturas de venta.\\
 
 \begin{table}[htbp]
 \centering
@@ -389,7 +391,7 @@ En REFERENCIA se demostró que los volúmenes superiores a 1,000 títulos tambi�
 
 Por ejemplo, con el modelo ajustado, la media del volumen de las posturas de compra de AMX es de 18,322.35 títulos, mientras que el de venta es de 17,491.36. La media del volumen de compra para BIMBO es de 1,647.74 mientras que la media las posturas de venta es de 1,802.22.\\
 
-En el caso de los volúmenes el ajuste no es tan bueno como el observado en los precios, tal como se muestra en la Figura \ref{fig:volumen}. Es interesante observar la preferencia de los participantes por volúmenes múltiplos de 1,000.
+En el caso de los volúmenes el ajuste no es tan bueno como el observado en los precios, tal como se muestra en la Figura \ref{fig:volumen}. La distribución sólo es útil para volúmenes superiores a 1,000 títulos. Es interesante observar la preferencia de los participantes por volúmenes múltiplos de 1,000.
 
 \begin{figure}[htbp]
 \centering
@@ -452,9 +454,9 @@ En el caso de los volúmenes el ajuste no es tan bueno como el observado en los 
 
 \subsection{Cancelaciones}
 
-La distribución de la distancia $\Delta$ de las cancelaciones del mejor precio de compra $b(t)$ y de venta $a(t)$ también se puede modelar mediante una distribución Lomax. Se debe considerar, como se mostrará en las distribuciones empíricas, que un gran número de las cancelaciones suceden con $\Delta=0$; es decir, al mejor precio de compra y venta. La distribución Lomax asume que $F(0)=0$, lo cual no sucede en este análisis. Para evitar esto, sólo se considerarán las posturas donde $\Delta>0$, y se mencionará por separado la proporción de las cancelaciones donde $\Delta=0$.\\
+La literatura en el caso de las cancelaciones es más limitada; sin embargo, se intentará también modelar la distribución de la distancia $\Delta$ de las cancelaciones del mejor precio de compra $b(t)$ y de venta $a(t)$ mediante una distribución Lomax. Se debe considerar, como se mostrará en las distribuciones empíricas, que un gran número de las cancelaciones suceden con $\Delta=0$; es decir, al mejor precio de compra y venta. La distribución Lomax asume que $F(0)=0$, lo cual no sucede en este análisis. Para evitar esto, sólo se considerarán las posturas donde $\Delta>0$, y se mencionará por separado la proporción de las cancelaciones donde $\Delta=0$.\\
 
-La media de cada una de las emisoras en la muestra elegida es menor a 35; por lo tanto, las cancelaciones se concentran cerca de los mejores precios de compra y venta respectivamente. Es importante considerar que en las emisoras estudiadas, en el peor de los casos, cerca del 15\% de las cancelaciones suceden al mejor precio de compra o venta. En el caso de HERDEZ para las posturas de venta, más del 50\% de las cancelaciones se realizan en la punta, como puede verse en la Tabla \ref{tab:powercanc}.
+La media de cada una de las emisoras en la muestra elegida es menor a 35; por lo tanto, las cancelaciones se concentran cerca de los mejores precios de compra y venta respectivamente. Este resultado era de esperarse ya que se presume que los inversionistas que colocan posturas lejos de las puntas tienen mayor paciencia, es decir están dispuestos a esperar más tiempo para que su postura se concrete.  Es importante considerar que en las emisoras estudiadas, en el peor de los casos, cerca del 15\% de las cancelaciones suceden al mejor precio de compra o venta. En el caso de HERDEZ para las posturas de venta, más del 50\% de las cancelaciones se realizan en la punta, como puede verse en la Tabla \ref{tab:powercanc}.
 
 \begin{table}[htbp]
 \centering
@@ -677,7 +679,7 @@ Ahora iterando en la expresión que se obtuvo previamente para $\hat{f}_i(s)$, s
 \cfrac{-\lambda_{i+1}\mu_{i+2}}{\lambda_{i+2}+\mu_{i+2} + s + \ddots}}}
 \]
 
-\begin{equation}
+\begin{equation} \label{eq:dist}
 \hat{f}_i (s) = -\frac{1}{\lambda_{i-1}}\Phi_{k=i}^{\infty}\frac{-\lambda_{k-1}\mu_{k}}{\lambda_{k}+\mu_{k}+s}
 \end{equation}\\
 
@@ -700,7 +702,7 @@ Q_n=b_n Q_{n-1}+a_n Q_{n-2}
 
 \subsection{La Transformación de Laplace Inversa}
 
-El reto que aún queda es encontrar una forma de calcular numéricamente $\mathcal{L}^{-1}$, con el objetivo de expresar en el tiempo la distribución definida en 5.11. $\mathcal{L}^{-1}$ está definida por la siguiente integral de variable compleja, que se puede evaluar a lo largo de la línea vertical $\gamma=a$, de la siguiente manera:
+El reto que aún queda es encontrar una forma de calcular numéricamente $\mathcal{L}^{-1}$, con el objetivo de expresar en el tiempo la distribución definida en \ref{eq:dist}. $\mathcal{L}^{-1}$ está definida por la siguiente integral de variable compleja, que se puede evaluar a lo largo de la línea vertical $\gamma=a$, de la siguiente manera:
 
 \[
 \begin{array}{rcl}
@@ -712,7 +714,7 @@ f(t) = \mathcal{L}^{-1} \{\hat{f}(s)\} & = & \displaystyle \frac{1}{2 \pi i} \li
 \end{array}
 \]
 
-Para evaluar esta integral se utiliza un método \cite{dubner1968} que se basa en la expansión de series de Fourier. Si se considera una función $h(t)$ tal que $h(t)=0$ para $t<0$ la cual se dividirá en segmentos de tamaño $T$, al reflejar cada segmento, se puede construir un conjunto de funciones pares $g_n(t)$, tal que:
+Para evaluar esta integral se utiliza un método \cite{dubner1968} que se basa en la expansión de series de Fourier. Si se considera una función $h(t)$ tal que $h(t)=0$ para $t<0$ la cual se dividirá en segmentos de tamaño $T$, al reflejar cada segmento, se puede construir un conjunto de funciones pares $g_n(t)$, tal que (Ver Figura \ref{fourier}):
 
 \[
 g_n(t) =
@@ -765,7 +767,7 @@ h((n+1)T+t), & \mbox{si } -T \leq t \leq 0
 \end{subfigure}
 
 \caption{Funciones $g_n(t)$}
-\label{foruier}
+\label{fourier}
 \end{figure}
 
 
@@ -1140,7 +1142,7 @@ compra & 1& 2 & 3 & 4 & 5 \\
 \label{tab:reslaplace}%
 \end{table}%
 
-Con los mismos parámetros que se utilizaron para el método de Laplace se realizaron simulaciones. Para cada una de las combinaciones se realizaron 10,000 simulaciones. Para las simulaciones en los casos donde el número de posturas de compra y venta son iguales, el porcentaje de las ocasiones donde el precio sube es el más cercano al 50\%. También en este método se cumplen las premisas que se establecieron en los otros dos métodos en cuanto al aumento de la probabilidad de que el precio suba dada la diferencia entre el número de posturas de compra y venta. En este caso se podría decir que $P\{p_M(T)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=1\}=1-P\{p_M(T)>p_M(0)|X_A(0)=b,X_B(0)=a,p_S(0)=1\}$ sí se cumple. Este método resulto ser bastante más rápido que el método de la transformación inversa de Laplace, sin embargo, probablemente el método de Laplace se podría mejorar considerablemente si se optimizaran algunos de los algoritmos utilizados.
+Con los mismos parámetros que se utilizaron para el método de Laplace se realizaron simulaciones. Para cada una de las combinaciones se realizaron 10,000 simulaciones en el paquete estadístico R. Para las simulaciones en los casos donde el número de posturas de compra y venta son iguales, el porcentaje de las ocasiones donde el precio sube es el más cercano al 50\%. También en este método se cumplen las premisas que se establecieron en los otros dos métodos en cuanto al aumento de la probabilidad de que el precio suba dada la diferencia entre el número de posturas de compra y venta. En este caso se podría decir que $P\{p_M(T)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=1\}=1-P\{p_M(T)>p_M(0)|X_A(0)=b,X_B(0)=a,p_S(0)=1\}$ sí se cumple. Este método resulto ser bastante más rápido que el método de la transformación inversa de Laplace, sin embargo, probablemente el método de Laplace se podría mejorar considerablemente si se optimizaran algunos de los algoritmos utilizados.
 
 \begin{table}[htbp]
 \centering
