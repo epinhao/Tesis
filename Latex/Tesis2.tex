@@ -257,14 +257,14 @@ Los mercados financieros son inherentemente difíciles de analizar; sin embargo,
 
 Para los precios, se ha identificado que la distribución de sus posturas sigue una ley de potencias \cite{Bouchaud2002}, es decir, que las frecuencias decrecen exponencialmente al aumentar la variable aleatoria. Es importante mencionar que esto no se ha probado formalmente mediante métodos estadísticos.\\
 
-Si se define a $b(t)$ como el precio de la mejor postura de compra y $a(t)$ como el precio de la mejor postura de venta, el precio de una nueva postura de compra o venta se puede expresar como $b(t)-\Delta$ ó $a(t)+\Delta$ respectivamente, donde la $\Delta$ está expresada en pujas o ticks. Una puja es el importe mínimo en que puede variar el precio unitario de cada título. Cabe mencionar que $\Delta$ puede tomar valores negativos. Si por ejemplo, con $\Delta <0$, se registra una postura con el precio $b(t)-\Delta \geq a(t)$ entonces se concretará un hecho, mientras que si $b(t)-\Delta < a(t)$ entonces el precio $b(t+1)=b(t)-\Delta$. Si se excluyen las posturas donde $\Delta \leq 0$, se puede decir que los precios siguen una distribución definida por:
+Si se define a $b(t)$ como el precio de la mejor postura de compra (``bid'') y $a(t)$ como el precio de la mejor postura de venta (``ask''), el precio de una nueva postura de compra o venta se puede expresar como $b(t)-\Delta$ ó $a(t)+\Delta$ respectivamente, donde la $\Delta$ está expresada en pujas o ticks. Una puja es el importe mínimo en que puede variar el precio unitario de cada título. Cabe mencionar que $\Delta$ puede tomar valores negativos. Si por ejemplo, con $\Delta <0$, se registra una postura con el precio $b(t)-\Delta \geq a(t)$ entonces se concretará un hecho, mientras que si $b(t)-\Delta < a(t)$ entonces el precio $b(t+1)=b(t)-\Delta$. Si se excluyen las posturas donde $\Delta \leq 0$, se puede decir que los precios siguen una distribución definida por la siguiente función de densidad:
 
 \begin{equation}
 P\left(\Delta\right) \propto \frac{A}{{\left(\Delta+\lambda\right)}^{\alpha+1}}
 \end{equation}
 \\
 
-Con el objetivo de analizar si el comportamiento de los precios de la Bolsa Mexicana sigue los patrones antes mencionados, se ajustó el modelo para distintas acciones, excluyendo todas las modificaciones, las cuales se podrían en algunos casos considerar como una nueva postura. Otros estudios han encontrado que el parámetro $\alpha$ es ``similar'' entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, como se puede ver en las Tablas \ref{tab:powercompra} y \ref{tab:powerventa}, las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución está definida cuando $\alpha>1$; en este análisis existen algunas emisoras para las que no se podría definir la media. En otros estudios se destaca que el parámetro $\alpha$ es similar para las posturas de compra y venta de una misma emisora \cite{Bouchaud2002}. En las acciones utilizadas en este trabajo el parámetro es similar en la mayoría de los casos; sin embargo, en el caso de KUO el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de compra.\\
+Con el objetivo de analizar si el comportamiento de los precios de la Bolsa Mexicana sigue los patrones antes mencionados, se ajustó el modelo a través del método de mínimos cuadrados para distintas acciones, excluyendo todas las modificaciones, las cuales se podrían en algunos casos considerar como una nueva postura. Otros estudios han encontrado que el parámetro $\alpha$ es ``similar'' entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, como se puede ver en las Tablas \ref{tab:powercompra} y \ref{tab:powerventa}, las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución está definida cuando $\alpha>1$; en este análisis existen algunas emisoras para las que no se podría definir la media. En otros estudios se destaca que el parámetro $\alpha$ es similar para las posturas de compra y venta de una misma emisora \cite{Bouchaud2002}. En las acciones utilizadas en este trabajo el parámetro es similar en la mayoría de los casos; sin embargo, en el caso de KUO el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de compra.\\
 
 \begin{table}[htbp]
 \centering
@@ -365,7 +365,7 @@ En la Figura \ref{fig:precios} se muestra el ajuste del modelo propuesto anterio
 
 \subsection{Volúmenes}
 
-En otro trabajo \cite{marketsdigest} se demostró que los volúmenes también se pueden representar con una distribución Lomax. Se realizó un estudio similar al de precios para la distribución del volumen de las posturas en la Bolsa Mexicana de Valores. Como se puede ver en la Tabla \ref{tab:powervolumen}, en la mayoría de los casos los parámetros para una misma emisora son ``similares'' para las posturas de compra y venta. Para 4 de las 6 emisoras estudiadas se puede establecer la media, ya que $\alpha > 1$. En el caso de COMERCI no se puede definir una media con el modelo ajustado para las posturas de compra ni para las de venta. En el caso de KUO no se puede definir la media para las posturas de compra; para HERDEZ no está definida para las posturas de venta.\\
+En otro trabajo para un mercado diferente \cite{marketsdigest} se demostró que los volúmenes también se pueden representar con una distribución Lomax. Se realizó un estudio similar al de precios para la distribución del volumen de las posturas en la Bolsa Mexicana de Valores. Como se puede ver en la Tabla \ref{tab:powervolumen}, en la mayoría de los casos los parámetros para una misma emisora son ``similares'' para las posturas de compra y venta. Para 4 de las 6 emisoras estudiadas se puede establecer la media, ya que $\alpha > 1$. En el caso de COMERCI no se puede definir una media con el modelo ajustado para las posturas de compra ni para las de venta. En el caso de KUO no se puede definir la media para las posturas de compra; para HERDEZ no está definida para las posturas de venta.\\
 
 \begin{table}[htbp]
 \centering
@@ -873,7 +873,7 @@ p_M(t)=\frac{p_B(t)+p_A(t)}{2}
 p_S(t)=p_A(t)-p_B(t)
 \]\\
 
-El libro de posturas limitado se actualiza al llegar nuevas posturas. Para un estado $x \in \mathbb{Z}$ con $1\leq p \leq n$ se define:
+El libro de posturas limitado se actualiza al llegar nuevas posturas. Para un estado $x \in \mathbb{Z}^n$ con $1\leq p \leq n$ se define:
 \[
 x^{p\pm 1}=x \pm (0,\ldots,1,\ldots,0)
 \]
@@ -907,11 +907,11 @@ De esta forma se puede decir que el proceso X es una cadena de Markov en tiempo 
 
 \subsection{Dirección de los Movimientos en el Precio}
 
-Se desea calcular la probabilidad de que en el siguiente movimiento el precio medio $p_M(t)$ aumente. El precio medio se altera en el tiempo del primer paso de las colas al mejor precio de compra o venta a cero. También este precio se puede alterar si el ``spread'' $p_S(t)>1$ y llega una postura dentro de este ``spread''. Se define a $X_A=X_{p_A(\cdot)}(\cdot)$ y $X_B=X_{p_B(\cdot)}(\cdot)$ y $\theta=\inf\{t\geq 0, p_M(t) \neq p_M(0)\}$.\\
+Se desea calcular la probabilidad de que en el siguiente movimiento el precio medio $p_M(t)$ aumente. El precio medio se altera en el tiempo del primer paso de las colas al mejor precio de compra o venta a cero. También este precio se puede alterar si el ``spread'' $p_S(t)>1$ y llega una postura dentro de este ``spread''. Se define a $X_A=X_{p_A(\cdot)}(\cdot)$ y $X_B=X_{p_B(\cdot)}(\cdot)$ y $\tau=\inf\{t\geq 0, p_M(t) \neq p_M(0)\}$.\\
 
-Dada una configuración inicial del libro de posturas, la probabilidad de que en el siguiente movimiento el precio medio aumente se puede expresar de la siguiente forma:
+Dada una configuración inicial del libro de posturas y un ``spread'' inicial $S$, la probabilidad de que en el siguiente movimiento el precio medio aumente se puede expresar de la siguiente forma:
 \[
-P\{p_M(\theta)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=S\}
+P\{p_M(\tau)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=S\}
 \]
 
 Los procesos $X_A$ y $X_B$ son procesos de nacimiento y muerte con las siguientes tasas de transición:
@@ -922,13 +922,13 @@ n\rightarrow n+1 \text{ con una tasa }\lambda(S)
 n\rightarrow n-1 \text{ con una tasa }\mu+n\theta(S)
 \]\\
 
-En particular cuando $S=1$ el precio medio $p_M(t)$ se altera cuando $X_A$ ó $X_B$ alcanzan el estado 0. Ahora, si se denota $\sigma_A$ y $\sigma_B$ como el tiempo del primer paso de los procesos $X_A$ y $X_B$ a cero, la distribución de $\theta$ está dada por el mínimo de los tiempos del primer paso de los procesos $X_A$ y $X_B$. La probabilidad de interés se puede expresar como $P\{\sigma_A<\sigma_B|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. La transformación de Laplace de la distribución condicional de $\sigma_A-\sigma_B$ está dada por:
+En particular cuando $S=1$ el precio medio $p_M(t)$ se altera cuando $X_A$ ó $X_B$ alcanzan el estado 0. Ahora, si se denota $\sigma_A$ y $\sigma_B$ como el tiempo del primer paso de los procesos $X_A$ y $X_B$ a cero, la distribución de $\tau$ está dada por el mínimo de los tiempos del primer paso de los procesos $X_A$ y $X_B$. La probabilidad de interés se puede expresar como $P\{\sigma_A<\sigma_B|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. La transformación de Laplace de la distribución condicional de $\sigma_A-\sigma_B$ está dada por:
 \[
 \hat{f}^A(s)\hat{f}^B(-s)
 \]
 donde:
 \[
-\hat{f}_{j,0}^Z(s)=-\left(\frac{1}{\lambda(S)}\right)^j\left( \prod_{i=1}^b \Phi_{k=i}^\infty \frac{-\lambda(S)(\mu+k\theta(S))}{\lambda(S)+\mu+k\theta(S)+s} \right)
+\hat{f}_{j}^S(s)=\left(-\frac{1}{\lambda(S)}\right)^j\left( \prod_{i=1}^j \Phi_{k=i}^\infty \frac{-\lambda(S)(\mu+k\theta(S))}{\lambda(S)+\mu+k\theta(S)+s} \right)
 \]\\
 
 Por lo que la probabilidad buscada se obtiene al evaluar la función de distribución acumulada en 0. Para hacer esto es necesario encontrar la transformación inversa de $\hat{f}^A(s)\hat{f}^B(-s)$ e integrar esta función.\\
@@ -952,11 +952,11 @@ f(t-a)$, donde $a$ es tal que:
 \lim_{t\to 0^-} g(t)=0
 \]
 
-En este caso se realizaron diversas simulaciones de los procesos $X_A$ y $X_B$ para evaluar la distribución de $\theta$, la cual disminuye exponencialmente de ambos lados a partir de un cierto máximo. En la Figura \ref{probmt} se muestra el resultado que se obtiene de las simulaciones y el que se obtiene al utilizar el método de la transformación inversa de Laplace.\\
+En este caso se realizaron diversas simulaciones de los procesos $X_A$ y $X_B$ para evaluar la distribución de $\tau$, la cual disminuye exponencialmente de ambos lados a partir de un cierto máximo. En la Figura \ref{probmt} se muestra el resultado que se obtiene de las simulaciones y el que se obtiene al utilizar el método de la transformación inversa de Laplace.\\
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpm.eps}
-\caption{Función de densidad de $\theta$}
+\caption{Función de densidad de $\tau$}
 \label{probmt}
 \end{figure}
 
@@ -976,7 +976,7 @@ por lo que de esta forma se puede desplazar la función de densidad de forma que
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmshift.eps}
-\caption{Función de densidad de $\theta$}
+\caption{Función de densidad de $\tau$}
 \label{probmtshift}
 \end{figure}
 
@@ -984,7 +984,7 @@ También es importante utilizar el parámetro correcto $T$ para encontrar la dis
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmpar.eps}
-\caption{Función de densidad de $\theta$}
+\caption{Función de densidad de $\tau$}
 \label{probmtpar}
 \end{figure}
 
