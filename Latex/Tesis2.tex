@@ -572,23 +572,23 @@ P\{X(t+s)=j|X(t)=j\} = 1-(\lambda_j+\mu_j)s + o(s)\quad j \in I
 \end{enumerate}
 
 
-$X(t)$ se conoce como el tamaño de la población al tiempo $t$. A $\lambda_j$ se le conoce como la tasa de nacimiento y $\mu_j$ como la tasa de muerte. Una medida interesante de los procesos de nacimiento y muerte es el tiempo del primer paso del estado {i} al estado {j}, que se denota como $T_{i,j}$. Para calcular la distribución de esta variable aleatoria es conveniente utilizar la transformación de Laplace bilateral, la cual se define de la siguiente forma:
+$X(t)$ se conoce como el tamaño de la población al tiempo $t$. A $\lambda_j$ se le conoce como la tasa de nacimiento y $\mu_j$ como la tasa de muerte. Una medida interesante de los procesos de nacimiento y muerte es el tiempo del primer paso del estado $i$ al estado $j$, que se denota como $\sigma_{i,j}$. Para calcular la distribución de esta variable aleatoria es conveniente utilizar la transformación de Laplace bilateral, la cual se define de la siguiente forma:
 
 \begin{equation}
 \hat{f}(s) = \mathcal{L} \left\{f(t)\right\}=\int_{-\infty}^{\infty} e^{-st} f(t) \,dt
 \end{equation}\\
 
-El tiempo $T_{i,j}$ se puede expresar de la siguiente forma:
+El tiempo $\sigma_{i,j}$ se puede expresar de la siguiente forma:
 \begin{equation}
-T_{i,j}=T_{i,i+1}+T_{i+1,i+2}+\ldots+T_{j-1,j}
+\sigma_{i,j}=\sigma_{i,i+1}+\sigma_{i+1,i+2}+\ldots+\sigma_{j-1,j}
 \end{equation}
-donde $T_{k,k+1}$ con $k=1,2,\ldots,j-1$ son independientes, lo cual permite utilizar la siguiente propiedad de la transformación de Laplace:
+donde $\sigma_{k,k+1}$ con $k=1,2,\ldots,j-1$ son independientes, lo cual permite utilizar la siguiente propiedad de la transformación de Laplace:
 \begin{equation}
 \hat{f}_{X+Y}(s)=\operatorname{E}[e^{-s(X+Y)}]=\operatorname{E}[e^{-sX}]\operatorname{E}[e^{-sY}]=\hat{f}_{X}(s)\hat{f}_{Y}(s)
 \end{equation}
 
-Lo cual permite expresar a la transformación de la función de densidad de $T_{i,j}$ como:
-\begin{equation}
+La transformación de la función de densidad de $\sigma_{i,j}$ se puede expresar como:
+\begin{equation} \label{eq:laplacesum}
 \hat{f}_{i,j}(s)=\prod_{k=i}^{j-1}\hat{f}_{k,k+1}(s)
 \end{equation}
 haciendo deseable encontrar una transformación $\mathcal{L}^{-1}$ tal que:
@@ -596,34 +596,34 @@ haciendo deseable encontrar una transformación $\mathcal{L}^{-1}$ tal que:
 \mathcal{L}^{-1}\{\hat{f}(s)\}=f(t)
 \end{equation}
 
-Primero es necesario encontrar una expresión para $\hat{f}_{i,i-1}$. Ahora, si se condiciona $T_{i,i-1}$ a la primera transición, donde $S_1$ es el tiempo para el primer evento, se puede expresar como:
+Primero es necesario encontrar una expresión para $\hat{f}_{i,i-1}$. Ahora, si se condiciona $\sigma_{i,i-1}$ a la primera transición, donde $S_1$ es el tiempo para el primer evento, se puede expresar como:
 
 \begin{equation}
-T_{i,i-1} =
+\sigma_{i,i-1} =
 \begin{cases}
 S_{1}, & \mbox{si } X(S_{1})=i-1 \\
-S_{1}+T_{i+1,i-1}, & \mbox{si } X(S_{1})=i+1
+S_{1}+\sigma_{i+1,i-1}, & \mbox{si } X(S_{1})=i+1
 \end{cases}
 \end{equation}
 \begin{equation}
-T_{i+1,i-1}=T_{i+1,i}+T_{i,i-1}
+\sigma_{i+1,i-1}=\sigma_{i+1,i}+\sigma_{i,i-1}
 \end{equation}
  
 \[
 \begin{array}{rcrcl}
-F_{i,i-1}(t) & = & P\{ T_{i+1,i-1}\leq t \} & = & P\{ T_{i,i-1}\leq t | X(S_{1})=i-1 \}P\{ X(S_{1})=i-1 \} +\\
- & & & & P\{ T_{i,i-1}\leq t | X(S_{1})=i+1 \}P\{ X(S_{1})=i+1 \} \\
+F_{i,i-1}(t) & = & P\{ \sigma_{i+1,i-1}\leq t \} & = & P\{ \sigma_{i,i-1}\leq t | X(S_{1})=i-1 \}P\{ X(S_{1})=i-1 \} +\\
+ & & & & P\{ \sigma_{i,i-1}\leq t | X(S_{1})=i+1 \}P\{ X(S_{1})=i+1 \} \\
  & & & = & P\{ S_{1}\leq t\}P\{ X(S_{1})=i-1 \} +\\
- & & & & P\{ S_{1} + T_{i+1,i-1}\leq t\}P\{ X(S_{1})=i+1 \} \\
- & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} P\{ S_{1}\leq t\} + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} P\{ S_{1} + T_{i+1,i-1}\leq t\}\\
- & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} F_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} F_{ S_{1} + T_{i+1,i-1}}(t)\\
+ & & & & P\{ S_{1} + \sigma_{i+1,i-1}\leq t\}P\{ X(S_{1})=i+1 \} \\
+ & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} P\{ S_{1}\leq t\} + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} P\{ S_{1} + \sigma_{i+1,i-1}\leq t\}\\
+ & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} F_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} F_{ S_{1} + \sigma_{i+1,i-1}}(t)\\
 \end{array}
 \]
  
 \[
 \begin{array}{rcrcl}
-\frac{d}{dt} F_{i,i-1}(t) & = & f_{i,i-1}(t) & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} \frac{d}{dt} F_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} \frac{d}{dt} F_{ S_{1} + T_{i+1,i-1}}(t)\\
- & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} f_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} f_{ S_{1} + T_{i+1,i-1}}(t)\\
+\frac{d}{dt} F_{i,i-1}(t) & = & f_{i,i-1}(t) & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} \frac{d}{dt} F_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} \frac{d}{dt} F_{ S_{1} + \sigma_{i+1,i-1}}(t)\\
+ & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} f_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} f_{ S_{1} + \sigma_{i+1,i-1}}(t)\\
 \end{array}
 \]
 
@@ -634,15 +634,15 @@ Ahora $S_1$ tiene una distribución exponencial con media $\frac{1}{\lambda_i+\m
 
 \[
 \begin{array}{rcrcl}
-\mathcal{L} \{ f_{i,i-1}(t) \} & = & \hat{f}_{i,i-1}(s) & = & \mathcal{L} \{ \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} f_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} f_{ S_{1} + T_{i+1,i-1}}(t) \}\\
- & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} \hat{f}_{S_{1}}(s) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} f_{ S_{1} + T_{i+1,i-1}}(s) \\
- & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} \frac{\lambda_{i}+\mu_{i}}{\lambda_{i}+\mu_{i}+s} + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} \hat{f}_{S_{1}}(s) \hat{f}_{T_{i+1,i}}(s) \hat{f}_{T_{i,i-1}}(s) \\
+\mathcal{L} \{ f_{i,i-1}(t) \} & = & \hat{f}_{i,i-1}(s) & = & \mathcal{L} \{ \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} f_{S_{1}}(t) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} f_{ S_{1} + \sigma_{i+1,i-1}}(t) \}\\
+ & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} \hat{f}_{S_{1}}(s) + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} f_{ S_{1} + \sigma_{i+1,i-1}}(s) \\
+ & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} \frac{\lambda_{i}+\mu_{i}}{\lambda_{i}+\mu_{i}+s} + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} \hat{f}_{S_{1}}(s) \hat{f}_{\sigma_{i+1,i}}(s) \hat{f}_{\sigma_{i,i-1}}(s) \\
  & & & = & \frac{\mu_{i}}{\lambda_{i}+\mu_{i}} \frac{\lambda_{i}+\mu_{i}}{\lambda_{i}+\mu_{i}+s} + \frac{\lambda_{i}}{\lambda_{i}+\mu_{i}} \frac{\lambda_{i}+\mu_{i}}{\lambda_{i}+\mu_{i}+s} \hat{f}_{i+1,i}(s) \hat{f}_{i,i-1}(s) \\
 \end{array}
 \]
  
 \begin{equation}
-\hat{f}_i (s) = \hat{f}_{i,i-1}(s) = \frac{\mu_{i}}{\lambda_{i}+\mu_{i}+s-\lambda_{i}\hat{f}_{i+1}(s)}
+\hat{f}_{i,i-1}(s) = \frac{\mu_{i}}{\lambda_{i}+\mu_{i}+s-\lambda_{i}\hat{f}_{i+1,i}(s)}
 \end{equation}\\
 
 Otro concepto que es necesario introducir es lo que se conoce como fracciones continuas. Las cuales son expresiones de la forma:
@@ -665,22 +665,22 @@ por lo que se puede denotar a la fracción continua $\left[\{a_n\}_1^{\infty},\{
 \Phi_{k=i}^{\infty}\frac{a_n}{b_n}
 \]
 
-Ahora iterando en la expresión que se obtuvo previamente para $\hat{f}_i(s)$, se obtiene:
+Ahora iterando en la expresión que se obtuvo previamente para $\hat{f}_{i,i-1}(s)$, se obtiene:
 
 \[
-\hat{f}_i (s) = \cfrac{\mu_{i}}{\lambda_{i}+\mu_{i} + s - \lambda_{i}
+\hat{f}_{i,i-1}(s) = \cfrac{\mu_{i}}{\lambda_{i}+\mu_{i} + s - \lambda_{i}
 \cfrac{\mu_{i+1}}{\lambda_{i+1}+\mu_{i+1} + s - \lambda_{i+1}
 \cfrac{\mu_{i+2}}{\lambda_{i+2}+\mu_{i+2} + s + \ddots}}}
 \]
 
 \[
-\hat{f}_i (s) = -\frac{1}{\lambda_{i-1}} \cfrac{-\lambda_{i-1}\mu_{i}}{\lambda_{i}+\mu_{i} + s +
+\hat{f}_{i,i-1}(s) = -\frac{1}{\lambda_{i-1}} \cfrac{-\lambda_{i-1}\mu_{i}}{\lambda_{i}+\mu_{i} + s +
 \cfrac{-\lambda_{i}\mu_{i+1}}{\lambda_{i+1}+\mu_{i+1} + s +
 \cfrac{-\lambda_{i+1}\mu_{i+2}}{\lambda_{i+2}+\mu_{i+2} + s + \ddots}}}
 \]
 
 \begin{equation} \label{eq:dist}
-\hat{f}_i (s) = -\frac{1}{\lambda_{i-1}}\Phi_{k=i}^{\infty}\frac{-\lambda_{k-1}\mu_{k}}{\lambda_{k}+\mu_{k}+s}
+\hat{f}_{i,i-1}(s) = -\frac{1}{\lambda_{i-1}}\Phi_{k=i}^{\infty}\frac{-\lambda_{k-1}\mu_{k}}{\lambda_{k}+\mu_{k}+s}
 \end{equation}\\
 
 Debido a las propiedades de la función de densidad $f$, se puede probar \cite{abate1999} que $\hat{f}$ converge y está acotada entre la sucesión creciente de aproximantes pares $w_{2n}$ y la sucesión decreciente de aproximantes impares $w_{2n+1}$:
@@ -700,9 +700,20 @@ Q_n=b_n Q_{n-1}+a_n Q_{n-2}
 \]
 \\
 
+Finalmente, más adelante será de interés para el análisis encontrar la distribución del tiempo del primer paso del estado $i$ al estado 0, definido como $\sigma_{i}$, cuya transformada de Laplace se calcula por \ref{eq:laplacesum} de esta forma:
+\begin{equation}
+\hat{f}_{i}(s)=\prod_{k=1}^{i}\hat{f}_{k,k-1}(s)
+\end{equation}
+
+Por lo que sustituyendo de \ref{eq:dist} y asumiendo que $\lambda_i=\lambda$ para toda $i$:
+\begin{equation} \label{eq:fidist}
+\hat{f}_{i}(s)=\left(-\frac{1}{\lambda}\right)^i\left(\prod_{k=1}^{i}\Phi_{k=i}^{\infty}\frac{-\lambda\mu_{k}}{\lambda+\mu_{k}+s}\right)
+\end{equation}
+
+
 \subsection{La Transformación de Laplace Inversa}
 
-El reto que aún queda es encontrar una forma de calcular numéricamente $\mathcal{L}^{-1}$, con el objetivo de expresar en el tiempo la distribución definida en \ref{eq:dist}. $\mathcal{L}^{-1}$ está definida por la siguiente integral de variable compleja, que se puede evaluar a lo largo de la línea vertical $\gamma=a$, de la siguiente manera:
+El reto que aún queda es encontrar una forma de calcular numéricamente $\mathcal{L}^{-1}$, con el objetivo de expresar en el tiempo la distribución definida en \ref{eq:fidist}. $\mathcal{L}^{-1}$ está definida por la siguiente integral de variable compleja, que se puede evaluar a lo largo de la línea vertical $\gamma=a$, de la siguiente manera:
 
 \[
 \begin{array}{rcl}
@@ -835,7 +846,8 @@ f_h(t)=\frac{e^{A/2}}{2t} Re\left(\hat{f}\left(\frac{A}{2t}\right)\right)+\frac{
 \]
 esta aproximación tiene un error de discretización acotado \cite{abate1995}.\\
 
-Debido a que la serie es casi alternante se pueden utilizar métodos para acelerar la convergencia, tal como la transformación de Euler. Al utilizar este método se obtiene la siguiente aproximación:
+Debido a que la serie es casi alternante (la serie sería alternante si $Re\left(\hat{f}\left(\frac{A+2k\pi i}{2t}\right)\right)
+$ tuviera el mismo signo para toda $k$) se pueden utilizar métodos para acelerar la convergencia, tal como la transformación de Euler. Al utilizar este método se obtiene la siguiente aproximación:
 \[
 E(m,n,t)=\sum_{k=0}^m \binom mk 2^{-m}s_{n+k}(t)
 \]
@@ -922,23 +934,23 @@ n\rightarrow n+1 \text{ con una tasa }\lambda(S)
 n\rightarrow n-1 \text{ con una tasa }\mu+n\theta(S)
 \]\\
 
-En particular cuando $S=1$ el precio medio $p_M(t)$ se altera cuando $X_A$ ó $X_B$ alcanzan el estado 0. Ahora, si se denota $\sigma_A$ y $\sigma_B$ como el tiempo del primer paso de los procesos $X_A$ y $X_B$ a cero, la distribución de $\tau$ está dada por el mínimo de los tiempos del primer paso de los procesos $X_A$ y $X_B$. La probabilidad de interés se puede expresar como $P\{\sigma_A<\sigma_B|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. La transformación de Laplace de la distribución condicional de $\sigma_A-\sigma_B$ está dada por:
+En particular cuando $S=1$ el precio medio $p_M(t)$ se altera cuando $X_A$ ó $X_B$ alcanzan el estado 0. Ahora, si se denota $\sigma_A$ y $\sigma_B$ como el tiempo del primer paso de los procesos $X_A$ y $X_B$ a cero, la distribución de $\tau$ está dada por el mínimo de los tiempos del primer paso a cero de los procesos $X_A$ y $X_B$. La probabilidad de interés se puede expresar como $P\{\sigma_A<\sigma_B|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. La transformación de Laplace de la distribución condicional de $\sigma_A-\sigma_B$ está dada por:
 \[
-\hat{f}^A(s)\hat{f}^B(-s)
+\hat{f}_a^1(s)\hat{f}_b^1(-s)
 \]
-donde:
+donde por \ref{eq:fidist}:
 \[
 \hat{f}_{j}^S(s)=\left(-\frac{1}{\lambda(S)}\right)^j\left( \prod_{i=1}^j \Phi_{k=i}^\infty \frac{-\lambda(S)(\mu+k\theta(S))}{\lambda(S)+\mu+k\theta(S)+s} \right)
 \]\\
 
-Por lo que la probabilidad buscada se obtiene al evaluar la función de distribución acumulada en 0. Para hacer esto es necesario encontrar la transformación inversa de $\hat{f}^A(s)\hat{f}^B(-s)$ e integrar esta función.\\
+Por lo que la probabilidad buscada se obtiene al evaluar la función de distribución acumulada en 0. Para hacer esto es necesario encontrar la transformación inversa de $\hat{f}_a^1(s)\hat{f}_b^1(-s)$ e integrar esta función.\\
 
 En el caso de que $S>1$, es necesario considerar que si se recibe una postura dentro del spread el precio medio $p_M(t)$ también se alterará. Por lo que si se denota $\sigma_A^i$ y $\sigma_B^i$ como el tiempo en el que llega la primera orden a $i$ pujas del mejor precio de venta o compra respectivamente. El tiempo en el que cambia por primera vez $p_M(t)$ está dado por el mínimo de los tiempos $\sigma_A,\sigma_B,\sigma_A^i$ y $\sigma_B^i$ con $i=1,\ldots,S-1$. Es importante mencionar que $\sigma_A^i$ y $\sigma_B^i$ se distribuyen de manera exponencial con tasa $\lambda(i)$. Para que $p_M(t)$ aumente es necesario que arribe una orden de compra a $S-1$ pujas del mejor precio de venta o se agoten las posturas al mejor precio de venta antes de que llegue una postura de venta a $S-1$ pujas de la mejor postura de compra o se agoten las posturas al mejor precio de compra.\\
 
-En este caso la probabilidad buscada está dada por $P\{\sigma_A \land \sigma_B^1 \land \cdots \land \sigma_B^{S-1} < \sigma_B \land \sigma_A^1 \land \cdots \land \sigma_A^{S-1}|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. El mínimo de un conjunto de variables aleatorias que se distribuyen de forma exponencial con parámetros $\lambda_1,\ldots,\lambda_n$ tiene una distribución exponencial con parámetro $\lambda_1+\ldots+\lambda_n$. Por lo que se puede expresar la probabilidad de interés de la siguiente forma $P\{\sigma_A \land \sigma_B^\Sigma < \sigma_B \land \sigma_A^\Sigma|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. Por lo que la transformación de Laplace de la función de densidad de $\sigma_A \land \sigma_B^\Sigma - \sigma_B \land \sigma_A^\Sigma$ está dada por:
+En este caso la probabilidad buscada está dada por $P\{\sigma_A \land \sigma_B^1 \land \cdots \land \sigma_B^{S-1} < \sigma_B \land \sigma_A^1 \land \cdots \land \sigma_A^{S-1}|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. El mínimo de un conjunto de variables aleatorias que se distribuyen de forma exponencial con parámetros $\lambda_1,\ldots,\lambda_n$ tiene una distribución exponencial con parámetro $\lambda_1+\ldots+\lambda_n$. Por lo que se puede expresar la probabilidad de interés de la siguiente forma $P\{\sigma_A \land \sigma_B^\Sigma < \sigma_B \land \sigma_A^\Sigma|X_A(0)=a,X_B(0)=b,p_S(0)=S\}$. Por lo que se puede probar, que la transformación de Laplace de la función de densidad de $\sigma_A \land \sigma_B^\Sigma - \sigma_B \land \sigma_A^\Sigma$ está dada por \cite{Cont2010}:
 \[
-\left(\hat{f}^A(\Lambda+s)+\frac{\Lambda}{\Lambda+s}(1-\hat{f}_A(\Lambda+s))\right)
-\left(\hat{f}^B(\Lambda+s)+\frac{\Lambda}{\Lambda+s}(1-\hat{f}_B(\Lambda+s))\right)
+\left(\hat{f}_a^S(\Lambda+s)+\frac{\Lambda}{\Lambda+s}(1-\hat{f}_a^S(\Lambda+s))\right)
+\left(\hat{f}_b^S(\Lambda+s)+\frac{\Lambda}{\Lambda+s}(1-\hat{f}_b^S(\Lambda+s))\right)
 \]
 donde $\Lambda=\sum_{i=1}^{S-1}\lambda(i)$. De igual forma es necesario encontrar la transformación, integrar la función y evaluar en 0.\\
 
