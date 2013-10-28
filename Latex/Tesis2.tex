@@ -302,7 +302,7 @@ Con el objetivo de analizar si el comportamiento de los precios de la Bolsa Mexi
 \label{tab:powerventa}%
 \end{table}%
 
-En la Figura \ref{fig:precios} se muestra el ajuste del modelo propuesto anteriormente contra los datos empíricos de la base de datos. Como puede notarse, con excepción de KUO, el modelo es adecuado para los precios en la BMV.
+En la Figura \ref{fig:precios} se muestra el ajuste del modelo propuesto anteriormente contra los datos empíricos de la base de datos. Adicionalmente en la Figura \ref{fig:preciosqq} se pueden ver los QQ-Plots hasta el percentil 99. Para AMX y COMERCI al ser emisoras con mayor liquidez, las órdenes llegan dentro de un rango más compacto. Como puede notarse, con excepción de AMX, el modelo es adecuado para los precios en la BMV. La distribución Lomax se concentra cerca del cero, por lo que la mayoría de las observaciones al menos en el caso de COMERCI y KUO parecen seguir esta distribución. Los punto lejanos se desvían, sin embargo, no parece haber un patrón claro, por lo que podría deberse a los reducidos tamaños de las muestras.
 
 \begin{figure}[htbp]
 \centering
@@ -363,6 +363,65 @@ En la Figura \ref{fig:precios} se muestra el ajuste del modelo propuesto anterio
 
 \clearpage
 
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxcompraqq.eps}
+\caption{AMX compra}
+\label{fig:amxcompraqq}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxventaqq.eps}
+\caption{AMX venta}
+\label{fig:amxventaqq}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comercicompraqq.eps}
+\caption{COMERCI compra}
+\label{fig:comercicompraqq}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comerciventaqq.eps}
+\caption{COMERCI venta}
+\label{fig:comerciventaqq}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuocompraqq.eps}
+\caption{KUO compra}
+\label{fig:kuocompraqq}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuoventaqq.eps}
+\caption{KUO venta}
+\label{fig:kuoventaqq}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\caption{QQ-Plot Distribución de Precios de las Posturas}
+\label{fig:preciosqq}
+\end{figure}
+
+\clearpage
+
 \subsection{Volúmenes}
 
 En otro trabajo para un mercado diferente \cite{marketsdigest} se demostró que los volúmenes también se pueden representar con una distribución Lomax. Se realizó un estudio similar al de precios para la distribución del volumen de las posturas en la Bolsa Mexicana de Valores. Como se puede ver en la Tabla \ref{tab:powervolumen}, en la mayoría de los casos los parámetros para una misma emisora son ``similares'' para las posturas de compra y venta. Para 4 de las 6 emisoras estudiadas se puede establecer la media, ya que $\alpha > 1$. En el caso de COMERCI no se puede definir una media con el modelo ajustado para las posturas de compra ni para las de venta. En el caso de KUO no se puede definir la media para las posturas de compra; para HERDEZ no está definida para las posturas de venta.\\
@@ -391,7 +450,7 @@ En otro trabajo para un mercado diferente \cite{marketsdigest} se demostró que 
 
 Por ejemplo, con el modelo ajustado, la media del volumen de las posturas de compra de AMX es de 18,322.35 títulos, mientras que el de venta es de 17,491.36. La media del volumen de compra para BIMBO es de 1,647.74 mientras que la media las posturas de venta es de 1,802.22.\\
 
-En el caso de los volúmenes el ajuste no es tan bueno como el observado en los precios, tal como se muestra en la Figura \ref{fig:volumen}. La distribución sólo es útil para volúmenes superiores a 1,000 títulos. Es interesante observar la preferencia de los participantes por volúmenes múltiplos de 1,000.
+En el caso de los volúmenes el ajuste para AMX es mejor que el observado en los precios; esto no es así para COMERCI y KUO. En la Figura \ref{fig:volumen} se muestran algunas gráficas de la distribución, mientras que en la Figura \ref{fig:volumenqq} se muestran los QQ-Plots. Es interesante observar la preferencia de los participantes por volúmenes múltiplos de 1,000.
 
 \begin{figure}[htbp]
 \centering
@@ -452,6 +511,66 @@ En el caso de los volúmenes el ajuste no es tan bueno como el observado en los 
 
 \clearpage
 
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxvolumencompraqq.eps}
+\caption{AMX compra}
+\label{fig:amxvolumencompraqq}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxvolumenventaqq.eps}
+\caption{AMX venta}
+\label{fig:amxvolumenventaqq}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comercivolumencompraqq.eps}
+\caption{COMERCI compra}
+\label{fig:comercivolumencompraqq}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comercivolumenventaqq.eps}
+\caption{COMERCI venta}
+\label{fig:comercivolumenventaqq}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuovolumencompraqq.eps}
+\caption{KUO compra}
+\label{fig:kuovolumencompraqq}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuovolumenventaqq.eps}
+\caption{KUO venta}
+\label{fig:kuovolumenventaqq}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\caption{QQ-Plot Distribución del Volumen de las Posturas}
+\label{fig:volumenqq}
+\end{figure}
+
+\clearpage
+
+
 \subsection{Cancelaciones}
 
 La literatura en el caso de las cancelaciones es más limitada; sin embargo, se intentará también modelar la distribución de la distancia $\Delta$ de las cancelaciones del mejor precio de compra $b(t)$ y de venta $a(t)$ mediante una distribución Lomax. Se debe considerar, como se mostrará en las distribuciones empíricas, que un gran número de las cancelaciones suceden con $\Delta=0$; es decir, al mejor precio de compra y venta. La distribución Lomax asume que $F(0)=0$, lo cual no sucede en este análisis. Para evitar esto, sólo se considerarán las posturas donde $\Delta>0$, y se mencionará por separado la proporción de las cancelaciones donde $\Delta=0$.\\
@@ -480,7 +599,7 @@ La media de cada una de las emisoras en la muestra elegida es menor que 35; por 
 \label{tab:powercanc}%
 \end{table}%
 
-Como se puede ver en la Figura \ref{fig:canc}, la distribución Lomax no es la más adecuada, ya que el grueso de las cancelaciones se concentra en el intervalo donde $\Delta<20$. Se puede afirmar que las cancelaciones para la muestra de acciones considerada de la Bolsa Mexicana no siguen una ley de potencias.
+Como se puede ver en la Figura \ref{fig:canc} y en los QQ-Plots de la Figura \ref{fig:cancqq}, la distribución Lomax no es la más adecuada, ya que el grueso de las cancelaciones se concentra en el intervalo donde $\Delta<20$. Se puede afirmar que las cancelaciones para la muestra de acciones considerada de la Bolsa Mexicana no siguen una ley de potencias.
 
 \begin{figure}[htbp]
 \centering
@@ -541,13 +660,72 @@ Como se puede ver en la Figura \ref{fig:canc}, la distribución Lomax no es la m
 
 \clearpage
 
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxcanccompraqq.eps}
+\caption{AMX compra}
+\label{fig:amxvcanccompraqq}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{amxcancventaqq.eps}
+\caption{AMX venta}
+\label{fig:amxcancventaqq}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comercicanccompraqq.eps}
+\caption{COMERCI compra}
+\label{fig:comercicanccompraqq}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{comercicancventaqq.eps}
+\caption{COMERCI venta}
+\label{fig:comercicancventaqq}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuocanccompraqq.eps}
+\caption{KUO compra}
+\label{fig:kuocanccompraqq}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{kuocancventaqq.eps}
+\caption{KUO venta}
+\label{fig:kuocancventaqq}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\caption{QQ-Plot Distribución de las Cancelaciones de las Posturas}
+\label{fig:cancqq}
+\end{figure}
+
+\clearpage
+
 \section{Desarrollo Matemático}
 
 Se considera que la base matemática necesaria para el modelo que se desarrollará en el próximo capítulo puede ser valiosa para el lector, por lo que a continuación se presenta en forma exhaustiva. Primero, se describen los procesos estocásticos de nacimiento y muerte; luego, se encuentra la distribución de los tiempos de transición mediante la transformación de Laplace y fracciones infinitas.\\
 
 \subsection{Procesos Estocásticos y Tiempos de Transición}
 
-Un proceso estocástico $\{X(t);t\geq 0\}$ con un conjunto de estados $\mathcal{S} \subset I$ se dice que es una cadena de Markov homogénea si para toda $n \in I$, estados $i_{0},i_{1},\ldots,i_{n},i,j$ y tiempos $0\leq\tau_0<\tau_1<\cdots<\tau_n<s$
+En esta sección se define formalmente el concepto de cadena de Markov homogénea y un caso particular de éstos; los procesos de nacimiento y muerte. Un proceso estocástico $\{X(t);t\geq 0\}$ con un conjunto de estados $\mathcal{S} \subset I$ se dice que es una cadena de Markov homogénea si para toda $n \in I$, estados $i_{0},i_{1},\ldots,i_{n},i,j$ y tiempos $0\leq\tau_0<\tau_1<\cdots<\tau_n<s$
 
 \[
 P\{X(t+s)=j|X(\tau_0)=i_0\ldots X(\tau_n)\tau_n)=i_n,X(s)=i\}
@@ -578,18 +756,24 @@ $X(t)$ se conoce como el tamaño de la población al tiempo $t$. A $\lambda_j$ s
 \hat{f}(s) = \mathcal{L} \left\{f(t)\right\}=\int_{-\infty}^{\infty} e^{-st} f(t) \,dt
 \end{equation}\\
 
+De aquí en adelante se referirá a la transformación bilateral de Laplace simplemente como la transformación de Laplace.\\
+
 El tiempo $\sigma_{i,j}$ se puede expresar de la siguiente forma:
 \begin{equation}
 \sigma_{i,j}=\sigma_{i,i+1}+\sigma_{i+1,i+2}+\ldots+\sigma_{j-1,j}
 \end{equation}
 donde $\sigma_{k,k+1}$ con $k=1,2,\ldots,j-1$ son independientes, lo cual permite utilizar la siguiente propiedad de la transformación de Laplace:
 \begin{equation}
-\hat{f}_{X+Y}(s)=\operatorname{E}[e^{-s(X+Y)}]=\operatorname{E}[e^{-sX}]\operatorname{E}[e^{-sY}]=\hat{f}_{X}(s)\hat{f}_{Y}(s)
+\mathcal{L} \left\{f_{X+Y}(t)\right\}=\hat{f}_{X+Y}(s)=\operatorname{E}[e^{-s(X+Y)}]
+\end{equation}
+
+\begin{equation}
+\operatorname{E}[e^{-s(X+Y)}]=\operatorname{E}[e^{-sX}]\operatorname{E}[e^{-sY}]=\hat{f}_{X}(s)\hat{f}_{Y}(s)
 \end{equation}
 
 La transformación de la función de densidad de $\sigma_{i,j}$ se puede expresar como:
 \begin{equation} \label{eq:laplacesum}
-\hat{f}_{i,j}(s)=\prod_{k=i}^{j-1}\hat{f}_{k,k+1}(s)
+\mathcal{L} \left\{\sigma_{i,j}(t)\right\}=\hat{f}_{i,j}(s)=\prod_{k=i}^{j-1}\hat{f}_{k,k+1}(s)
 \end{equation}
 haciendo deseable encontrar una transformación $\mathcal{L}^{-1}$ tal que:
 \begin{equation}
@@ -641,7 +825,7 @@ Ahora $S_1$ tiene una distribución exponencial con media $\frac{1}{\lambda_i+\m
 \end{array}
 \]
  
-\begin{equation}
+\begin{equation} \label{eq:distgen}
 \hat{f}_{i,i-1}(s) = \frac{\mu_{i}}{\lambda_{i}+\mu_{i}+s-\lambda_{i}\hat{f}_{i+1,i}(s)}
 \end{equation}\\
 
@@ -665,7 +849,19 @@ por lo que se puede denotar a la fracción continua $\left[\{a_n\}_1^{\infty},\{
 \Phi_{k=i}^{\infty}\frac{a_n}{b_n}
 \]
 
-Ahora iterando en la expresión que se obtuvo previamente para $\hat{f}_{i,i-1}(s)$, se obtiene:
+A $w_n$ se le conoce como el n-ésimo aproximante y de manera general se puede calcular de la siguiente forma:
+\[
+w_n=\frac{P_n}{Q_n}
+\]
+donde $P_0=0, P_1=a_1,Q_0=1,Q_1=b_1$ con:
+\[
+P_n=b_n P_{n-1}+a_n P_{n-2}
+\]
+\[
+Q_n=b_n Q_{n-1}+a_n Q_{n-2}
+\]\\
+
+Ahora iterando en la expresión que se obtuvo previamente en \ref{eq:distgen} para $\hat{f}_{i,i-1}(s)$, se obtiene:
 
 \[
 \hat{f}_{i,i-1}(s) = \cfrac{\mu_{i}}{\lambda_{i}+\mu_{i} + s - \lambda_{i}
@@ -687,20 +883,9 @@ Debido a las propiedades de la función de densidad $f$, se puede probar \cite{a
 \[
 w_{2n}(s)<\hat{f}(s)<w_{2n+1}(s) \text{ para toda }n 
 \]
-Donde $w_n$ se puede calcular de la siguiente forma:
-\[
-w_n=\frac{P_n}{Q_n}
-\]
-donde $P_0=0, P_1=a_1,Q_0=1,Q_1=b_1$ con:
-\[
-P_n=b_n P_{n-1}+a_n P_{n-2}
-\]
-\[
-Q_n=b_n Q_{n-1}+a_n Q_{n-2}
-\]
 \\
 
-Finalmente, más adelante será de interés para el análisis encontrar la distribución del tiempo del primer paso del estado $i$ al estado 0, definido como $\sigma_{i}$, cuya transformada de Laplace se calcula por \ref{eq:laplacesum} de esta forma:
+Más adelante será de interés para el análisis encontrar la distribución del tiempo del primer paso del estado $i$ al estado 0, definido como $\sigma_{i}$, cuya transformada de Laplace se calcula por \ref{eq:laplacesum} de esta forma:
 \begin{equation}
 \hat{f}_{i}(s)=\prod_{k=1}^{i}\hat{f}_{k,k-1}(s)
 \end{equation}
@@ -712,7 +897,7 @@ por lo que sustituyendo de \ref{eq:dist} y asumiendo que $\lambda_i=\lambda$ par
 
 \subsection{La Transformación de Laplace Inversa}
 
-El reto que aún queda es encontrar una forma de calcular numéricamente $\mathcal{L}^{-1}$, con el objetivo de expresar en el tiempo la distribución definida en \ref{eq:fidist}. $\mathcal{L}^{-1}$ está definida por la siguiente integral de variable compleja, que se puede evaluar a lo largo de la línea vertical $\gamma=a$, de la siguiente manera:
+El reto que aún queda es encontrar una forma de calcular numéricamente $\mathcal{L}^{-1}$, con el objetivo de poder calcular la distribución del tiempo del primer paso del estado $i$ al estado 0. Esta distribución se utilizará más adelante para calcular la probabilidad de que en el libro de posturas el siguiente movimiento aumente el precio medio. $\mathcal{L}^{-1}$ está definida por la siguiente integral de variable compleja, que se puede evaluar a lo largo de la línea vertical $\gamma=a$, de la siguiente manera:
 
 \[
 \begin{array}{rcl}
@@ -752,6 +937,7 @@ h((n+1)T-t), & \mbox{si } 0 \leq t \leq T \\
 h((n+1)T+t), & \mbox{si } -T \leq t \leq 0
 \end{cases}
 \]
+La elección de $T$ es de gran importancia, en \ref{sec:retos} se profundiza en esto.\\
 
 \begin{figure}[htbp]
 \centering
@@ -954,6 +1140,7 @@ En este caso la probabilidad buscada está dada por $P\{\sigma_A \land \sigma_B^
 donde $\Lambda=\sum_{i=1}^{S-1}\lambda(i)$. De igual forma es necesario encontrar la transformación, integrar la función y evaluar en 0.\\
 
 \subsection{Retos de la Transformación Inversa de Laplace}
+\label{sec:retos}
 
 Los métodos para invertir la transformación de Laplace discutidos en la sección anterior están diseñados para la transformación unilateral de Laplace, es decir definida en los reales positivos. La distribución de  $\sigma_A \land \sigma_B^\Sigma - \sigma_B \land \sigma_A^\Sigma$ están definidas en todos los reales, por lo que es necesario utilizar algunas herramientas para poder encontrar la transformación inversa.\\
 
