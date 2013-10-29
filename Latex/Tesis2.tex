@@ -1042,7 +1042,27 @@ s_n=\frac{e^{A/2}}{2t} Re\left(\hat{f}\left(\frac{A}{2t}\right)\right)+\frac{e^{
 \]
 \\
 
-Se sugiere utilizar $m=11$ y $n=15$. Para probar la ventaja de la aceleración se encontró la transformación de Laplace de la función de densidad de una variable aleatoria con distribución exponencial. La aceleración permite encontrar una aproximación muy cercana sumando 26 términos; mientras que cuando no se recurre a este método, el error de aproximación es aún mayor utilizando 2,000 términos. Es importante mencionar que las funciones deben de tener ciertas propiedades para que la transformación de Euler sea útil.
+Se sugiere utilizar $m=11$ y $n=15$. Para probar la ventaja de la aceleración se encontró la transformación de Laplace de la función de densidad de una variable aleatoria con distribución exponencial. La aceleración permite encontrar una aproximación muy cercana sumando 26 términos; mientras que cuando no se recurre a este método, el error de aproximación es aún mayor utilizando más de 7,000 términos como se puede ver en la Tabla \ref{tab:euler}. Es importante mencionar que las funciones deben de tener ciertas propiedades para que la transformación de Euler sea útil.\\
+
+\begin{table}[htbp]
+\centering
+\caption{Transformación de Euler}
+\begin{tabular}{r r r}
+\multicolumn{3}{c}{$f(x)=\frac{1}{2}e^{-\frac{1}{2}x}$} \\
+\\
+$f(2)$ & 0.183940 & \\
+$f(4)$ & 0.067668 & \\
+\\
+& \bf{Normal} & \bf{Euler} \\
+$f(2)=\mathcal{L}^{-1}\left\{\hat{f}(s)\right\}$ & 0.183990 & 0.183940 \\
+Iteraciones & 7,152 & 26 \\
+\\
+& \bf{Normal} & \bf{Euler} \\
+$f(4)=\mathcal{L}^{-1}\left\{\hat{f}(s)\right\}$ & 0.067718 & 0.067668 \\
+Iteraciones & 7,494 & 26 \\
+\end{tabular}%
+\label{tab:euler}%
+\end{table}%
 
 \clearpage
 
