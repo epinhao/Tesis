@@ -1,8 +1,8 @@
 #Genera grafica de precios
-mydata = read.csv("/Users/Emilio/Documents/workspace/Tesis/distanciaGRUMA.txt", header = FALSE)
-#data = mydata[mydata$V1 == "Compra", ]
+mydata = read.csv("/Users/Emilio/Documents/workspace/Tesis/distanciaKUO.txt", header = FALSE)
+data = mydata[mydata$V1 == "Compra", ]
 #data = mydata[mydata$V1 == "CompraMod", ]
-data = mydata[mydata$V1 == "Venta", ]
+#data = mydata[mydata$V1 == "Venta", ]
 #data = mydata[mydata$V1 == "VentaMod", ]
 
 f <- function(a) {
