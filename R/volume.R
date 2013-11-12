@@ -36,7 +36,7 @@ print(knots(cdf)[e][d[e]==max(d[e])])
 p=0.99
 #lim=-l *((1-p)^(1/a)-1)* (1-p)^(-1/a)
 #lim=80000
-#postscript("/Users/Emilio/Documents/workspace/Tesis/amxvolumencompraqq.eps", width=6, height=5, horizontal=FALSE)
+#postscript("/Users/Emilio/Documents/workspace/Tesis/kuovolumenventaqq.eps", width=6, height=5, horizontal=FALSE)
 #qqplot(y,vol,xlim=c(0,lim),ylim=c(0,lim),pch=20,cex=0.75,xlab="Teórico",ylab="Muestra")
 #abline(0,1)
 #dev.off()

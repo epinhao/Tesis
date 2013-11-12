@@ -1,4 +1,4 @@
-mydata = read.csv("/Users/Emilio/Documents/workspace/Tesis/distanciaprecioKUO.txt", header = FALSE)
+mydata = read.csv("/Users/Emilio/Documents/workspace/Tesis/distanciaprecioCOMERCI.txt", header = FALSE)
 #data = mydata[mydata$V1 == "CancCompra", ]
 data = mydata[mydata$V1 == "CancVenta", ]
 data=data[,4]-data[,5]
@@ -37,7 +37,7 @@ print(knots(cdf)[e][d[e]==max(d[e])])
 p=0.99
 #lim=-l *((1-p)^(1/a)-1)* (1-p)^(-1/a)
 #lim=80000
-#postscript("/Users/Emilio/Documents/workspace/Tesis/amxcancompraqq.eps", width=6, height=5, horizontal=FALSE)
+#postscript("/Users/Emilio/Documents/workspace/Tesis/comercicanccompraqq.eps", width=6, height=5, horizontal=FALSE)
 #qqplot(y,data,xlim=c(0,lim),ylim=c(0,lim),pch=20,cex=0.75,xlab="Teórico",ylab="Muestra")
 #abline(0,1)
 #dev.off()
