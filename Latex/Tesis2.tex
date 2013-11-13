@@ -263,22 +263,22 @@ Si se define a $b(t)$ como el precio de la mejor postura de compra (``bid'') y $
 P\left(\Delta\right) \propto \frac{A}{{\left(\Delta+\lambda\right)}^{\alpha+1}}
 \end{equation}
 
-Con el objetivo de analizar si el comportamiento de los precios de la Bolsa Mexicana sigue los patrones antes mencionados, se estimaron los parámetros del modelo utilizando el método de máxima verosimilitud para distintas acciones, excluyendo todas las modificaciones, las cuales se podrían en algunos casos considerar como una nueva postura. Otros estudios han encontrado que el parámetro $\alpha$ es ``similar'' entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, como se puede ver en las Tablas \ref{tab:powercompra} y \ref{tab:powerventa}, las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución está definida cuando $\alpha>1$; en este análisis existen algunas emisoras para las que no se podría definir la media. En otros estudios se destaca que el parámetro $\alpha$ es similar para las posturas de compra y venta de una misma emisora \cite{Bouchaud2002}. En las acciones utilizadas en este trabajo el parámetro es similar en la mayoría de los casos; sin embargo, en el caso de KUO el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de compra.\\
+Con el objetivo de analizar si el comportamiento de los precios de la Bolsa Mexicana sigue los patrones antes mencionados, se estimaron los parámetros del modelo utilizando el método de máxima verosimilitud (en \ref{sec:estim} se realiza una análisis de los estimadores utilizados) para distintas acciones, excluyendo todas las modificaciones, las cuales se podrían en algunos casos considerar como una nueva postura. Otros estudios han encontrado que el parámetro $\alpha$ es ``similar'' entre las distintas emisoras \cite{zovko2002power} de un mercado en particular, sin embargo, como se puede ver en las Tablas \ref{tab:powercompra} y \ref{tab:powerventa}, las acciones tienen parámetros distintos. La distribución ajustada es conocida como Lomax o Pareto Tipo II con $\mu=0$. La media de esta distribución está definida cuando $\alpha>1$; en este análisis existen algunas emisoras para las que no se podría definir la media. En otros estudios se destaca que el parámetro $\alpha$ es similar para las posturas de compra y venta de una misma emisora \cite{Bouchaud2002}. En las acciones utilizadas en este trabajo el parámetro es similar en la mayoría de los casos; sin embargo, en el caso de KUO el parámetro $\alpha$ para las posturas de venta es 50\% mayor que el de las de compra.\\
 
 \begin{table}[htbp]
 \centering
 \caption{Distribución de Precios de las Posturas de Compra}
-\begin{tabular}{r|r|r|r|r|}
-\cline{2-5}
-& $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ \\
-\cline{2-5}
-\textbf{AMX}   & 7.4441 & 1.7098 & 629,302 & 454,039 \\
-\textbf{BIMBO} & 14.7809 & 0.8242 & 37,021 & 9,042 \\
-\textbf{COMERCI}   & 7.6756 & 1.2256 & 20,955 & 4,201 \\
-\textbf{GRUMA} & 58.6601 & 4.4624 & 49,895 & 27,845 \\
-\textbf{HERDEZ} & 21.1333 & 2.3332 & 6,811 & 1,773 \\
-\textbf{KUO}   & 11.3803 & 0.8556 & 495   & 93 \\
-\cline{2-5}
+\begin{tabular}{r|r|r|r|r|r|r|}
+\cline{2-7}
+& $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ & $D_n$ & $\bar{D}$  \\
+\cline{2-7}
+\textbf{AMX}   & 7.4441 & 1.7098 & 629,302 & 454,039 & 0.2276 & 0.1562 \\
+\textbf{BIMBO} & 14.7809 & 0.8242 & 37,021 & 9,042 & 0.0928 & 0.0375 \\
+\textbf{COMERCI}   & 7.6756 & 1.2256 & 20,955 & 4,201 & 0.0754 & 0.0307 \\
+\textbf{GRUMA} & 58.6601 & 4.4624 & 49,895 & 27,845 & 0.1172 & 0.0832 \\
+\textbf{HERDEZ} & 21.1333 & 2.3332 & 6,811 & 1,773 & 0.1337 & 0.0675 \\
+\textbf{KUO}   & 11.3803 & 0.8556 & 495   & 93 & 0.0660 & 0.0360 \\
+\cline{2-7}
 \end{tabular}%
 \label{tab:powercompra}%
 \end{table}%
@@ -286,17 +286,17 @@ Con el objetivo de analizar si el comportamiento de los precios de la Bolsa Mexi
 \begin{table}[htbp]
 \centering
 \caption{Distribución de Precios de las Posturas de Venta}
-\begin{tabular}{r|r|r|r|r|}
-\cline{2-5}
-& $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ \\
-\cline{2-5}
-\textbf{AMX}   & 6.2232 & 1.5022 & 767,215 & 555,595 \\
-\textbf{BIMBO} & 31.2291 & 1.2005 & 36,671 & 11,400 \\
-\textbf{COMERCI}   & 11.0780 & 1.6555 & 28,893 & 6,584 \\
-\textbf{GRUMA} & 63.2991 & 4.1402 & 49,026 & 30,012 \\
-\textbf{HERDEZ} & 21.1781 & 2.3215 & 5,493 & 1,263 \\
-\textbf{KUO}   & 42.1747 & 1.3034 & 319   & 19 \\
-\cline{2-5}
+\begin{tabular}{r|r|r|r|r|r|r|}
+\cline{2-7}
+& $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ & $D_n$ & $\bar{D}$  \\
+\cline{2-7}
+\textbf{AMX}   & 6.2232 & 1.5022 & 767,215 & 555,595 & 0.2425 & 0.1593 \\
+\textbf{BIMBO} & 31.2291 & 1.2005 & 36,671 & 11,400 & 0.0709 & 0.0180 \\
+\textbf{COMERCI}   & 11.0780 & 1.6555 & 28,893 & 6,584 & 0.0955 & 0.0364 \\
+\textbf{GRUMA} & 63.2991 & 4.1402 & 49,026 & 30,012 & 0.1460 & 0.1014 \\
+\textbf{HERDEZ} & 21.1781 & 2.3215 & 5,493 & 1,263 & 0.2103 & 0.1248 \\
+\textbf{KUO}   & 42.1747 & 1.3034 & 319   & 19 & 0.0660 & 0.0360 \\
+\cline{2-7}
 \end{tabular}%
 \label{tab:powerventa}%
 \end{table}%
@@ -714,6 +714,71 @@ Como se puede ver en la Figura \ref{fig:canc} y en los QQ-Plots de la Figura \re
 
 \caption{QQ-Plot Distribución de las Cancelaciones de las Posturas}
 \label{fig:cancqq}
+\end{figure}
+
+\clearpage
+
+\subsection{Análisis de los Estimadores}
+\label{sec:estim}
+
+Se realizó un análisis de los estimadores de máxima verosimilitud $\hat{\lambda}$ y $\hat{\alpha}$. Se realizaron 2 experimentos con 10,000 simulaciones; para cada simulación se generaron 10,000 observaciones de una distribución Lomax. En el primer experimento se generaron observaciones de una distribución con parámetros $\lambda=7.00$ y $\alpha=1.75$. En el segundo experimento los parámetros utilizados fueron $\lambda=100,000$ y $\alpha=7.50$. A continuación una tabla con las estadísticas de los estimadores:
+
+\begin{table}[htbp]
+\centering
+\caption{Estadísticas Estimadores}
+\begin{tabular}{r r r r}
+& $\lambda=7.00$ & & $\alpha=1.75$ \\
+media $\hat{\lambda}$ & 7.009749 & media $\hat{\alpha}$ & 1.751948\\
+desviación estándar $\hat{\lambda}$ & 0.286199 & desviación estándar $\hat{\alpha}$ & 0.048863\\
+\\
+& $\lambda=100,000$ & & $\alpha=7.50$ \\
+media $\hat{\lambda}$ & 100,965.08 & media $\hat{\alpha}$ & 7.563189\\
+desviación estándar $\hat{\lambda}$ & 9,976.08 & desviación estándar $\hat{\alpha}$ & 0.664804\\
+\end{tabular}%
+\label{tab:estim}%
+\end{table}%
+
+Como se puede notar en la tabla anterior, los estimadores son cercanos a los verdaderos parámetros. La desviación estándar del los estimadores del parámetro $\lambda$ es mayor en proporción a la de los estimadores del parámetro $\alpha$. Para los fines de este trabajo se considera que los estimadores de máxima verosimilitud son aceptables. En la Figura \ref{fig:histparams} se muestran los histogramas de los estimadores.
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{histl1.eps}
+\caption{Histograma $\hat{\lambda} (\lambda=7.00)$}
+\label{fig:histl1}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{hista1.eps}
+\caption{Histograma $\hat{\alpha} (\alpha=1.75)$}
+\label{fig:hista1}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{histl.eps}
+\caption{Histograma $\hat{\lambda} (\lambda=100,000)$}
+\label{fig:histl}
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth, trim=0 0.5cm 0 1cm]{hista.eps}
+\caption{Histograma $\hat{\alpha} (\alpha=7.50)$}
+\label{fig:hista}
+\end{subfigure}
+%add desired spacing between images, e. g. ~, \quad, \qquad etc.
+%(or a blank line to force the subfigure onto a new line)
+
+
+\caption{Histograma Parámetros}
+\label{fig:histparams}
 \end{figure}
 
 \clearpage
