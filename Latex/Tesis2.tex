@@ -9,6 +9,7 @@
 \usepackage{lscape} % Landscape mode
 \usepackage[nottoc]{tocbibind} % Include bibliography in TOC
 \usepackage{url}
+%\usepackage{array}
 
 \usepackage[letter,cam,center]{crop} % Crop marks
 \usepackage[labelfont=bf]{caption}
@@ -268,16 +269,17 @@ Con el objetivo de analizar si el comportamiento de los precios de la Bolsa Mexi
 \begin{table}[htbp]
 \centering
 \caption{Distribución de Precios de las Posturas de Compra}
+\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{r|r|r|r|r|r|r|}
 \cline{2-7}
-& $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ & $D_n$ & $\bar{D}$  \\
+& $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ & $D_n$ & $\bar{D}$ \\
 \cline{2-7}
 \textbf{AMX}   & 7.4441 & 1.7098 & 629,302 & 454,039 & 0.2276 & 0.1562 \\
 \textbf{BIMBO} & 14.7809 & 0.8242 & 37,021 & 9,042 & 0.0928 & 0.0375 \\
 \textbf{COMERCI}   & 7.6756 & 1.2256 & 20,955 & 4,201 & 0.0754 & 0.0307 \\
 \textbf{GRUMA} & 58.6601 & 4.4624 & 49,895 & 27,845 & 0.1172 & 0.0832 \\
 \textbf{HERDEZ} & 21.1333 & 2.3332 & 6,811 & 1,773 & 0.1337 & 0.0675 \\
-\textbf{KUO}   & 11.3803 & 0.8556 & 495   & 93 & 0.0660 & 0.0360 \\
+\textbf{KUO}   & 11.3803 & 0.8556 & 495 & 93 & 0.0660 & 0.0360 \\
 \cline{2-7}
 \end{tabular}%
 \label{tab:powercompra}%
@@ -286,6 +288,7 @@ Con el objetivo de analizar si el comportamiento de los precios de la Bolsa Mexi
 \begin{table}[htbp]
 \centering
 \caption{Distribución de Precios de las Posturas de Venta}
+\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{r|r|r|r|r|r|r|}
 \cline{2-7}
 & $\lambda$ & $\alpha$ & \#posturas & $\Delta>0$ & $D_n$ & $\bar{D}$  \\
@@ -295,13 +298,28 @@ Con el objetivo de analizar si el comportamiento de los precios de la Bolsa Mexi
 \textbf{COMERCI}   & 11.0780 & 1.6555 & 28,893 & 6,584 & 0.0955 & 0.0364 \\
 \textbf{GRUMA} & 63.2991 & 4.1402 & 49,026 & 30,012 & 0.1460 & 0.1014 \\
 \textbf{HERDEZ} & 21.1781 & 2.3215 & 5,493 & 1,263 & 0.2103 & 0.1248 \\
-\textbf{KUO}   & 42.1747 & 1.3034 & 319   & 19 & 0.0660 & 0.0360 \\
+\textbf{KUO}   & 42.1747 & 1.3034 & 319   & 19 & 0.1262 & 0.0528 \\
 \cline{2-7}
 \end{tabular}%
 \label{tab:powerventa}%
 \end{table}%
 
-En la Figura \ref{fig:precios} se muestra el ajuste del modelo propuesto anteriormente contra los datos empíricos de la base de datos. Adicionalmente en la Figura \ref{fig:preciosqq} se pueden ver los QQ-Plots hasta el percentil 99. Para AMX y COMERCI al ser emisoras con mayor liquidez, las órdenes llegan dentro de un rango más compacto. Como puede notarse, con excepción de AMX, el modelo es adecuado para los precios en la BMV. La distribución Lomax se concentra cerca del cero, por lo que la mayoría de las observaciones al menos en el caso de COMERCI y KUO parecen seguir esta distribución. Los punto lejanos se desvían, sin embargo, no parece haber un patrón claro, por lo que podría deberse a los reducidos tamaños de las muestras.
+Para medir la bondad de ajuste del modelo, se proponen dos medidas $D_n$ y $\bar{D}$. $D_n$ es similar a la estadística definida por la prueba de Kolmogorov–Smirnov, sin embargo, en este trabajo se limita hasta el percentil 80, de tal forma que ésta se define de la siguiente forma:
+
+\[
+D_n=\sup_x |F_n(x)-F(x)|,\quad \text{s.a. } F_n(x)\leq 0.80
+\]
+donde $F_n(x)$ es la función de distribución empírica. Es decir, $D_n$ es la diferencia máxima entre la distribución empírica y la teórica en el percentil 80.\\
+
+$\bar{D}$ es una medida adicional la cual mide el promedio de las diferencias entre la distribución teórica y la distribución empírica también dentro del percentil 80. Ésta se define de la siguiente forma:
+
+\[
+\bar{D}=\frac{\sum |F_n(x)-F(x)|}{n},\quad \text{s.a. } F_n(x)\leq 0.80
+\]\\
+
+Estas medidas se utilizarán también en las siguientes secciones para medir la bondad de ajuste para los volúmenes y las cancelaciones.\\
+
+En la Figura \ref{fig:precios} se muestra el ajuste del modelo propuesto anteriormente contra los datos empíricos de la base de datos. Adicionalmente en la Figura \ref{fig:preciosqq} se pueden ver los QQ-Plots. Para AMX y COMERCI al ser emisoras con mayor liquidez, las órdenes llegan dentro de un rango más compacto. Como puede notarse en las gráficas y las medidas antes propuestas, con excepción de AMX, se podría suponer que el modelo es adecuado para los precios en la BMV. Las medidas $D_n$ y $\bar{D}$ también son relativamente altas para GRUMA por lo que también se presume que el modelo no es tan adecuado para esta emisora. La distribución Lomax se concentra cerca del cero, por lo que la mayoría de las observaciones al menos en el caso de COMERCI y KUO parecen seguir esta distribución. Los punto lejanos se desvían, sin embargo, no parece haber un patrón claro, por lo que podría deberse a los reducidos tamaños de las muestras.
 
 \begin{figure}[htbp]
 \centering
@@ -423,28 +441,44 @@ En la Figura \ref{fig:precios} se muestra el ajuste del modelo propuesto anterio
 
 \subsection{Volúmenes}
 
-En otro trabajo para un mercado diferente \cite{marketsdigest} se demostró que los volúmenes también se pueden representar con una distribución Lomax. Se realizó un estudio similar al de precios para la distribución del volumen de las posturas en la Bolsa Mexicana de Valores. Como se puede ver en la Tabla \ref{tab:powervolumen}, en la mayoría de los casos los parámetros para una misma emisora son ``similares'' para las posturas de compra y venta. Para 4 de las 6 emisoras estudiadas se puede establecer la media, ya que $\alpha > 1$. En el caso de COMERCI no se puede definir una media con el modelo ajustado para las posturas de compra ni para las de venta. En el caso de KUO no se puede definir la media para las posturas de compra; para HERDEZ no está definida para las posturas de venta.\\
+En otro trabajo para un mercado diferente \cite{marketsdigest} se demostró que los volúmenes también se pueden representar con una distribución Lomax. Se realizó un estudio similar al de precios para la distribución del volumen de las posturas en la Bolsa Mexicana de Valores. Como se puede ver en la Tablas \ref{tab:powervolumencompra} y \ref{tab:powervolumenventa}, en la mayoría de los casos los parámetros para una misma emisora son ``similares'' para las posturas de compra y venta. Para 4 de las 6 emisoras estudiadas se puede establecer la media, ya que $\alpha > 1$. En el caso de COMERCI no se puede definir una media con el modelo ajustado para las posturas de compra ni para las de venta. En el caso de KUO no se puede definir la media para las posturas de compra; para HERDEZ no está definida para las posturas de venta.\\
 
 \begin{table}[htbp]
 \centering
-\caption{Distribución del Volumen de las Posturas}
-\begin{tabular}{r|r|r|r|r|r|r|r|r|r|}
-\multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Compra}} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Venta}} & \multicolumn{1}{r}{} \\
-\cline{2-3}
-\cline{5-6}
-& $\lambda$ & $\alpha$ & & $\lambda$ & $\alpha$ \\
-\cline{2-3}
-\cline{5-6}
-\textbf{AMX}   & 115,318.20 & 7.2939 & & 112,105.20 & 7.4092 \\
-\textbf{BIMBO} & 689.36 & 1.4184 & & 550.10 & 1.3052 \\
-\textbf{COMERCI}   & 863.75 & 0.8432 & & 648.47 & 0.8336 \\
-\textbf{GRUMA} & 6,135.30 & 2.6177 & & 9,413.25 & 3.1836 \\
-\textbf{HERDEZ}   & 4,064.11 & 1.2659 & & 2,316.45 & 0.8967 \\
-\textbf{KUO}   & 975.37 & 0.5320 & & 24,193.91 & 1.9253 \\
-\cline{2-3}
-\cline{5-6}
+\caption{Distribución del Volumen de las Posturas de Compra}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{r|r|r|r|r|}
+\cline{2-5}
+& $\lambda$ & $\alpha$ & $D_n$ & $\bar{D}$ \\
+\cline{2-5}
+\textbf{AMX} & 115,318.20 & 7.2939 & 0.1341 & 0.0572 \\
+\textbf{BIMBO} & 689.36 & 1.4184 & 0.0980 & 0.0501 \\
+\textbf{COMERCI}   & 863.75 & 0.8432 & 0.0761 & 0.0220 \\
+\textbf{GRUMA} & 6,135.30 & 2.6177 & 0.2168 & 0.1152 \\
+\textbf{HERDEZ}   & 4,064.11 & 1.2659 & 0.1201 & 0.0600 \\
+\textbf{KUO}   & 975.37 & 0.5320 & 0.1458 & 0.0833 \\
+\cline{2-5}
 \end{tabular}%
-\label{tab:powervolumen}%
+\label{tab:powervolumencompra}%
+\end{table}%
+
+\begin{table}[htbp]
+\centering
+\caption{Distribución del Volumen de las Posturas de Venta}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{r|r|r|r|r|}
+\cline{2-5}
+& $\lambda$ & $\alpha$ & $D_n$ & $\bar{D}$ \\
+\cline{2-5}
+\textbf{AMX} & 112,105.20 & 7.4092 & 0.1047 & 0.0429 \\
+\textbf{BIMBO} & 550.10 & 1.3052 & 0.1071 & 0.0540 \\
+\textbf{COMERCI} & 648.47 & 0.8336 & 0.0822 & 0.0234 \\
+\textbf{GRUMA} & 9,413.25 & 3.1836 & 0.2398 & 0.1260 \\
+\textbf{HERDEZ} & 2,316.45 & 0.8967 & 0.1606 & 0.0863 \\
+\textbf{KUO} & 24,193.91 & 1.9253 & 0.0927 & 0.0387 \\
+\cline{2-5}
+\end{tabular}%
+\label{tab:powervolumenventa}%
 \end{table}%
 
 Por ejemplo, con el modelo ajustado, la media del volumen de las posturas de compra de AMX es de 18,322.35 títulos, mientras que el de venta es de 17,491.36. La media del volumen de compra para BIMBO es de 1,647.74 mientras que la media las posturas de venta es de 1,802.22.\\
@@ -574,31 +608,49 @@ En el caso de los volúmenes el ajuste para AMX es mejor que el observado en los
 
 La literatura en el caso de las cancelaciones es más limitada; sin embargo, se intentará también modelar la distribución de la distancia $\Delta$ de las cancelaciones del mejor precio de compra $b(t)$ y de venta $a(t)$ mediante una distribución Lomax. Se debe considerar, como se mostrará en las distribuciones empíricas, que un gran número de las cancelaciones suceden con $\Delta=0$; es decir, al mejor precio de compra y venta. La distribución Lomax asume que $F(0)=0$, lo cual no sucede en este análisis. Para evitar esto, sólo se considerarán las posturas donde $\Delta>0$, y se mencionará por separado la proporción de las cancelaciones donde $\Delta=0$.\\
 
-La media de cada una de las emisoras en la muestra elegida es menor que 35; por lo tanto, las cancelaciones se concentran cerca de los mejores precios de compra y venta respectivamente. Este resultado era de esperarse ya que se presume que los inversionistas que colocan posturas lejos de las puntas tienen mayor paciencia, es decir están dispuestos a esperar más tiempo para que su postura se concrete.  Es importante considerar que en las emisoras estudiadas, en el peor de los casos, cerca del 15\% de las cancelaciones suceden al mejor precio de compra o venta. En el caso de HERDEZ para las posturas de venta, más del 50\% de las cancelaciones se realizan en la punta, como puede verse en la Tabla \ref{tab:powercanc}.
+\begin{table}[htbp]
+\centering
+\caption{Distribución de las Cancelaciones de las Posturas de Compra}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{r|r|r|r|r|r|}
+\cline{2-6}
+& $\lambda$ & $\alpha$ & $\Delta=0$ & $D_n$ & $\bar{D}$ \\
+\cline{2-6}
+\textbf{AMX}   & 7.6567 & 1.7677 & 0.1570\% & 0.2252 & 0.1533 \\
+\textbf{BIMBO} & 3.9398 & 0.6827 & 0.4175\% & 0.1506 & 0.0471 \\
+\textbf{COMERCI}   & 5.2260 & 1.3656 & 0.4670\% & 0.1303 & 0.0565 \\
+\textbf{GRUMA} & 88.3815 & 6.9082 & 0.2002\% & 0.1102 & 0.0759 \\
+\textbf{HERDEZ}   & 15.5851 & 1.7531 & 0.4269\% & 0.0985 & 0.0373 \\
+\textbf{KUO}   & 26.0058 & 1.7855 & 0.4031\% & 0.1201 & 0.0403 \\
+\cline{2-6}
+\end{tabular}%
+\label{tab:powercanccompra}%
+\end{table}%
 
 \begin{table}[htbp]
 \centering
-\caption{Distribución de las Cancelaciones de las Posturas}
-\begin{tabular}{r|r|r|r|r|r|r|r|r|r|r|r|}
-\multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Compra}} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{1}{r}{\textbf{Venta}} & \multicolumn{1}{r}{} \\
-\cline{2-4}
-\cline{6-8}
-& $\lambda$ & $\alpha$ & $\Delta=0$ & & $\lambda$ & $\alpha$ & $\Delta=0$ \\
-\cline{2-4}
-\cline{6-8}
-\textbf{AMX}   & 7.6567 & 1.7677 & 0.1570\% & & 6.2821 & 1.5505 & 0.1575\% \\
-\textbf{BIMBO} & 3.9398 & 0.6827 & 0.4175\% & & 14.4289 & 1.1085 & 0.3817\% \\
-\textbf{COMERCI}   & 5.2260 & 1.3656 & 0.4670\% & & 6.8606 & 1.7948 & 0.5354\% \\
-\textbf{GRUMA} & 88.3815 & 6.9082 & 0.2002\% & & 91.1204 & 6.4492 & 0.1461\% \\
-\textbf{HERDEZ}   & 15.5851 & 1.7531 & 0.4269\% & & 20.0407 & 1.9113 & 0.5392\% \\
-\textbf{KUO}   & 26.0058 & 1.7855 & 0.4031\% & & 22.8162 & 1.7143 & 0.6486\% \\
-\cline{2-4}
-\cline{6-8}
+\caption{Distribución de las Cancelaciones de las Posturas de Venta}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{r|r|r|r|r|r|}
+\cline{2-6}
+& $\lambda$ & $\alpha$ & $\Delta=0$ & $D_n$ & $\bar{D}$ \\
+\cline{2-6}
+\textbf{AMX}   & 6.2821 & 1.5505 & 0.1575\% & 0.2383 & 0.1557 \\
+\textbf{BIMBO} & 14.4289 & 1.1085 & 0.3817\% & 0.0980 & 0.0252 \\
+\textbf{COMERCI}   & 6.8606 & 1.7948 & 0.5354\% & 0.1028 & 0.0665 \\
+\textbf{GRUMA} & 91.1204 & 6.4492 & 0.1461\% & 0.1563 & 0.1030 \\
+\textbf{HERDEZ}   & 20.0407 & 1.9113 & 0.5392\% & 0.0702 & 0.0213 \\
+\textbf{KUO}   & 22.8162 & 1.7143 & 0.6486\% & 0.1753 & 0.0954 \\
+\cline{2-6}
 \end{tabular}%
-\label{tab:powercanc}%
+\label{tab:powercancventa}%
 \end{table}%
 
-Como se puede ver en la Figura \ref{fig:canc} y en los QQ-Plots de la Figura \ref{fig:cancqq}, la distribución Lomax no es la más adecuada, ya que el grueso de las cancelaciones se concentra en el intervalo donde $\Delta<20$. Se puede afirmar que las cancelaciones para la muestra de acciones considerada de la Bolsa Mexicana no siguen una ley de potencias.
+La media de cada una de las emisoras en la muestra elegida es menor que 35; por lo tanto, las cancelaciones se concentran cerca de los mejores precios de compra y venta respectivamente. Este resultado era de esperarse ya que se presume que los inversionistas que colocan posturas lejos de las puntas tienen mayor paciencia, es decir están dispuestos a esperar más tiempo para que su postura se concrete.  Es importante considerar que en las emisoras estudiadas, en el peor de los casos, cerca del 15\% de las cancelaciones suceden al mejor precio de compra o venta. En el caso de HERDEZ para las posturas de venta, más del 50\% de las cancelaciones se realizan en la punta, como puede verse en la Tablas \ref{tab:powercanccompra} y \ref{tab:powercancventa}.\\
+
+En la Figura \ref{fig:canc} y en los QQ-Plots de la Figura \ref{fig:cancqq}, la distribución Lomax no es la más adecuada, ya que el grueso de las cancelaciones se concentra en el intervalo donde $\Delta<20$. Se puede afirmar que las cancelaciones para la muestra de acciones considerada de la Bolsa Mexicana no siguen una ley de potencias.
+
+\clearpage
 
 \begin{figure}[htbp]
 \centering
