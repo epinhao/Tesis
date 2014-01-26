@@ -45,7 +45,7 @@ Los mercados se pueden clasificar en dos tipos:
   \item Regidos por órdenes (Order-driven market)
 \end{itemize}
 
-En los mercados regidos por formadores de mercado, éstos centralizan las órdenes proveyendo liquidez al fijar una postura de compra y una de venta; un ejemplo de esto es el especialista en el NYSE, el cual es el punto de contacto entre compradores y vendedores. El especialista tiene como misión mantener la continuidad del mercado, mantener a los inversionistas informados, comprometer capital cuando es necesario y asegurar equidad de oportunidades entre todos los clientes \cite{nyse}. En los mercados regidos por órdenes, las posturas de todos los participantes se agregan en lo que se conoce como el libro de posturas. Los mercados regidos por órdenes tienen la ventaja de dar transparencia a todos los participantes, ya que éstos conocen las características de cada una de las posturas. De igual forma, existen algunos mercados híbridos donde los formadores de mercado interactúan en el libro de posturas; la Bolsa Mexicana de Valores y NASDAQ son algunos ejemplos.\\
+En los mercados regidos por formadores de mercado, éstos centralizan las órdenes proveyendo liquidez al fijar una postura de compra y una de venta; un ejemplo de esto es el especialista en el NYSE, el cual es el punto de contacto entre compradores y vendedores. El especialista tiene como misión mantener la continuidad del mercado, mantener a los inversionistas informados, comprometer capital cuando es necesario y asegurar equidad de oportunidades entre todos los clientes \cite{nyse}. En los mercados regidos por órdenes, las posturas de todos los participantes se agregan en lo que se conoce como el libro de posturas. Los inversionistas ingresan lo que se conoce como posturas limitadas (con un precio limite de compra o venta según corresponda) en el libro de posturas, por lo que éste también se conoce como libro de posturas limitado. Los mercados regidos por órdenes tienen la ventaja de dar transparencia a todos los participantes, ya que éstos conocen las características de cada una de las posturas. De igual forma, existen algunos mercados híbridos donde los formadores de mercado interactúan en el libro de posturas; la Bolsa Mexicana de Valores y NASDAQ son algunos ejemplos.\\
 
 La microestructura del mercado se define como el estudio del proceso y los resultados del intercambio de activos bajo un conjunto especifico de reglas \cite{1995market}. El estudio de la microestructura del mercado es de utilidad ya que permite identificar patrones dentro del mismo. Estos patrones pueden ser utilizados para la predicción de los movimientos del mercado y para la identificación de comportamientos fraudulentos entre los participantes del mercado como se ha hecho en otros trabajos \cite{manipulation}. Esta información es de gran interés para los reguladores, ya que permite identificar casos de manipulación de precios.
 \\
@@ -58,11 +58,11 @@ Con el objetivo de estudiar el comportamiento de la Bolsa Mexicana de Valores, s
 La Bolsa Mexicana de Valores proporcionó para este trabajo una base de datos con las posturas en todas las emisoras entre el 16 de noviembre de 2010 y el 18 de febrero de 2011. La base de datos se compone de dos tablas:
 
 \begin{itemize}
-  \item Posturas Iniciales
   \item Registro de Posturas
+  \item Posturas Iniciales
 \end{itemize}
 
-La tabla de registro tiene 25,491,702 renglones; mientras que la tabla de posturas iniciales tiene 275,005. En el registro se encuentran todas las posturas que se reciben a lo largo del día. Las tablas tienen los siguientes campos:\\
+La tabla de registro tiene 25,491,702 renglones; mientras que la tabla de posturas iniciales tiene 275,005. En el registro se encuentran todas las posturas que se reciben a lo largo del día, mientras que en la tabla de posturas iniciales, se almacenan todas la posturas que se recibieron en el registro y siguen vigentes al terminar el día. La tabla de posturas iniciales se utiliza al empezar cada día para cargar las posturas antes mencionadas. Las tablas tienen los siguientes campos:\\
 
 \noindent
 \begin{tabbing}
@@ -842,7 +842,7 @@ Para modelar la dinámica del libro de posturas limitado se considera el modelo 
 
 \subsection{Modelo}
 
-Si se considera un mercado donde las posturas se pueden colocar en una matriz de precios $\{1,\ldots,n\}$ múltiplos de una puja. $n$ se elige de forma que es suficientemente grande para que el precio de todas las posturas estén dentro de este rango. El estado del libro se puede representar mediante el proceso $X(t)=\{X_1(t),\ldots,X_n(t)\}$ donde $|X_p(t)|$ es el número de posturas a un precio $p$. Si $X_p(t)<0$ se dice que hay $-X_p(t)$ posturas de compra, cuando $X_p>0$ existen $X_p$ posturas de venta.\\
+Si se considera un mercado donde las posturas se pueden colocar en un vector de precios $\left(1,\ldots,n\right)$ múltiplos de una puja. $n$ se elige de forma que es suficientemente grande para que el precio de todas las posturas estén dentro de este rango. El estado del libro se puede representar mediante el proceso $X(t)=\{X_1(t),\ldots,X_n(t)\}$ donde $|X_p(t)|$ es el número de posturas a un precio $p$. Si $X_p(t)<0$ se dice que hay $-X_p(t)$ posturas de compra, cuando $X_p>0$ existen $X_p$ posturas de venta.\\
 
 El precio de la mejor postura de venta $p_A(t)$ se define como:
 \[
@@ -891,6 +891,12 @@ De esta forma se puede decir que el proceso X es una cadena de Markov en tiempo 
 \item $x\rightarrow x^{p+1}$ con tasa $\theta(p_A(t)-p)|x_p|$ para $p<p_A(t)$
 \item $x\rightarrow x^{p-1}$ con tasa $\theta(p-p_B(t))|x_p|$ para $p>p_B(t)$
 \end{itemize}
+
+\begin{figure}[htbp] \centering
+\includegraphics[scale=0.38,trim=0 1cm 0 1cm]{model.pdf}
+\caption{Diagrama del modelo}
+\label{model}
+\end{figure}
 
 \subsection{Dirección de los Movimientos en el Precio}
 
@@ -947,7 +953,7 @@ En este caso se realizaron diversas simulaciones de los procesos $X_A$ y $X_B$ p
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpm.eps}
-\caption{Función de densidad de $\tau$}
+\caption{Comparación de la función de densidad de $\tau$ obtenida por simulación y por la transformación inversa de Laplace}
 \label{probmt}
 \end{figure}
 
@@ -967,7 +973,7 @@ por lo que de esta forma se puede desplazar la función de densidad de forma que
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmshift.eps}
-\caption{Función de densidad de $\tau$}
+\caption{Desplazamiento de la función de densidad de $\tau$}
 \label{probmtshift}
 \end{figure}
 
@@ -975,7 +981,7 @@ También es importante utilizar el parámetro correcto $T$ para encontrar la dis
 
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.75,trim=0 1cm 0 1cm]{probpmpar.eps}
-\caption{Función de densidad de $\tau$}
+\caption{Función de densidad de $\tau$ para distintos parámetros $T$}
 \label{probmtpar}
 \end{figure}
 
