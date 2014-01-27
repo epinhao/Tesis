@@ -949,7 +949,7 @@ f(t-a)$, donde $a$ es tal que:
 \lim_{t\to 0^-} g(t)=0
 \]
 
-El objetivo de la función $g$ es truncar la distribución $f$ y desplazarla de tal forma que los datos que se omiten ya no sean representativos. Es importante recordar que como $f$ es una función de distribución $f(t)\geq 0$ para toda $t$ en el dominio de la función.\\
+El objetivo de la función $g$ es truncar la distribución $f$ y desplazarla de tal forma que los datos que se omiten no sean representativos. Es importante recordar que como $f$ es una función de distribución $f(t)\geq 0$ para toda $t$ en el dominio de la función.\\
 
 En este caso se realizaron diversas simulaciones de los procesos $X_A$ y $X_B$ para evaluar la distribución de $\tau$, la cual disminuye exponencialmente de ambos lados a partir de un cierto máximo. En la Figura \ref{probmt} se muestra el resultado que se obtiene de las simulaciones y el que se obtiene al utilizar el método de la transformación inversa de Laplace.\\
 
@@ -1086,7 +1086,7 @@ Para entender los resultados, en primer lugar, es necesario obtener las probabil
 
 Para analizar los resultados, se considerará la primera postura donde $S=1$, en el ejemplo de la Tabla \ref{tab:bimbotab} esto sucede en el renglón 151, donde $p_M(t)$ es 97.7950 y el volumen de la mejor postura de venta excede el de la mejor postura de compra. Los siguientes eventos modifican posturas distintas a las puntas o el volumen en las puntas, hasta el evento 155 donde se modifica $p_M(t)$.\\
 
-Para la acción de BIMBO existen 2,196 instancias como esta; para poder realizar el análisis se encontró la media del volumen del primer evento de cada instancia donde $S=1$, la cual es de 2,707.45. El volumen de todos los eventos se dividió entre la media y se tomó el número entero más cercano mayor a este cociente para realizar los cálculos. Para el análisis se consideran las posturas donde el volumen normalizado es menor o igual que 5. De las 2,196 instancias mencionadas antes 2,043 cumplen esto; éstas se muestran en la Tabla \ref{tab:numempirca}. En la Tabla \ref{tab:numempirca} las columnas muestran posturas de venta con volúmenes normalizados de 1 a 5 y los renglones posturas de compra con volúmenes normalizados de 1 a 5.
+Para la acción de BIMBO existen 2,196 instancias como esta; para poder realizar el análisis se encontró la media del volumen del primer evento de cada instancia donde $S=1$, la cual es de 2,707.45. El volumen de todos los eventos se dividió entre la media y se tomó el número entero más cercano mayor a este cociente para realizar los cálculos. Para el análisis se consideran las posturas donde el volumen normalizado es menor o igual que 5. De las 2,196 instancias mencionadas antes 2,043 cumplen esto; éstas se muestran en la Tabla \ref{tab:numempirca}. En la Tabla \ref{tab:numempirca} las columnas muestran posturas de venta con volúmenes normalizados de 1 a 5 y los renglones posturas de compra con volúmenes normalizados de 1 a 5.\\
 
 \begin{table}[htbp]
 \centering
@@ -1126,7 +1126,7 @@ compra & 1& 2 & 3 & 4 & 5 \\
 \label{tab:resempirca}%
 \end{table}%
 
-Los resultados obtenidos al aplicar el método de la transformación de Laplace siguen una tendencia similar como se puede ver en la Tabla \ref{tab:reslaplace}. En este caso cuando el número de órdenes de compra es el mismo al de las de venta, la probabilidad de un aumento en $p_M(t)$ es cercana al 50\%. Cuando el número de posturas de compra excede al de venta existe una mayor probabilidad de que el precio suba para todos los casos; también al aumentar la diferencia entre las posturas de compra y venta aumenta la probabilidad de un aumento en el precio. Un resultado interesante es que se esperaría que $P\{p_M(T)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=1\}=1-P\{p_M(T)>p_M(0)|X_A(0)=b,X_B(0)=a,p_S(0)=1\}$; sin embargo, en este caso $P\{p_M(T)>p_M(0)|X_A(0)=1,X_B(0)=2,p_S(0)=1\}=69.31\%$ mientras que $P\{p_M(T)>p_M(0)|X_A(0)=2,X_B(0)=1,p_S(0)=1\}=35.32\%$. Esto se puede deber a la precisión de algunos de los cálculos que se realizaron, en particular las integraciones numéricas; esto se podría mejorar al alterar los parámetros.
+Los resultados obtenidos al aplicar el método de la transformación de Laplace siguen una tendencia similar como se puede ver en la Tabla \ref{tab:reslaplace}. En este caso cuando el número de órdenes de compra es el mismo al de las de venta, la probabilidad de un aumento en $p_M(t)$ es cercana al 50\%. Cuando el número de posturas de compra excede al de venta existe una mayor probabilidad de que el precio suba para todos los casos; también al aumentar la diferencia entre las posturas de compra y venta aumenta la probabilidad de un aumento en el precio. Un resultado interesante es que se esperaría que $P\{p_M(T)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=1\}=1-P\{p_M(T)>p_M(0)|X_A(0)=b,X_B(0)=a,p_S(0)=1\}$; sin embargo, en este caso $P\{p_M(T)>p_M(0)|X_A(0)=1,X_B(0)=2,p_S(0)=1\}=69.31\%$ mientras que $P\{p_M(T)>p_M(0)|X_A(0)=2,X_B(0)=1,p_S(0)=1\}=35.32\%$. Esto se puede deber a la precisión de algunos de los cálculos que se realizaron, en particular las integraciones numéricas; esto se podría mejorar al alterar los parámetros.\\
 
 \begin{table}[htbp]
 \centering
@@ -1505,7 +1505,7 @@ para acelerar la convergencia de la serie \cite{abate1995}, se toma $h=\pi/2t$ y
 \[
 f_h(t)=\frac{e^{A/2}}{2t} Re\left(\hat{f}\left(\frac{A}{2t}\right)\right)+\frac{e^{A/2}}{t}\sum_{k=1}^{\infty}(-1)^k Re\left(\hat{f}\left(\frac{A+2k\pi i}{2t}\right)\right)
 \]
-esta aproximación tiene un error de discretización acotado \cite{abate1995} el cual es aproximadamente $e^{-A}$. Para obtener un error menor a $10^{-8}$ se utiliza $A=18.4$.\\
+esta aproximación tiene un error de discretización acotado \cite{abate1995}, el cual es aproximadamente $e^{-A}$. Para obtener un error menor a $10^{-8}$ se utiliza $A=18.4$.\\
 
 Debido a que la serie es casi alternante (la serie sería alternante si $Re\left(\hat{f}\left(\frac{A+2k\pi i}{2t}\right)\right)
 $ tuviera el mismo signo para toda $k$) se pueden utilizar métodos para acelerar la convergencia, tal como la transformación de Euler. Al utilizar este método se obtiene la siguiente aproximación:
