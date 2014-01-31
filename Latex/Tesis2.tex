@@ -842,7 +842,7 @@ Para modelar la dinámica del libro de posturas limitado se considera el modelo 
 
 \subsection{Modelo}
 
-Si se considera un mercado donde las posturas se pueden colocar en un vector de precios $\left(1,\ldots,n\right)$ múltiplos de una puja. $n$ se elige de forma que es suficientemente grande para que el precio de todas las posturas estén dentro de este rango. El estado del libro se puede representar mediante el proceso $X(t)=\{X_1(t),\ldots,X_n(t)\}$ donde $|X_p(t)|$ es el número de posturas a un precio $p$. Si $X_p(t)<0$ se dice que hay $-X_p(t)$ posturas de compra, cuando $X_p>0$ existen $X_p$ posturas de venta.\\
+Si se considera un mercado donde las posturas se pueden colocar en un vector de precios $\left(1,\ldots,n\right)$ múltiplos de una puja. $n$ se elige de forma que es suficientemente grande para que el precio de todas las posturas estén dentro de este rango. Por ejemplo, en caso de que en un mercado los precios se encuentren limitados a dos posiciones decimales; sería necesario multiplicar los precios por 100 para obtener el vector de precios. De esta forma, un precio de 8.99 correspondería con el índice 899 del vector de precios. El estado del libro se puede representar mediante el proceso $X(t)=\{X_1(t),\ldots,X_n(t)\}$ donde $|X_p(t)|$ es el número de posturas a un precio $p$. Si $X_p(t)<0$ se dice que hay $-X_p(t)$ posturas de compra, cuando $X_p>0$ existen $X_p$ posturas de venta.\\
 
 El precio de la mejor postura de venta $p_A(t)$ se define como:
 \[
@@ -1221,7 +1221,6 @@ Un proceso estocástico se conoce como proceso de nacimiento y muerte con un esp
 \begin{eqnarray}
 P\{X(t+s)-X(t)=1|X(t)=j\} = \lambda_j s + o(s)\quad j \in I \\
 P\{X(t+s)-X(t)=-1|X(t)=j\} = \mu_js + o(s)\quad j \in I \\
-P\{\left|X(t+s)-X(t)\right|>1|X(t)=j\} = o(s)\quad j \in I \\
 P\{X(t+s)=j|X(t)=j\} = 1-(\lambda_j+\mu_j)s + o(s)\quad j \in I 
 \end{eqnarray}
 \end{subequations}
