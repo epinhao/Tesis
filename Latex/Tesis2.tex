@@ -892,6 +892,8 @@ De esta forma se puede decir que el proceso X es una cadena de Markov en tiempo 
 \item $x\rightarrow x^{p-1}$ con tasa $\theta(p-p_B(t))|x_p|$ para $p>p_B(t)$
 \end{itemize}
 
+En la Figura \ref{model} se muestra un diagrama del modelo propuesto. En el eje x se encuentran los índices del precio $p$. El eje y muestra  el número de posturas estandarizadas a cada precio $|X(t)|$. En este ejemplo $p_A(t)=83$ y $p_B(t)=79$, por lo que $p_M(t)=81$, es decir, el promedio de los números anteriores. El spread $p_S(t)$ en este caso es de 4. Ahora, para $X_{84}(t)$, que se encuentra a una distancia de 5, la tasa de llegada es $\lambda(5)$ y la tasa de cancelación es de $\theta(5) \cdot 5$.
+
 \begin{figure}[htbp] \centering
 \includegraphics[scale=0.38,trim=0 1cm 0 1cm]{model.pdf}
 \caption{Diagrama del modelo}
@@ -1146,7 +1148,7 @@ compra & 1& 2 & 3 & 4 & 5 \\
 \label{tab:reslaplace}%
 \end{table}%
 
-Con los mismos parámetros que se utilizaron para el método de Laplace se realizaron simulaciones. Para cada una de las combinaciones se realizaron 10,000 simulaciones en el paquete estadístico R; los resultados se muestra en la Tabla \ref{tab:ressim}. Para las simulaciones en los casos donde el número de posturas de compra y venta son iguales, el porcentaje de las ocasiones donde el precio sube es el más cercano al 50\%. También en este método se cumplen las premisas que se establecieron en los otros dos métodos en cuanto al aumento de la probabilidad de que el precio suba dada la diferencia entre el número de posturas de compra y venta. En este caso se podría decir que $P\{p_M(T)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=1\}=1-P\{p_M(T)>p_M(0)|X_A(0)=b,X_B(0)=a,p_S(0)=1\}$ sí se cumple. Este método resultó ser bastante más rápido que el método de la transformación inversa de Laplace, sin embargo, probablemente el método de Laplace se podría mejorar considerablemente si se optimizaran algunos de los algoritmos utilizados. Por ejemplo, el algoritmo utiliza los mismos resultados en varias ocasiones, por lo que estos se podrían almacenar para evitar calcularlos en cada ocasión.
+Con los mismos parámetros que se utilizaron para el método de Laplace se realizaron simulaciones. Para cada una de las combinaciones se realizaron 10,000 simulaciones en el paquete estadístico R; los resultados se muestran en la Tabla \ref{tab:ressim}. Para las simulaciones en los casos donde el número de posturas de compra y venta son iguales, el porcentaje de las ocasiones donde el precio sube es el más cercano al 50\%. También en este método se cumplen las premisas que se establecieron en los otros dos métodos en cuanto al aumento de la probabilidad de que el precio suba dada la diferencia entre el número de posturas de compra y venta. En este caso se podría decir que $P\{p_M(T)>p_M(0)|X_A(0)=a,X_B(0)=b,p_S(0)=1\}=1-P\{p_M(T)>p_M(0)|X_A(0)=b,X_B(0)=a,p_S(0)=1\}$ sí se cumple. Este método resultó ser bastante más rápido que el método de la transformación inversa de Laplace, sin embargo, probablemente el método de Laplace se podría mejorar considerablemente si se optimizaran algunos de los algoritmos utilizados. Por ejemplo, el algoritmo utiliza los mismos resultados en varias ocasiones, por lo que estos se podrían almacenar para evitar calcularlos en cada ocasión.
 
 \begin{table}[htbp]
 \centering
@@ -1195,7 +1197,7 @@ Se considera que la base matemática necesaria para el modelo que se desarrolló
 
 \subsection{Procesos Estocásticos y Tiempos de Transición}
 
-En esta sección se define formalmente el concepto de cadena de Markov homogénea y un caso particular de éstos; los procesos de nacimiento y muerte. Un proceso estocástico $\{X(t);t\geq 0\}$ con un conjunto de estados $\mathcal{S} \subset I$ se dice que es una cadena de Markov de tiempo continuo si para toda $n \in \mathbb{N}$, estados $i_{1},i_{2},\ldots,i_{n},j$; tiempos $0\leq\tau_0<\tau_1<\cdots<\tau_n<\tau$:
+En esta sección se define formalmente el concepto de cadena de Markov homogénea y un caso particular de éstos; los procesos de nacimiento y muerte. Un proceso estocástico $\{X(t);t\geq 0\}$ con un conjunto de estados $\mathcal{S} \subset \mathbb{N}$ se dice que es una cadena de Markov de tiempo continuo si para toda $n \in \mathbb{N}$, estados $i_{1},i_{2},\ldots,i_{n},j$; tiempos $0\leq\tau_0<\tau_1<\cdots<\tau_n<\tau$:
 
 \[
 P\{X(\tau)=j|X(\tau_1)=i_1\ldots X(\tau_n)=i_n\}
@@ -1212,7 +1214,7 @@ P\{X(\tau)=j|X(s)=i\}=P\{X(\tau-s)=j|X(0)=i\}
 Un proceso estocástico se conoce como proceso de nacimiento y muerte con un espacio de estados $\mathcal{S}$, si cumple con los siguientes axiomas:
 
 \begin{enumerate}
-  \item $\mathcal{S} \subset I = \{ 0,1,2,\ldots\}$
+  \item $\mathcal{S} \subset \mathbb{N}$
   \item Es una cadena de Markov homogénea
   \item Existen las constantes no negativas $\lambda_j$ y $\mu_j$, con $j=0,1,\ldots$ con $\mu_0=0$, tal que para $s>0$ y $t\geq 0$, se cumple:
 \begin{subequations}
