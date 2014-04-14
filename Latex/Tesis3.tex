@@ -7,7 +7,7 @@
 \usepackage{subcaption} % Subfigures
 \usepackage[utf8]{inputenc}
 \usepackage{lscape} % Landscape mode
-\usepackage[nottoc]{tocbibind} % Include bibliography in TOC
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Include bibliography in TOC
 \usepackage{url}
 %\usepackage{array}
 %\usepackage[toc,page]{appendix}
@@ -37,6 +37,14 @@
 \tableofcontents
 \clearpage
 
+\thispagestyle{empty}
+\listoffigures
+\clearpage
+
+\thispagestyle{empty}
+\listoftables
+\clearpage
+
 \setcounter{page}{1}
 
 \section{Introducción}
@@ -54,7 +62,7 @@ En los mercados regidos por formadores de mercado, éstos centralizan las órden
 La microestructura del mercado se define como el estudio del proceso y los resultados del intercambio de activos bajo un conjunto especifico de reglas \cite{1995market}. El estudio de la microestructura del mercado es de utilidad ya que permite identificar patrones dentro del mismo. Estos patrones pueden ser utilizados para la predicción de los movimientos del mercado y para la identificación de comportamientos fraudulentos entre los participantes del mercado como se ha hecho en otros trabajos \cite{manipulation}. Esta información es de gran interés para los reguladores, ya que permite identificar casos de manipulación de precios.
 \\
 
-Con el objetivo de estudiar el comportamiento de la Bolsa Mexicana de Valores, se obtuvo una base de datos con todas las posturas del libro de órdenes en un periodo determinado. El trabajo se divide en dos partes; en la primera, se describirá la base datos sujeta al estudio y se explicará la forma en que se reconstruyó el libro de posturas para llevar a cabo el análisis. Los resultados obtenidos tras la reconstrucción se compararán con los estudios de otros mercados similares. En la segunda, se describirá un modelo del libro de posturas y un método basado en la transformación inversa de Laplace para llevar a cabo la predicción del movimiento en el precio de una emisora. Se considera que esta es la primera vez que se realiza un análisis como éste con los datos de la BMV.
+Con el objetivo de estudiar el comportamiento de la Bolsa Mexicana de Valores, se obtuvo una base de datos con todas las posturas del libro de órdenes en un periodo determinado. El trabajo se divide en dos partes; en la primera, se describirá la base de datos sujeta al estudio y se explicará la forma en que se reconstruyó el libro de posturas para llevar a cabo el análisis. Los resultados obtenidos tras la reconstrucción se compararán con los estudios de otros mercados similares. En la segunda, se describirá un modelo del libro de posturas y un método basado en la transformación inversa de Laplace para llevar a cabo la predicción del movimiento en el precio de una emisora. Se considera que esta es la primera vez que se realiza un análisis como éste con los datos de la BMV.
 
 \clearpage
 
@@ -74,9 +82,9 @@ La tabla de registro tiene 25,491,702 renglones; mientras que la tabla de postur
 \\
 \textbf{folio} \> Número asignado por la BMV a la postura\\
 Según el reglamento de la BMV; las órdenes que, en su caso, tengan modificaciones,\\
-perderán el folio de recepción que en un inicio les haya correspondido y se les asignará\\
-uno nuevo. No perderán su folio aquellas órdenes que sean modificadas únicamente\\
-para disminuir su volumen.\\
+perderán el folio de recepción que en un inicio les haya correspondido y se les\\
+asignará uno nuevo. No perderán su folio aquellas órdenes que sean modificadas\\
+únicamente para disminuir su volumen.\\
 \\
 \textbf{fecha\_vig/vigencia} \> Fecha de vigencia de la postura \\
 \\
@@ -96,8 +104,8 @@ CH \> Cancelación de Hecho\\
 \underline{Posibles Valores} \\
 CO \> Contado\\
 PI \> Pico\\
-Son operaciones que implican la compra/venta de una cantidad de acciones inferior\\
-a un lote (para la mayoría de la emisoras son 100 acciones).\\
+Son operaciones que implican la compra/venta de una cantidad de acciones\\
+inferior a un lote (para la mayoría de la emisoras son 100 acciones).\\
 HC \> Operación a Precio de Cierre\\
 DC \> Operaciones al Precio de Cierre Modalidad Después del Cierre\\
 OR \> Operaciones de Registro\\
@@ -136,12 +144,12 @@ PQ \> Paquete \\
 La tabla de posturas iniciales utiliza además estos campos:\\
 \\
 \textbf{fecha} \> Fecha\\
-Este campo se utiliza para distinguir las órdenes que están activas al principio del\\
-día, actualiza las posiciones activas para inicializar el libro de órdenes.\\
+Este campo se utiliza para distinguir las órdenes que están activas al principio\\
+del día, actualiza las posiciones activas para inicializar el libro de órdenes.\\
 \\
-\textbf{orig\_timestamp} \> Fecha original de la postura expresada como la cantidad de\\
-\> milésimas de segundo transcurridas desde la medianoche del\\
-\>1 de enero de 1970\\
+\textbf{orig\_timestamp} \> Fecha original de la postura expresada como la cantidad\\
+\>de milésimas de segundo transcurridas desde la medianoche\\
+\>del 1 de enero de 1970\\
 \\
 La tabla de registro utiliza estos campos:\\
 \\
@@ -314,7 +322,7 @@ Para medir la bondad de ajuste del modelo, se proponen dos medidas $D_n$ y $\bar
 \[
 D_n=\sup_x |F_n(x)-F(x)|,\quad \text{s.a. } F_n(x)\leq 0.80
 \]
-donde $F_n(x)$ es la función de distribución empírica. Es decir, $D_n$ es la diferencia máxima entre la distribución empírica y la teórica en el percentil 80.\\
+donde $F_n(x)$ es la función de distribución empírica. Es decir, $D_n$ es la diferencia máxima entre la distribución empírica y la teórica hasta el percentil 80.\\
 
 $\bar{D}$ es una medida adicional la cual mide el promedio de las diferencias entre la distribución teórica y la distribución empírica también dentro del percentil 80. Ésta se define de la siguiente forma:
 
@@ -1545,12 +1553,6 @@ Iteraciones & 7,494 & 26 \\
 \label{tab:euler}%
 \end{table}%
 
-\clearpage
-
-\listoftables
-\clearpage
-
-\listoffigures
 \clearpage
 
 \nocite{*}
