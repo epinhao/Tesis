@@ -230,7 +230,7 @@ Para realizar los diversos análisis fue necesario reconstruir el libro de postu
 
 Otro reto que se identificó fue el de las posturas de tipo VO (Volumen Oculto). La base de datos que se utilizó no cuenta con la información del volumen que se encuentra oculto en este tipo de órdenes. Se optó por ignorar esta información ya que las posturas de tipo VO comprenden sólo el 0.55\% del total, mientras que las de tipo LP (Limitadas), las más comunes, representan el 93.81\%; estas últimas sí cuentan con la información del volumen. Como se muestra más adelante, ignorar las posturas de tipo VO no tuvo un gran impacto ya que los hechos reportados por el algoritmo son similares a los reportados por la BMV. Las operaciones del tipo PI (Picos) representan el 0.61\% de la muestra y de acuerdo al reglamento de la BMV no se incluyen en el libro de posturas, por lo que para el análisis también se ignoraron. Adicionalmente el algoritmo respeta el horario establecido en el reglamento de la bolsa; por lo tanto, antes de las 8:30am no se concreta ningún hecho. En la primera fase, el algoritmo carga las posturas que quedaron abiertas en días anteriores de la tabla de Posturas Iniciales y en la segunda se procesa el registro.\\
 
-El algoritmo se implementó en Java y se desarrolló una interfaz gráfica. Como se puede ver en la Figura \ref{java}, la interfaz permite analizar individualmente cada entrada del registro de una emisora para un día. La interfaz cuenta con 5 ventanas:
+El algoritmo se implementó en Java y se desarrolló una interfaz gráfica. En la Figura \ref {algoritmo} se muestra un diagrama de flujo del algoritmo. Como se puede ver en la Figura \ref{java}, la interfaz permite analizar individualmente cada entrada del registro de una emisora para un día. La interfaz cuenta con 5 ventanas:
 \begin{itemize}
   \item Corros de Venta
   \item Corros de Compra
@@ -242,6 +242,12 @@ El algoritmo se implementó en Java y se desarrolló una interfaz gráfica. Como
 Con el botón de ``Siguiente'' se van procesando una a una las entradas del registro. En el caso de una postura de compra, se trata de buscar una postura en los corros de venta para perfeccionarla (perfeccionar en este caso se entiende en el sentido utilizado por la BMV, es decir, completar los requisitos para que un acto jurídico tenga plena validez); si no existe, ésta se registra en los corros de compra, los cuales están ordenados de mayor a menor precio. El mismo procedimiento se realiza para las posturas de venta, de tal forma, que la postura que se encuentra en la parte inferior de los corros de venta y la que se encuentra en la parte más alta de los corros de compra se conocen como las puntas. Una función adicional de la interfaz es la cancelación de posturas de compra o de venta. Las posturas se cancelan al seleccionarlas y oprimir el botón correspondiente. Esta función se implementó con el objeto de poder depurar errores en el funcionamiento del algoritmo.\\
 
 Como se mencionó antes, los hechos se registran con la clave AH; éstos se mantienen en la ventana de ``Hechos Registrados por la BMV''. Cuando el algoritmo desarrollado perfecciona un hecho, éste se registra en la ventana de ``Hechos Reportados por el Algoritmo''. Para las cancelaciones y las modificaciones, es necesario localizar el folio correspondiente en los corros de compra o venta para realizar lo que a cada una corresponde. Con el objetivo de poder analizar el registro con mayor rapidez, se implementó el botón de ``Play'', el cual permite avanzar 100 entradas del registro.
+
+\begin{figure}[htbp] \centering
+\includegraphics[width=0.8\textwidth, trim=3.5cm 1cm 4cm 2cm]{flow.pdf}
+\caption{Diagrama de Flujo del Algoritmo}
+\label{algoritmo}
+\end{figure}
 
 \begin{landscape}
 
@@ -353,9 +359,9 @@ $\bar{D}$ es una medida adicional la cual mide el promedio de las diferencias en
 \bar{D}=\frac{\sum |F_n(x)-F(x)|}{n},\quad \text{s.a. } F_n(x)\leq 0.80
 \]\\
 
-Estas medidas se utilizarán también en las siguientes secciones para medir la bondad de ajuste para los volúmenes y las cancelaciones.\\
+Estas medidas se utilizarán también en las siguientes secciones para medir la bondad de ajuste para los volúmenes y las cancelaciones. Es importante mencionar que como en este caso los parámetros del modelo se estiman, los valores críticos de la prueba de Kolmogorov–Smirnov se tendrían que estimar a través de métodos de simulación Monte Carlo.\\
 
-En la Figura \ref{fig:precios} se muestra el ajuste del modelo propuesto anteriormente contra los datos empíricos de la base de datos. Adicionalmente en la Figura \ref{fig:preciosqq} se pueden ver los QQ-Plots. Para AMX y COMERCI al ser emisoras con mayor liquidez, las órdenes llegan dentro de un rango más compacto. Como puede notarse en las gráficas y las medidas antes propuestas, con excepción de AMX, se podría suponer que el modelo es adecuado para los precios en la BMV. Las medidas $D_n$ y $\bar{D}$ también son relativamente altas para GRUMA por lo que también se presume que el modelo no es tan adecuado para esta emisora. La distribución Lomax se concentra cerca del cero, por lo que la mayoría de las observaciones al menos en el caso de COMERCI y KUO parecen seguir esta distribución. Los punto lejanos se desvían, sin embargo, no parece haber un patrón claro, por lo que podría deberse a los reducidos tamaños de las muestras. Los resultados son muy interesantes por lo que en futuros trabajos se podría realizar un análisis más profundo del comportamiento de los precios.
+En la Figura \ref{fig:precios} se muestra el ajuste del modelo propuesto anteriormente contra los datos empíricos de la base de datos. Adicionalmente en la Figura \ref{fig:preciosqq} se pueden ver los QQ-Plots. Para AMX y COMERCI al ser emisoras con mayor liquidez, las órdenes llegan dentro de un rango más compacto. Como puede notarse en las gráficas, las medidas $D_n$ y $\bar{D}$ para BIMBO y COMERCI están por debajo de 0.10 y 0.05. En el caso de AMX los valores de las medidas $D_n$ y $\bar{D}$ exceden 0.20 y 0.15 respectivamente, por lo que se presume que el modelo no es adecuado. Las medidas $D_n$ y $\bar{D}$ también son relativamente altas para GRUMA por lo que también se presume que el modelo no es tan adecuado para esta emisora. La distribución Lomax se concentra cerca del cero, por lo que la mayoría de las observaciones al menos en el caso de COMERCI y KUO parecen seguir esta distribución. Los punto lejanos se desvían, sin embargo, no parece haber un patrón claro, por lo que podría deberse a los reducidos tamaños de las muestras. Los resultados son muy interesantes por lo que en futuros trabajos se podría realizar un análisis más profundo del comportamiento de los precios.
 
 \begin{figure}[htbp]
 \centering
@@ -519,7 +525,7 @@ En otro trabajo para un mercado diferente \cite{marketsdigest} se demostró que 
 
 Por ejemplo, con el modelo ajustado, la media del volumen de las posturas de compra de AMX es de 18,322.35 títulos, mientras que el de venta es de 17,491.36. La media del volumen de compra para BIMBO es de 1,647.74 mientras que la media las posturas de venta es de 1,802.22.\\
 
-En el caso de los volúmenes el ajuste para AMX es mejor que el observado en los precios, las medidas $D_n$ y $\bar{D}$ son menores; esto no es así para GRUMA y HERDEZ donde las medidas son mayores. Para las otras emisoras las medidas se encuentran dentro de un rango más razonable, por lo que no se puede descartar que los volúmenes sigan una ley de potencias. En la Figura \ref{fig:volumen} se muestran algunas gráficas de la distribución, mientras que en la Figura \ref{fig:volumenqq} se muestran los QQ-Plots. Es interesante observar la preferencia de los participantes por volúmenes múltiplos de 1,000.
+En el caso de los volúmenes el ajuste para AMX es mejor que el observado en los precios, las medidas $D_n$ y $\bar{D}$ son menores; esto no es así para GRUMA y HERDEZ donde las medidas son mayores. De nuevo BIMBO y COMERCI presentan el mejor ajuste con medidas $D_n$ y $\bar{D}$ muy cercanas a 0.10 y 0.05 respectivamente, por lo que no se puede descartar que los volúmenes sigan una ley de potencias. En la Figura \ref{fig:volumen} se muestran algunas gráficas de la distribución, mientras que en la Figura \ref{fig:volumenqq} se muestran los QQ-Plots. Es interesante observar la preferencia de los participantes por volúmenes múltiplos de 1,000.
 
 \begin{figure}[htbp]
 \centering
@@ -684,7 +690,7 @@ La literatura en el caso de las cancelaciones es más limitada; sin embargo, se 
 
 La media de cada una de las emisoras en la muestra elegida es menor que 35; por lo tanto, las cancelaciones se concentran cerca de los mejores precios de compra y venta respectivamente. Este resultado era de esperarse ya que se presume que los inversionistas que colocan posturas lejos de las puntas tienen mayor paciencia, es decir, están dispuestos a esperar más tiempo para que su postura se concrete.  Es importante considerar que para las emisoras estudiadas, en el peor de los casos, cerca del 15\% de las cancelaciones suceden al mejor precio de compra o venta. En el caso de HERDEZ para las posturas de venta, más del 50\% de las cancelaciones se realizan en la punta, como puede verse en la Tablas \ref{tab:powercanccompra} y \ref{tab:powercancventa}.\\
 
-En la Figura \ref{fig:canc} y en los QQ-Plots de la Figura \ref{fig:cancqq}, la distribución Lomax no es la más adecuada, ya que el grueso de las cancelaciones se concentra en el intervalo donde $\Delta<20$. En general las medidas $D_n$ y $\bar{D}$ son más altas por lo que la distribución Lomax no es la más adecuada para las cancelaciones.
+En la Figura \ref{fig:canc} y en los QQ-Plots de la Figura \ref{fig:cancqq}, la distribución Lomax no parece ser la más adecuada, ya que el grueso de las cancelaciones se concentra en el intervalo donde $\Delta<20$. En la mayoría de los casos las medidas $D_n$ y $\bar{D}$ exceden 0.10 y 0.20 por lo que se presume que la distribución Lomax no es la más adecuada para las cancelaciones.
 
 \clearpage
 
